@@ -158,9 +158,18 @@ async function run() {
     console.log('✓ images/ をコピー → dist/images/');
   }
 
-  syncNetlifyDeployFolder();
-  createNetlifyZip();
-  console.log('\n完了。dist/ は preview:dist 用。Netlify には ' + NETLIFY_ZIP_NAME + ' を1つドロップしてください。');
+  // 旧 Netlify Drop 用の成果物（netlify-deploy/ と netlify-deploy.zip）。
+  // zip コマンドが無いCI環境（Cloudflare Pages 等）では作成に失敗するが、
+  // 公開には dist/ だけあればよいため、失敗してもビルド全体は止めない。
+  try {
+    syncNetlifyDeployFolder();
+    createNetlifyZip();
+    console.log('\n完了。dist/ は preview:dist 用。Netlify Drop を使う場合は ' + NETLIFY_ZIP_NAME + ' を1つドロップしてください。');
+  } catch (e) {
+    const msg = e && e.message ? e.message : String(e);
+    console.warn('⚠ Netlify Drop 用の成果物作成をスキップしました（CI環境では正常）: ' + msg);
+    console.log('\n完了。dist/ を公開ディレクトリとして使用します（Cloudflare Pages 等）。');
+  }
 }
 
 run().catch((err) => {
