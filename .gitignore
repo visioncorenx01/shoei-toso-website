@@ -1,0 +1,30 @@
+# 秘密情報（APIキーなど）— 絶対にコミットしない
+.env
+.env.*
+.env.rtf
+!.env.example
+
+# 依存パッケージ
+node_modules/
+
+# OS / エディタ
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# ビルド成果物（Netlify がビルド時に生成するため、コミット不要）
+dist/
+
+# 手動アップロード用の生成物（Git連携への切り替え後は不要）
+netlify-deploy/
+netlify-deploy.zip
+
+# ログ・一時ファイル
+*.log
+npm-debug.log*
+.cache/
+.tmp/
+.netlify/

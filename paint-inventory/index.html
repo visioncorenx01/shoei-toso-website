@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>塗料在庫システム</title>
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-strong: #1d4ed8;
+      --border: #e2e8f0;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --danger: #ef4444;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --shadow-soft: 0 14px 35px rgba(15, 23, 42, 0.08);
+      --shadow-light: 0 8px 20px rgba(15, 23, 42, 0.06);
+      --transition-fast: 150ms ease-out;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #dbeafe, #f9fafb 55%, #e5e7eb);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 12px 32px;
+    }
+    .app-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.98));
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 22px;
+    }
+    .app-header {
+      border-bottom: 1px solid rgba(148,163,184,0.25);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .title-main { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+    .title-main h1 { margin: 0; font-size: 22px; letter-spacing: 0.04em; }
+    .title-main span { font-size: 11px; color: var(--text-muted); }
+    .title-sub { margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+    .chip-row { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 11px; }
+    .chip {
+      padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(255,255,255,0.9); display: inline-flex; align-items: center; gap: 4px; color: var(--text-muted);
+    }
+    .chip strong { color: var(--text-main); font-weight: 600; }
+    .chip.accent { border-color: rgba(37,99,235,0.5); background: rgba(219,234,254,0.9); color: #1d4ed8; }
+    main { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-light);
+      border: 1px solid rgba(148,163,184,0.3); padding: 14px 14px 16px;
+    }
+    .card-header { margin-bottom: 8px; }
+    .card-header h2 { margin: 0 0 4px; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: #0f172a; }
+    .card-header small { font-size: 11px; color: var(--text-muted); }
+    .pill { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 999px; font-size: 11px; background: rgba(15,23,42,0.04); color: var(--text-muted); border: 1px solid rgba(148,163,184,0.3); }
+    .inventory-form { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 4px; }
+    .field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+    .field label { color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .field label span { font-weight: 500; color: #111827; }
+    .required { color: #f97316; font-size: 11px; padding: 1px 6px; border-radius: 999px; background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.25); }
+    .field input, .field textarea {
+      border-radius: 9px; border: 1px solid rgba(148,163,184,0.7); padding: 7px 9px; font-size: 13px; font-family: inherit; background: #f9fafb;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    }
+    .field textarea { resize: vertical; min-height: 52px; }
+    .field input:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px rgba(37,99,235,0.2); background: #fff;
+    }
+    .field-row-2 { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    @media (min-width: 720px) { .field-row-2 { grid-template-columns: 1.1fr 0.9fr; } }
+    .form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border-radius: 999px; padding: 7px 14px; border: 0; font-size: 13px; font-weight: 500; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast); font-family: inherit; white-space: nowrap;
+    }
+    .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 8px 18px rgba(37,99,235,0.35); }
+    .btn-primary:hover { background: linear-gradient(135deg, #1d4ed8, #1d4ed8); transform: translateY(-0.5px); }
+    .btn-secondary { background: rgba(15,23,42,0.02); color: #111827; border: 1px solid rgba(148,163,184,0.7); }
+    .btn-secondary:hover { background: rgba(15,23,42,0.04); }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid transparent; padding-inline: 8px; font-size: 12px; }
+    .btn-ghost:hover { background: rgba(148,163,184,0.12); color: #111827; }
+    .btn-danger { background: rgba(239,68,68,0.06); color: #b91c1c; border: 1px solid rgba(248,113,113,0.6); }
+    .btn-danger:hover { background: rgba(239,68,68,0.12); }
+    .table-toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+    @media (min-width: 640px) { .table-toolbar { flex-direction: row; justify-content: space-between; align-items: center; } }
+    .search-input-wrap { position: relative; width: 100%; }
+    .search-input-wrap input {
+      width: 100%; padding-left: 28px; border-radius: 999px; border: 1px solid rgba(148,163,184,0.7);
+      padding-block: 7px; padding-inline-end: 10px; font-size: 13px; background: #f9fafb;
+    }
+    .search-input-wrap input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px rgba(37,99,235,0.2); background: #fff; }
+    .search-input-wrap span { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--text-muted); }
+    .badge-counter { font-size: 11px; color: var(--text-muted); background: rgba(15,23,42,0.02); padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(148,163,184,0.4); }
+    .inventory-table-wrap { border-radius: var(--radius-md); border: 1px solid rgba(148,163,184,0.5); overflow: hidden; background: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead { background: linear-gradient(135deg, #eff6ff, #e5e7eb); }
+    th, td { padding: 7px 8px; text-align: left; border-bottom: 1px solid rgba(226,232,240,0.9); white-space: nowrap; }
+    th { font-weight: 600; font-size: 11px; color: #4b5563; }
+    tbody tr:nth-child(even) { background: rgba(249,250,251,0.9); }
+    tbody tr:hover { background: #eef2ff; }
+    .col-name { min-width: 130px; font-weight: 500; }
+    .col-maker { min-width: 90px; }
+    .col-color { min-width: 90px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; }
+    .col-qty { min-width: 70px; text-align: right; font-variant-numeric: tabular-nums; }
+    .col-note { max-width: 220px; white-space: normal; }
+    .col-actions { min-width: 160px; text-align: right; }
+    .qty-low { color: #b91c1c; font-weight: 600; }
+    .qty-ok { color: #15803d; font-weight: 500; }
+    .actions { display: inline-flex; gap: 4px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+    .btn-xs { padding: 3px 7px; font-size: 11px; border-radius: 999px; border-width: 1px; border-style: solid; background: #fff; }
+    .btn-xs.primary { color: #1d4ed8; border-color: rgba(37,99,235,0.6); background: rgba(219,234,254,0.9); }
+    .btn-xs.muted { color: #374151; border-color: rgba(156,163,175,0.7); background: rgba(243,244,246,0.9); }
+    .btn-xs.danger { color: #b91c1c; border-color: rgba(248,113,113,0.9); background: rgba(254,226,226,0.9); }
+    .btn-xs:hover { filter: brightness(0.96); }
+    .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 5px; background: #f9fafb; border-top: 1px solid rgba(226,232,240,0.9); font-size: 11px; color: var(--text-muted); flex-wrap: wrap; gap: 4px; }
+    .status-text.ok { color: #15803d; }
+    .status-text.warn { color: #b45309; }
+    .status-text.error { color: #b91c1c; }
+    .backup-card { margin-top: 10px; padding: 10px; background: linear-gradient(135deg, #eff6ff, #f9fafb); border-radius: var(--radius-md); border: 1px dashed rgba(148,163,184,0.8); display: flex; flex-direction: column; gap: 8px; }
+    .backup-card h3 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #1f2937; }
+    .backup-card p { margin: 0 0 6px; font-size: 11px; color: var(--text-muted); }
+    .backup-textarea { width: 100%; min-height: 80px; border-radius: 8px; border: 1px solid rgba(148,163,184,0.8); padding: 6px 7px; font-size: 11px; font-family: ui-monospace, monospace; resize: vertical; background: rgba(255,255,255,0.92); }
+    footer { margin-top: 8px; text-align: right; font-size: 10px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="title-main">
+        <h1>塗料在庫システム</h1>
+        <span>保存先: Googleスプレッドシート</span>
+      </div>
+      <p class="title-sub">現場は Googleフォームから入出庫を送信 / 事務所はこの画面で在庫マスタと一覧を確認・調整します。</p>
+      <div class="chip-row">
+        <div class="chip accent"><span>更新元:</span><strong>フォーム送信 / この画面</strong></div>
+        <div class="chip"><span>用途:</span><strong>事務所の在庫確認・修正用</strong></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="card-header">
+          <h2>商品マスタ登録（事務所用）</h2>
+          <small id="form-mode-label">新しい塗料の種類を登録・編集できます（現場の方は使いません）</small>
+          <span class="pill" id="summary-pill">総在庫数: 0 点</span>
+        </div>
+        <form id="inventory-form" class="inventory-form">
+          <input type="hidden" id="item-id" />
+          <div class="field">
+            <label><span>商品名</span><span class="required">必須</span></label>
+            <input id="name" type="text" autocomplete="off" placeholder="例）ファインパーフェクトトップ" required />
+          </div>
+          <div class="field-row-2">
+            <div class="field">
+              <label><span>メーカー</span><span class="required">必須</span></label>
+              <input id="maker" type="text" autocomplete="off" placeholder="例）日本ペイント" required />
+            </div>
+            <div class="field">
+              <label><span>色番号 / 色名</span></label>
+              <input id="colorCode" type="text" autocomplete="off" placeholder="例）ND-155 / 白" />
+            </div>
+          </div>
+          <div class="field">
+            <label><span>在庫数</span><span class="required">必須</span></label>
+            <input id="quantity" type="number" min="0" step="0.1" inputmode="decimal" placeholder="例）3 または 2.5（半缶）" required />
+          </div>
+          <div class="field">
+            <label><span>備考</span></label>
+            <textarea id="note" placeholder="例）半端缶あり、来月〇〇様邸で使用予定 など"></textarea>
+          </div>
+          <div class="form-actions">
+            <div>
+              <button type="submit" class="btn btn-primary" id="submit-btn">マスタを登録する</button>
+              <button type="button" class="btn btn-secondary" id="reset-btn">入力内容をクリア</button>
+            </div>
+            <button type="button" class="btn btn-ghost" id="demo-btn">（情報）現場からはフォームだけ使えばOKです</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>在庫一覧</h2>
+          <small>商品名・色番号・メーカーで検索できます</small>
+          <span class="pill" id="low-stock-pill">在庫少: 0 点</span>
+        </div>
+        <div class="table-toolbar">
+          <div class="search-input-wrap">
+            <input id="search-input" type="text" placeholder="商品名 / 色番号 / メーカー で絞り込み" /><span>🔍</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <span class="badge-counter" id="count-badge">0 件表示中</span>
+            <button type="button" class="btn btn-secondary" id="clear-filters-btn">絞り込み解除</button>
+          </div>
+        </div>
+        <div class="inventory-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-name">商品名</th>
+                <th class="col-maker">メーカー</th>
+                <th class="col-color">色番号 / 色名</th>
+                <th class="col-qty">在庫数</th>
+                <th class="col-note">備考</th>
+                <th class="col-actions">操作</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody"></tbody>
+          </table>
+          <div class="table-footer">
+            <span class="status-text" id="status-text">在庫を読み込み中...</span>
+            <span class="status-text">「在庫数が 1 以下」の行を在庫少とみなします。小数（2.5 など）も入力できます。</span>
+          </div>
+        </div>
+        <div class="backup-card">
+          <div>
+            <h3>バックアップ / 共有</h3>
+            <p>画面に表示中の在庫データを JSON 形式でエクスポートできます。</p>
+          </div>
+          <textarea id="backup-textarea" class="backup-textarea" placeholder="ここにJSONデータが表示されます。"></textarea>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary" id="export-btn">JSONをエクスポート</button>
+            <button type="button" class="btn btn-danger" id="clear-all-btn">すべての在庫を削除（無効化中）</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>現場は Googleフォームから入出庫を送信 / この画面は事務所の在庫確認用です。</footer>
+  </div>
+
+  <script>
+  (function () {
+    var form = document.getElementById('inventory-form');
+    var formModeLabel = document.getElementById('form-mode-label');
+    var itemIdInput = document.getElementById('item-id');
+    var nameInput = document.getElementById('name');
+    var makerInput = document.getElementById('maker');
+    var colorCodeInput = document.getElementById('colorCode');
+    var quantityInput = document.getElementById('quantity');
+    var noteInput = document.getElementById('note');
+    var submitBtn = document.getElementById('submit-btn');
+    var resetBtn = document.getElementById('reset-btn');
+    var demoBtn = document.getElementById('demo-btn');
+    var tbody = document.getElementById('inventory-tbody');
+    var searchInput = document.getElementById('search-input');
+    var clearFiltersBtn = document.getElementById('clear-filters-btn');
+    var countBadge = document.getElementById('count-badge');
+    var statusText = document.getElementById('status-text');
+    var summaryPill = document.getElementById('summary-pill');
+    var lowStockPill = document.getElementById('low-stock-pill');
+    var exportBtn = document.getElementById('export-btn');
+    var clearAllBtn = document.getElementById('clear-all-btn');
+    var backupTextarea = document.getElementById('backup-textarea');
+    var items = [];
+
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/[&<>"']/g, function(s) { return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[s]; });
+    }
+    function resetForm() {
+      form.reset(); itemIdInput.value = '';
+      formModeLabel.textContent = '新しい塗料の種類を登録・編集できます（現場の方は使いません）';
+      submitBtn.textContent = 'マスタを登録する';
+    }
+    function fillFormForEdit(item) {
+      itemIdInput.value = item.rowIndex;
+      nameInput.value = item.name || '';
+      makerInput.value = item.maker || '';
+      colorCodeInput.value = item.colorCode || '';
+      quantityInput.value = item.quantity != null ? item.quantity : '';
+      noteInput.value = item.note || '';
+      formModeLabel.textContent = '選択した行の内容を編集しています';
+      submitBtn.textContent = 'マスタを更新する';
+      nameInput.focus();
+    }
+    function render() {
+      var query = (searchInput.value || '').trim().toLowerCase();
+      var filtered = items.filter(function(item) {
+        if (!query) return true;
+        var t = [item.name || '', item.maker || '', item.colorCode || ''].join(' ').toLowerCase();
+        return t.indexOf(query) !== -1;
+      });
+      tbody.innerHTML = '';
+      if (filtered.length === 0) {
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.colSpan = 6;
+        td.style.textAlign = 'center'; td.style.padding = '18px 8px'; td.style.color = '#6b7280';
+        td.textContent = query ? '条件に一致する在庫がありません。' : 'まだ在庫が登録されていません。';
+        tr.appendChild(td); tbody.appendChild(tr);
+      } else {
+        filtered.forEach(function(item) {
+          var tr = document.createElement('tr');
+          var qty = Number(item.quantity);
+          if (!Number.isFinite(qty)) qty = 0;
+          var qtyClass = qty <= 1 ? 'qty-low' : 'qty-ok';
+          var qtyDisp = Number.isFinite(qty) ? (qty % 1 === 0 ? qty : qty) : '';
+          tr.innerHTML = '<td class="col-name">' + escapeHtml(item.name || '') + '</td><td class="col-maker">' + escapeHtml(item.maker || '') + '</td><td class="col-color">' + escapeHtml(item.colorCode || '') + '</td><td class="col-qty ' + qtyClass + '">' + qtyDisp + '</td><td class="col-note">' + escapeHtml(item.note || '') + '</td><td class="col-actions"><div class="actions"><button type="button" class="btn-xs primary" data-action="in" data-id="' + item.rowIndex + '">入庫</button><button type="button" class="btn-xs muted" data-action="out" data-id="' + item.rowIndex + '">出庫</button><button type="button" class="btn-xs muted" data-action="edit" data-id="' + item.rowIndex + '">編集</button><button type="button" class="btn-xs danger" data-action="delete" data-id="' + item.rowIndex + '">削除</button></div></td>';
+          tbody.appendChild(tr);
+        });
+      }
+      var totalCount = items.length;
+      var totalQuantity = items.reduce(function(s, item) { return s + (Number(item.quantity) || 0); }, 0);
+      var lowStockCount = items.filter(function(item) { return (Number(item.quantity) || 0) <= 1; }).length;
+      summaryPill.textContent = '総在庫数: ' + totalQuantity + ' 点 / 登録: ' + totalCount + ' 種類';
+      lowStockPill.textContent = '在庫少: ' + lowStockCount + ' 点';
+      countBadge.textContent = filtered.length + ' 件表示中';
+      if (items.length === 0) { statusText.textContent = 'まだ在庫が登録されていません。'; statusText.className = 'status-text'; }
+      else if (lowStockCount > 0) { statusText.textContent = '在庫数が 1 以下の商品が ' + lowStockCount + ' 件あります。'; statusText.className = 'status-text warn'; }
+      else { statusText.textContent = 'すべての在庫は十分な数量があります。'; statusText.className = 'status-text ok'; }
+    }
+    function loadInventory() {
+      statusText.textContent = '在庫を読み込み中...'; statusText.className = 'status-text';
+      google.script.run.withSuccessHandler(function(data) { items = Array.isArray(data) ? data : []; render(); }).withFailureHandler(function(err) { console.error(err); statusText.textContent = '在庫の取得に失敗しました。'; statusText.className = 'status-text error'; }).getInventory();
+    }
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = nameInput.value.trim(), maker = makerInput.value.trim(), colorCode = colorCodeInput.value.trim(), quantityValue = quantityInput.value.trim(), quantity = quantityValue === '' ? 0 : Number(quantityValue), note = noteInput.value.trim(), rowIndex = itemIdInput.value ? Number(itemIdInput.value) : null;
+      if (!name || !maker) { alert('商品名とメーカーは必須です。'); return; }
+      if (!Number.isFinite(quantity) || quantity < 0) { alert('在庫数は0以上の数字で入力してください。（2.5 など小数可）'); return; }
+      var payload = { rowIndex: rowIndex, name: name, maker: maker, colorCode: colorCode, capacity: '', location: '', quantity: quantity, note: note };
+      google.script.run.withSuccessHandler(function(data) { items = Array.isArray(data) ? data : []; render(); resetForm(); }).withFailureHandler(function(err) { console.error(err); alert('保存に失敗しました。'); }).saveItem(payload);
+    });
+    resetBtn.addEventListener('click', resetForm);
+    tbody.addEventListener('click', function(e) {
+      var target = e.target; if (!target || !target.getAttribute) return;
+      var action = target.getAttribute('data-action'), idStr = target.getAttribute('data-id'); if (!action || !idStr) return;
+      var rowIndex = Number(idStr), item = items.filter(function(x) { return x.rowIndex === rowIndex; })[0]; if (!item) return;
+      if (action === 'edit') { fillFormForEdit(item); return; }
+      if (action === 'delete') { if (!confirm('この在庫を削除しますか？')) return; google.script.run.withSuccessHandler(function(data) { items = Array.isArray(data) ? data : []; render(); if (itemIdInput.value && Number(itemIdInput.value) === rowIndex) resetForm(); }).withFailureHandler(function(err) { alert('削除に失敗しました。'); }).deleteItem(rowIndex); return; }
+      if (action === 'in' || action === 'out') {
+        var label = action === 'in' ? '入庫する数量' : '出庫する数量', input = prompt(label + 'を入力してください（半角数字。2.5 など小数可）', '1');
+        if (input == null) return;
+        var delta = Number(input); if (!Number.isFinite(delta) || delta <= 0) { alert('1以上の数字で入力してください。（2.5 など小数可）'); return; }
+        google.script.run.withSuccessHandler(function(data) { items = Array.isArray(data) ? data : []; render(); }).withFailureHandler(function(err) { alert('在庫数の更新に失敗しました。'); }).adjustQuantity(rowIndex, action === 'in' ? '入庫' : '出庫', delta);
+      }
+    });
+    searchInput.addEventListener('input', render);
+    clearFiltersBtn.addEventListener('click', function() { searchInput.value = ''; render(); });
+    exportBtn.addEventListener('click', function() { var json = JSON.stringify(items, null, 2); backupTextarea.value = json; backupTextarea.focus(); backupTextarea.select(); statusText.textContent = 'JSONを出力しました。'; statusText.className = 'status-text ok'; });
+    clearAllBtn.addEventListener('click', function() { alert('すべて削除機能は誤操作防止のため無効化しています。'); });
+    demoBtn.addEventListener('click', function() { alert('現場からはGoogleフォームだけ使えばOKです。'); });
+    loadInventory();
+  })();
+  </script>
+</body>
+</html>

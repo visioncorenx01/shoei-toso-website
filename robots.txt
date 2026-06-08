@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kaleidoscopic-wisp-45fdfc.netlify.app/sitemap.xml
