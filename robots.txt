@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kaleidoscopic-wisp-45fdfc.netlify.app/sitemap.xml
+Sitemap: https://shoei-toso-website.pages.dev/sitemap.xml

@@ -38,8 +38,8 @@ const blogDir = path.join(root, 'blog');
 const blogDataPath = path.join(root, 'blog-data.json');
 const indexHtmlPath = path.join(root, 'index.html');
 
-// サイトの公開URL（canonical / OGP 用）。Netlify のドメインに合わせる。
-const SITE_URL = (process.env.SITE_URL || 'https://kaleidoscopic-wisp-45fdfc.netlify.app').replace(/\/$/, '');
+// サイトの公開URL（canonical / OGP 用）。Cloudflare Pages のドメインに合わせる。
+const SITE_URL = (process.env.SITE_URL || 'https://shoei-toso-website.pages.dev').replace(/\/$/, '');
 const SITE_NAME = '昇栄塗装';
 const LATEST_COUNT = 3; // トップページに出す最新記事の件数
 
