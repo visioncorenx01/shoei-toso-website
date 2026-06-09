@@ -224,6 +224,24 @@ function blogFooter() {
   </footer>`;
 }
 
+// 問い合わせ手段（フォーム / 電話）。CTAから参照する。
+const CONTACT_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScdONJKAYkz8pzI9c9Z_BLGXxjnS9x1AO8wdSmXgufy1xrJrQ/viewform';
+const CONTACT_TEL_DISPLAY = '070-9119-9440';
+const CONTACT_TEL_HREF = 'tel:07091199440';
+
+// 記事を読み終えた人向けの問い合わせCTA（記事末尾・一覧末尾で共通利用）
+function blogCta() {
+  return `        <aside class="blog-cta">
+          <h2 class="blog-cta-title">外壁・屋根のことならお気軽にご相談ください</h2>
+          <p class="blog-cta-lead">お見積り・ご相談は無料です。</p>
+          <div class="blog-cta-actions">
+            <a class="blog-cta-btn blog-cta-btn-form" href="${CONTACT_FORM_URL}" target="_blank" rel="noopener noreferrer">お問い合わせフォーム</a>
+            <a class="blog-cta-btn blog-cta-btn-tel" href="${CONTACT_TEL_HREF}">お電話する（${CONTACT_TEL_DISPLAY}）</a>
+          </div>
+        </aside>`;
+}
+
 // 一覧カード（トップページ用 / 一覧ページ用 共通）。base は記事へのパス接頭辞。
 function articleCard(article, base) {
   const { display, iso } = formatDate(article.date);
@@ -280,6 +298,7 @@ ${blogHeader()}
         <h2 class="section-title">ブログ・お知らせ</h2>
         <p class="section-lead">外壁・屋根塗装やリフォームに関する施工事例・コラム・最新情報をお届けします。</p>
 ${cards}
+${blogCta()}
         <p class="blog-more-actions">
           <a href="../index.html" class="btn-instagram-more">トップページに戻る</a>
         </p>
@@ -365,6 +384,7 @@ ${eyecatch}          <div class="blog-detail-text">
 ${article.contentHtml || '<p>本文がありません。</p>'}
           </div>
         </article>
+${blogCta()}
         <p class="blog-more-actions">
           <a href="index.html" class="btn-instagram-more">ブログ一覧に戻る</a>
         </p>

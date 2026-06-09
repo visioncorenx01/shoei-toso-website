@@ -876,6 +876,71 @@ img {
   border: 1px dashed #d0d0d0;
 }
 
+/* 記事末尾の問い合わせCTA */
+.blog-cta {
+  max-width: 760px;
+  margin: 40px auto 0;
+  padding: 32px 28px;
+  text-align: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.06), rgba(0, 176, 255, 0.06));
+  border: 1px solid rgba(0, 112, 243, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 112, 243, 0.08);
+}
+
+.blog-cta-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.blog-cta-lead {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 20px;
+}
+
+.blog-cta-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.blog-cta-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.blog-cta-btn-form {
+  background: linear-gradient(135deg, #0070f3, #00b0ff);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 112, 243, 0.3);
+}
+
+.blog-cta-btn-form:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 112, 243, 0.4);
+  opacity: 0.95;
+}
+
+.blog-cta-btn-tel {
+  background-color: #ffffff;
+  color: #0070f3;
+  border: 2px solid #0070f3;
+}
+
+.blog-cta-btn-tel:hover {
+  background-color: #0070f3;
+  color: #ffffff;
+}
+
 /* レスポンシブ対応 */
 /* タブレットサイズ（768px以下） */
 @media (max-width: 768px) {
@@ -953,6 +1018,18 @@ img {
     padding: 24px 18px;
   }
 
+  .blog-cta {
+    padding: 28px 20px;
+  }
+
+  .blog-cta-actions {
+    flex-direction: column;
+  }
+
+  .blog-cta-btn {
+    width: 100%;
+  }
+
   .contact-form {
     padding: 20px;
   }
@@ -1020,6 +1097,15 @@ img {
   .btn-primary {
     padding: 8px 20px;
     font-size: 13px;
+  }
+
+  .blog-cta-title {
+    font-size: 18px;
+  }
+
+  .blog-cta-btn {
+    padding: 11px 20px;
+    font-size: 14px;
   }
 
   .contact-form {
