@@ -35,6 +35,7 @@ try {
 
 const root = path.join(__dirname, '..');
 const blogDir = path.join(root, 'blog');
+const distDir = path.join(root, 'dist');
 const blogDataPath = path.join(root, 'blog-data.json');
 const indexHtmlPath = path.join(root, 'index.html');
 
@@ -416,6 +417,62 @@ function cleanBlogDir() {
   }
 }
 
+/* ----------------------------- サイトマップ生成 ----------------------------- */
+
+// サイトマップ(XML)を生成して dist/sitemap.xml に書き出す。
+//
+// 設計方針:
+//   - 記事URLは Cloudflare Pages の URL 正規化に合わせ、拡張子 .html を付けない
+//     （トップ "/"、一覧 "/blog/"、各記事 "/blog/<id>"）。
+//   - 生成物は「ビルド成果物」として dist/ に直接書き出す。
+//     リポジトリ直下の sitemap.xml（トップのみの最小版）はそのまま残し、
+//     ローカルのフォールバック記事URLで git 差分が出てノイズになるのを防ぐ。
+//   - minify.js は dist/sitemap.xml が既にあれば上書きしないため、
+//     本番ビルド（npm run build = build-blog → minify）では必ず
+//     ここで生成した「トップ＋一覧＋全記事」を含む sitemap が公開される。
+function buildSitemap(articles) {
+  const today = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  const todayIso = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+
+  const urls = [];
+
+  // トップページ
+  urls.push({ loc: `${SITE_URL}/`, lastmod: todayIso, changefreq: 'monthly', priority: '1.0' });
+  // ブログ一覧
+  urls.push({ loc: `${SITE_URL}/blog/`, lastmod: todayIso, changefreq: 'weekly', priority: '0.8' });
+  // 各記事（拡張子なしURL）
+  for (const article of articles) {
+    const { iso } = formatDate(article.date);
+    urls.push({
+      loc: `${SITE_URL}/blog/${encodeURIComponent(article.id)}`,
+      lastmod: iso || todayIso,
+      changefreq: 'monthly',
+      priority: '0.6',
+    });
+  }
+
+  const body = urls
+    .map((u) => {
+      const parts = [`    <loc>${escapeHtml(u.loc)}</loc>`];
+      if (u.lastmod) parts.push(`    <lastmod>${u.lastmod}</lastmod>`);
+      if (u.changefreq) parts.push(`    <changefreq>${u.changefreq}</changefreq>`);
+      if (u.priority) parts.push(`    <priority>${u.priority}</priority>`);
+      return `  <url>\n${parts.join('\n')}\n  </url>`;
+    })
+    .join('\n');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${body}
+</urlset>
+`;
+
+  ensureDir(distDir);
+  fs.writeFileSync(path.join(distDir, 'sitemap.xml'), xml, 'utf8');
+  console.log(`✓ dist/sitemap.xml を生成しました（トップ + 一覧 + 記事 ${articles.length} 件 = 計 ${urls.length} URL）。`);
+}
+
 /* ----------------------------- メイン ----------------------------- */
 
 async function run() {
@@ -433,6 +490,7 @@ async function run() {
     console.log(`✓ blog/<id>.html を ${articles.length} 件生成しました。`);
   }
   injectHomepage(articles);
+  buildSitemap(articles);
 
   console.log(`\n完了。記事 ${articles.length} 件でブログを生成しました。`);
 }
@@ -444,5 +502,6 @@ run().catch((err) => {
     ensureDir(blogDir);
     buildListPage([]);
     injectHomepage([]);
+    buildSitemap([]);
   } catch (_) {}
 });

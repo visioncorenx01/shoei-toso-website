@@ -142,6 +142,12 @@ async function run() {
   // その他ファイルをコピー（ブログ・SEO用）
   const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html'];
   for (const file of copyList) {
+    // sitemap.xml は build-blog.js が dist/ に「トップ + 一覧 + 全記事」を含む
+    // 完全版を生成しているため、それがあればルートの最小版で上書きしない。
+    if (file === 'sitemap.xml' && fs.existsSync(path.join(dist, file))) {
+      console.log('✓ sitemap.xml は build-blog 生成版（全URL）を使用 → dist/');
+      continue;
+    }
     const src = path.join(root, file);
     if (fs.existsSync(src)) {
       copyFile(src, path.join(dist, file));
