@@ -910,12 +910,19 @@ img {
 }
 
 .blog-cta-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 12px 28px;
   border-radius: 999px;
   font-size: 15px;
   font-weight: 600;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.blog-cta-icon {
+  flex-shrink: 0;
 }
 
 .blog-cta-btn-form {
@@ -939,6 +946,18 @@ img {
 .blog-cta-btn-tel:hover {
   background-color: #0070f3;
   color: #ffffff;
+}
+
+.blog-cta-btn-line {
+  background-color: #06c755;
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(6, 199, 85, 0.3);
+}
+
+.blog-cta-btn-line:hover {
+  transform: translateY(-1px);
+  background-color: #05b34c;
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.4);
 }
 
 /* レスポンシブ対応 */
