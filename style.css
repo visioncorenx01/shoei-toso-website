@@ -1025,6 +1025,10 @@ img {
     gap: 24px;
   }
 
+  .about-greeting {
+    text-align: center;
+  }
+
   .works-grid {
     grid-template-columns: 1fr;
   }
