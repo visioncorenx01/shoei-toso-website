@@ -137,17 +137,6 @@ img {
   margin-bottom: 12px;
 }
 
-.section-subtitle {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  opacity: 0.55;
-  margin-bottom: 6px;
-}
-
 .section-title {
   font-size: 26px;
   font-weight: 700;
@@ -155,21 +144,7 @@ img {
   line-height: 1.4;
   margin: 0;
   text-align: center;
-  position: relative;
-  display: inline-block;
-  width: 100%;
   color: #1a1a1a;
-}
-
-.section-title::after {
-  content: "";
-  display: block;
-  width: 32px;
-  height: 2px;
-  margin: 14px auto 0;
-  border-radius: 1px;
-  background: var(--color-primary);
-  opacity: 0.7;
 }
 
 .section-lead {
@@ -339,19 +314,6 @@ img {
   color: #333;
 }
 
-.hero-badge {
-  display: inline-block;
-  padding: 5px 14px;
-  margin-bottom: 18px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-primary);
-  background: var(--color-bg-white);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-}
-
 .hero h1 {
   font-size: 27px;
   font-weight: 700;
@@ -359,17 +321,6 @@ img {
   letter-spacing: 0.02em;
   margin-bottom: 18px;
   color: #1a1a1a;
-}
-
-.hero h1::after {
-  content: "";
-  display: block;
-  width: 36px;
-  height: 2px;
-  margin: 16px auto 0;
-  border-radius: 1px;
-  background: var(--color-primary);
-  opacity: 0.65;
 }
 
 .hero p {
@@ -477,17 +428,6 @@ img {
   color: #1a1a1a;
   margin-top: 0;
   margin-bottom: 16px;
-}
-
-.about-grid h3::after {
-  content: "";
-  display: block;
-  width: 24px;
-  height: 2px;
-  margin-top: 10px;
-  border-radius: 1px;
-  background: var(--color-primary);
-  opacity: 0.5;
 }
 
 .about-greeting {
@@ -1281,11 +1221,6 @@ img {
     padding: 28px 0 36px;
   }
 
-  .hero-badge {
-    font-size: 11px;
-    padding: 5px 12px;
-  }
-
   .hero h1 {
     font-size: 22px;
     line-height: 1.4;
@@ -1297,11 +1232,6 @@ img {
 
   .section-title {
     font-size: 24px;
-  }
-
-  .section-subtitle {
-    font-size: 10px;
-    letter-spacing: 0.22em;
   }
 
   .section-lead {
@@ -1398,17 +1328,6 @@ img {
   .section-title {
     font-size: 20px;
     margin-bottom: 0;
-  }
-
-  .section-title::after {
-    width: 40px;
-    height: 2px;
-    margin-top: 10px;
-  }
-
-  .section-subtitle {
-    font-size: 9px;
-    margin-bottom: 6px;
   }
 
   .section-lead {
