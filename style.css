@@ -191,6 +191,39 @@ img {
   z-index: 2;
 }
 
+/* 施工事例セクション：ぼかし背景 */
+#works.section-works-bg {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+#works.section-works-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("images/works-section-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(7px);
+  transform: scale(1.06);
+  z-index: 0;
+}
+
+#works.section-works-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 249, 251, 0.70);
+  z-index: 1;
+}
+
+#works.section-works-bg > .container {
+  position: relative;
+  z-index: 2;
+}
+
 /* ヒーローエリア */
 .hero {
   position: relative;
