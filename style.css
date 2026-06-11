@@ -19,9 +19,11 @@
   --radius-card: 12px;
   --transition-base: 0.25s ease;
   --section-padding: 72px;
-  --section-bg-gray-translucent: rgba(247, 247, 247, 0.85);
-  --section-bg-white-translucent: rgba(255, 255, 255, 0.85);
-  --site-fixed-bg-blur: 10px;
+  --sky-bg-image: url("images/sky-bg.png");
+  --section-bg-gray-translucent: rgba(255, 255, 255, 0.50);
+  --section-bg-white-translucent: rgba(255, 255, 255, 0.58);
+  --section-sky-overlay: rgba(255, 255, 255, 0.48);
+  --site-fixed-bg-blur: 0px;
 }
 
 html {
@@ -42,20 +44,21 @@ body {
   line-break: strict;
 }
 
-/* 全ページ共通：ロゴイラストを常に背面に固定表示 */
+/* 全ページ共通：青空背景を常に背面に固定表示 */
 .site-fixed-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-color: var(--color-bg-white);
-  background-image: url("images/site-fixed-bg.png");
+  background-color: #87ceeb;
+  background-image: var(--sky-bg-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   filter: blur(var(--site-fixed-bg-blur));
-  transform: scale(1.06);
-  will-change: transform;
+  transform: none;
+  will-change: auto;
 }
 
 a {
@@ -168,31 +171,18 @@ img {
   letter-spacing: 0.01em;
 }
 
-/* サービスセクション：ぼかし背景 */
+/* サービスセクション：固定青空背景 + 半透明オーバーレイ */
 #service.section-service-bg {
   position: relative;
   overflow: hidden;
   background-color: transparent;
 }
 
-#service.section-service-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("images/service-section-bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(7px);
-  transform: scale(1.06);
-  z-index: 0;
-}
-
 #service.section-service-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(248, 249, 251, 0.70);
+  background-color: var(--section-sky-overlay);
   z-index: 1;
 }
 
@@ -201,31 +191,18 @@ img {
   z-index: 2;
 }
 
-/* 施工事例セクション：ぼかし背景 */
+/* 施工事例セクション：固定青空背景 + 半透明オーバーレイ */
 #works.section-works-bg {
   position: relative;
   overflow: hidden;
   background-color: transparent;
 }
 
-#works.section-works-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("images/works-section-bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(7px);
-  transform: scale(1.06);
-  z-index: 0;
-}
-
 #works.section-works-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(248, 249, 251, 0.70);
+  background-color: var(--section-sky-overlay);
   z-index: 1;
 }
 
@@ -233,29 +210,18 @@ img {
   position: relative;
   z-index: 2;
 }
-/* お問い合わせセクション：背景画像（ぼかしなし） */
+/* お問い合わせセクション：固定青空背景 + 半透明オーバーレイ */
 #contact.section-contact-bg {
   position: relative;
   overflow: hidden;
   background-color: transparent;
 }
 
-#contact.section-contact-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("images/contact-section-bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 0;
-}
-
 #contact.section-contact-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: var(--section-sky-overlay);
   z-index: 1;
 }
 
@@ -1902,16 +1868,9 @@ img {
   }
 }
 
-/* iOS 等で fixed + filter が重い場合の軽量化 */
+/* iOS 等で background-attachment: fixed が効かない端末向け */
 @media (max-width: 768px) {
   .site-fixed-bg {
-    filter: blur(8px);
-    transform: scale(1.04);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-fixed-bg {
-    filter: blur(6px);
+    background-attachment: scroll;
   }
 }
