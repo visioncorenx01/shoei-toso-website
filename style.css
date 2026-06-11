@@ -415,17 +415,23 @@ img {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto;
+  align-content: start;
+  min-height: 0;
 }
 
 .service-slide {
   grid-column: 1;
   grid-row: 1;
-  display: grid;
+  display: none;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: 40px;
   align-items: center;
   padding: 40px 44px;
+}
+
+.service-slide.is-active {
+  display: grid;
 }
 
 .service-slide[hidden] {
@@ -569,7 +575,7 @@ img {
   .service-slide {
     grid-column: auto;
     grid-row: auto;
-    display: block;
+    display: none;
     padding: 0;
     gap: 0;
     background-color: var(--color-bg-white);
@@ -577,6 +583,10 @@ img {
     overflow: hidden;
     box-shadow: var(--shadow-card);
     border: 1px solid var(--color-border);
+  }
+
+  .service-slide.is-active {
+    display: block;
   }
 
   .service-slide-image {
@@ -1268,13 +1278,16 @@ img {
 
 /* ブログカードグリッド（トップの最新ブログ／一覧ページ共通） */
 #blog {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
   overflow: visible;
   scroll-margin-top: 80px;
 }
 
 .blog-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   margin-top: 24px;
   min-width: 0;
