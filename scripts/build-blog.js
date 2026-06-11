@@ -306,8 +306,10 @@ ${blogHeader()}
   <main>
     <section class="section">
       <div class="container">
-        <h2 class="section-title">ブログ・お知らせ</h2>
-        <p class="section-lead">外壁・屋根塗装やリフォームに関する施工事例・コラム・最新情報をお届けします。</p>
+        <div class="section-heading">
+          <h2 class="section-title">ブログ・お知らせ</h2>
+          <p class="section-lead">外壁・屋根塗装やリフォームに関する施工事例・コラム・最新情報をお届けします。</p>
+        </div>
 ${cards}
 ${blogCta()}
         <p class="blog-more-actions">
