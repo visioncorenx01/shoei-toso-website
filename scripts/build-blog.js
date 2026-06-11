@@ -300,6 +300,7 @@ function buildListPage(articles) {
   <link rel="canonical" href="${SITE_URL}/blog/" />
 </head>
 <body>
+  <div class="site-fixed-bg" aria-hidden="true"></div>
 ${blogHeader()}
 
   <main>
@@ -382,6 +383,7 @@ ${JSON.stringify(jsonLd, null, 2)}
   <link rel="canonical" href="${pageUrl}" />
 </head>
 <body>
+  <div class="site-fixed-bg" aria-hidden="true"></div>
 ${blogHeader()}
 
   <main>
