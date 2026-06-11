@@ -395,41 +395,143 @@ img {
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-#service .card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover);
+/* サービススライダー */
+.service-slider {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 52px 44px;
 }
 
-/* サービスカード：写真の下に文章 */
-#service .card {
-  padding: 0;
-}
-
-#service .card-img-wrap {
-  width: 100%;
-  aspect-ratio: 16 / 10;
+.service-slider-viewport {
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+}
+
+.service-slider-track {
+  position: relative;
+}
+
+.service-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 40px;
+  align-items: center;
+  padding: 40px 44px;
+}
+
+.service-slide[hidden] {
+  display: none;
+}
+
+.service-slide-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
   background: #eaeaea;
 }
 
-#service .card-img-wrap img {
+.service-slide-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.35s ease;
 }
 
-#service .card:hover .card-img-wrap img {
-  transform: scale(1.03);
+.service-slide-content h3 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
 }
 
-#service .card-body {
-  padding: 22px 20px 24px;
+.service-slide-divider {
+  width: 100%;
+  border-bottom: 1px dashed rgba(0, 112, 243, 0.35);
+  margin-bottom: 20px;
 }
 
-#service .card-body h3 {
-  margin-top: 0;
+.service-slide-content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--color-text-muted);
+}
+
+.service-slide-actions {
+  margin-top: 28px;
+}
+
+.service-slider-prev,
+.service-slider-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(0, 112, 243, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 112, 243, 0.1);
+  transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.service-slider-prev {
+  left: 0;
+}
+
+.service-slider-next {
+  right: 0;
+}
+
+.service-slider-prev:hover,
+.service-slider-next:hover {
+  background: #fff;
+  border-color: rgba(0, 112, 243, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 112, 243, 0.15);
+}
+
+.service-slider-prev:focus-visible,
+.service-slider-next:focus-visible,
+.service-slider-dot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.service-slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.service-slider-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 112, 243, 0.2);
+  cursor: pointer;
+  transition: background-color var(--transition-base), transform var(--transition-base);
+}
+
+.service-slider-dot.is-active {
+  background: var(--color-primary);
+  transform: scale(1.15);
 }
 
 .card h3 {
@@ -445,12 +547,6 @@ img {
   line-height: 1.75;
   color: var(--color-text-muted);
   margin: 0;
-}
-
-/* サービス見出し */
-#service .card h3.photo-text {
-  font-weight: 600;
-  color: #1a1a1a;
 }
 
 .about-grid h3 {
@@ -1318,12 +1414,18 @@ img {
     padding: 16px;
   }
 
-  #service .card {
-    padding: 0;
+  .service-slider {
+    padding: 0 44px 40px;
   }
 
-  #service .card-body {
-    padding: 16px;
+  .service-slide {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 24px 32px;
+  }
+
+  .service-slide-content h3 {
+    font-size: 20px;
   }
 
   .about-grid {
@@ -1473,8 +1575,33 @@ img {
     padding: 4px 8px;
   }
 
-  #service .card-body {
-    padding: 14px;
+  .service-slider {
+    padding: 0 36px 36px;
+  }
+
+  .service-slide {
+    padding: 22px 18px 26px;
+    gap: 20px;
+  }
+
+  .service-slide-content h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .service-slide-divider {
+    margin-bottom: 16px;
+  }
+
+  .service-slide-actions {
+    margin-top: 22px;
+  }
+
+  .service-slider-prev,
+  .service-slider-next {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
   }
 
   .card h3 {

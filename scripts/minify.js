@@ -130,8 +130,8 @@ async function run() {
     console.warn('⚠ style.css がありません。CSS はスキップします。');
   }
 
-  // JS（Instagram施工事例など）をコピー
-  for (const name of ['instagram-posts.js', 'instagram-works.js']) {
+  // JS（サービススライダー・Instagram施工事例など）をコピー
+  for (const name of ['script.js', 'instagram-posts.js', 'instagram-works.js']) {
     const src = path.join(root, name);
     if (fs.existsSync(src)) {
       copyFile(src, path.join(dist, name));
