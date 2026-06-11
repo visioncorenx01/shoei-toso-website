@@ -285,7 +285,7 @@ img {
 .hero {
   position: relative;
   background: var(--section-bg-white-translucent);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero-banner,
@@ -339,6 +339,8 @@ img {
 
 .hero-text {
   max-width: 640px;
+  width: 100%;
+  min-width: 0;
   text-align: center;
   color: #333;
 }
@@ -1279,9 +1281,14 @@ img {
     padding: 36px 0 48px;
   }
 
+  .hero-text {
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
   .hero h1 {
     font-size: 22px;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   .hero p {
@@ -1422,11 +1429,18 @@ img {
 /* スマートフォンサイズ（480px以下） */
 @media (max-width: 480px) {
   .container {
-    padding: 0 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero-inner {
+    padding-top: 32px;
+    padding-bottom: 44px;
   }
 
   .hero h1 {
-    font-size: 20px;
+    font-size: clamp(18px, 5.2vw, 20px);
+    line-height: 1.5;
   }
 
   .hero p {
