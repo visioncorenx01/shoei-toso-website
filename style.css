@@ -478,22 +478,17 @@ img {
   box-shadow: var(--shadow-card);
   min-width: 0;
   max-width: 100%;
-  text-align: center;
+}
+
+.greeting-sp {
+  display: none;
 }
 
 .about-greeting h3 {
   margin-top: 0;
   color: #111;
-  text-align: center;
-}
-
-.about-greeting h3::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #ddd;
-  margin: 8px auto 0;
+  padding-left: 14px;
+  border-left: 4px solid #ddd;
 }
 
 .about-greeting p {
@@ -1329,8 +1324,32 @@ img {
     gap: 24px;
   }
 
+  .greeting-pc {
+    display: none;
+  }
+
+  .greeting-sp {
+    display: block;
+  }
+
   .about-greeting {
     padding: 24px 18px;
+    text-align: center;
+  }
+
+  .about-greeting .greeting-sp h3 {
+    padding-left: 0;
+    border-left: none;
+    text-align: center;
+  }
+
+  .about-greeting .greeting-sp h3::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #ddd;
+    margin: 8px auto 0;
   }
 
   .works-grid {
