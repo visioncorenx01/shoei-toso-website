@@ -334,7 +334,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 0 56px;
+  padding: 64px 0 72px;
 }
 
 .hero-text {
@@ -346,9 +346,9 @@ img {
 .hero h1 {
   font-size: 27px;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.5;
   letter-spacing: 0.02em;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
   color: #1a1a1a;
 }
 
@@ -1276,7 +1276,7 @@ img {
   }
 
   .hero-inner {
-    padding: 28px 0 36px;
+    padding: 36px 0 48px;
   }
 
   .hero h1 {
