@@ -158,6 +158,39 @@ img {
   line-height: 1.75;
 }
 
+/* サービスセクション：ぼかし背景 */
+#service.section-service-bg {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+#service.section-service-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("images/service-section-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(14px);
+  transform: scale(1.08);
+  z-index: 0;
+}
+
+#service.section-service-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 249, 251, 0.88);
+  z-index: 1;
+}
+
+#service.section-service-bg > .container {
+  position: relative;
+  z-index: 2;
+}
+
 /* ヒーローエリア */
 .hero {
   position: relative;
