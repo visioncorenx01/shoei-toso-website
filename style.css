@@ -36,6 +36,10 @@ body {
   letter-spacing: 0.01em;
   background-color: transparent;
   -webkit-font-smoothing: antialiased;
+  /* 日本語本文：単語・助詞の途中での不自然な改行を防ぐ */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
 }
 
 /* 全ページ共通：ロゴイラストを常に背面に固定表示 */
@@ -1305,7 +1309,7 @@ img {
   }
 
   .about-greeting {
-    text-align: center;
+    text-align: left;
   }
 
   .works-grid {
