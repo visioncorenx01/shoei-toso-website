@@ -476,6 +476,8 @@ img {
   border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .about-greeting h3 {
@@ -499,13 +501,22 @@ img {
 /* 会社概要 */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 24px;
   align-items: flex-start;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.about-grid > div {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .info-table {
   width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 14px;
   background: var(--color-bg-white);
@@ -520,6 +531,7 @@ img {
   border-bottom: 1px solid var(--color-border);
   vertical-align: top;
   line-height: 1.6;
+  overflow-wrap: break-word;
 }
 
 .info-table tr:last-child th,
@@ -1304,12 +1316,13 @@ img {
   }
 
   .about-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
   }
 
   .about-greeting {
     text-align: left;
+    padding: 24px 18px;
   }
 
   .works-grid {
@@ -1344,13 +1357,38 @@ img {
     font-size: 13px;
   }
 
+  .info-table th,
+  .info-table td {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+  }
+
   .info-table th {
-    width: 100px;
-    padding: 8px 4px;
+    width: 100%;
+    border-bottom: none;
+    padding-bottom: 4px;
   }
 
   .info-table td {
-    padding: 8px 4px;
+    border-bottom: 1px solid var(--color-border);
+    padding-top: 4px;
+    padding-bottom: 10px;
+  }
+
+  .info-table tr {
+    display: block;
+    border-bottom: 2px solid #e5e5e5;
+    margin-bottom: 8px;
+  }
+
+  .info-table tr:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .info-table tr:last-child td {
+    border-bottom: none;
   }
 }
 
@@ -1435,27 +1473,11 @@ img {
 
   .info-table th,
   .info-table td {
-    padding: 6px 4px;
-    display: block;
-    width: 100%;
+    padding: 6px 8px;
   }
 
-  .info-table th {
-    border-bottom: none;
-    padding-bottom: 4px;
-    font-weight: 600;
-  }
-
-  .info-table td {
-    border-bottom: 1px solid #eee;
-    padding-top: 4px;
-    padding-bottom: 8px;
-  }
-
-  .info-table tr {
-    border-bottom: 2px solid #e5e5e5;
-    margin-bottom: 8px;
-    display: block;
+  .about-greeting {
+    padding: 20px 14px;
   }
 }
 
