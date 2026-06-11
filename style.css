@@ -210,18 +210,29 @@ img {
   position: relative;
   z-index: 2;
 }
-/* お問い合わせセクション：固定青空背景 + 半透明オーバーレイ */
+/* お問い合わせセクション：背景画像（ぼかしなし） */
 #contact.section-contact-bg {
   position: relative;
   overflow: hidden;
   background-color: transparent;
 }
 
+#contact.section-contact-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("images/contact-section-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
 #contact.section-contact-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: var(--section-sky-overlay);
+  background-color: rgba(255, 255, 255, 0.55);
   z-index: 1;
 }
 
@@ -245,6 +256,21 @@ img {
 #contact .section-lead {
   color: #222;
   text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* 会社概要セクション：見出しは白パネルなし（元のシンプル表示） */
+#about .section-heading {
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  max-width: none;
+  margin-bottom: 18px;
+}
+
+#about .section-title {
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 2px 8px rgba(255, 255, 255, 0.7), 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 /* ヒーローエリア */
@@ -625,23 +651,10 @@ img {
   color: #111;
   margin-top: 0;
   margin-bottom: 16px;
-}
-
-.about-grid > div:first-child h3 {
-  padding: 12px 16px 12px 20px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-left: 4px solid #ddd;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .about-greeting {
-  background: var(--color-bg-white);
-  padding: 28px 24px;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
   min-width: 0;
   max-width: 100%;
 }
@@ -653,8 +666,7 @@ img {
 .about-greeting h3 {
   margin-top: 0;
   color: #111;
-  padding-left: 14px;
-  border-left: 4px solid #ddd;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .about-greeting p {
@@ -1509,8 +1521,12 @@ img {
   }
 
   .about-greeting {
-    padding: 24px 18px;
     text-align: center;
+  }
+
+  #about .section-heading {
+    padding: 0;
+    margin-bottom: 18px;
   }
 
   .about-greeting .greeting-sp h3 {
@@ -1697,8 +1713,9 @@ img {
     padding: 6px 8px;
   }
 
-  .about-greeting {
-    padding: 20px 14px;
+  #about .section-heading {
+    padding: 0;
+    margin-bottom: 16px;
   }
 }
 
