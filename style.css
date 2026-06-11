@@ -478,13 +478,22 @@ img {
   box-shadow: var(--shadow-card);
   min-width: 0;
   max-width: 100%;
+  text-align: center;
 }
 
 .about-greeting h3 {
   margin-top: 0;
   color: #111;
-  padding-left: 14px;
-  border-left: 4px solid #ddd;
+  text-align: center;
+}
+
+.about-greeting h3::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #ddd;
+  margin: 8px auto 0;
 }
 
 .about-greeting p {
@@ -1321,7 +1330,6 @@ img {
   }
 
   .about-greeting {
-    text-align: left;
     padding: 24px 18px;
   }
 
