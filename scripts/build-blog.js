@@ -209,7 +209,7 @@ function blogHeader() {
         <a href="../index.html#works">施工事例</a>
         <a href="index.html">ブログ</a>
         <a href="../index.html#about">会社概要</a>
-        <a href="../index.html#faq">FAQ</a>
+        <a href="../faq/index.html">FAQ</a>
         <a href="../index.html#contact">お問い合わせ</a>
       </nav>
     </div>
@@ -475,6 +475,8 @@ function buildSitemap(articles) {
   urls.push({ loc: `${SITE_URL}/`, lastmod: todayIso, changefreq: 'monthly', priority: '1.0' });
   // ブログ一覧
   urls.push({ loc: `${SITE_URL}/blog/`, lastmod: todayIso, changefreq: 'weekly', priority: '0.8' });
+  // FAQ
+  urls.push({ loc: `${SITE_URL}/faq/`, lastmod: todayIso, changefreq: 'monthly', priority: '0.7' });
   // 各記事（拡張子なしURL）
   for (const article of articles) {
     const { iso } = formatDate(article.date);

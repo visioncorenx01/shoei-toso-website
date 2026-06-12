@@ -859,6 +859,24 @@ img {
   text-decoration: underline;
 }
 
+/* FAQ専用ページ */
+.faq-page-container {
+  max-width: 900px;
+}
+
+.faq-page-container .faq-list {
+  max-width: none;
+}
+
+.faq-more-actions {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.faq-more-actions + .faq-more-actions {
+  margin-top: 12px;
+}
+
 /* お問い合わせフォーム */
 .contact-form {
   max-width: 640px;
