@@ -540,9 +540,9 @@ img {
     grid-template-rows: auto auto;
     align-items: center;
     max-width: 100%;
-    padding: 0 0 6px;
-    column-gap: 10px;
-    row-gap: 12px;
+    padding: 0 0 8px;
+    column-gap: 12px;
+    row-gap: 16px;
   }
 
   .service-slider-viewport {
@@ -577,26 +577,19 @@ img {
   }
 
   .service-slide-image {
-    aspect-ratio: 16 / 9;
-    max-height: 134px;
+    aspect-ratio: 16 / 10;
     border-radius: 0;
   }
 
   .service-slide-content {
-    padding: 14px 12px 16px;
+    padding: 22px 20px 24px;
   }
 
   .service-slide-content h3 {
-    margin: 0 0 6px;
-    font-size: 14px;
+    margin: 0 0 10px;
+    font-size: 17px;
     font-weight: 600;
     letter-spacing: normal;
-    line-height: 1.45;
-  }
-
-  .service-slide-content p {
-    font-size: 12px;
-    line-height: 1.7;
   }
 
   .service-slide-divider,
@@ -610,9 +603,6 @@ img {
     transform: none;
     grid-row: 2;
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    font-size: 13px;
   }
 
   .service-slider-prev {
@@ -630,12 +620,6 @@ img {
     grid-column: 2;
     margin-top: 0;
     justify-self: center;
-    gap: 8px;
-  }
-
-  .service-slider-dot {
-    width: 8px;
-    height: 8px;
   }
 }
 
@@ -1773,38 +1757,19 @@ img {
     padding: 4px 8px;
   }
 
-  .service-slide-image {
-    max-height: 112px;
-  }
-
   .service-slide-content {
-    padding: 10px;
+    padding: 16px;
   }
 
   .service-slide-content h3 {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-
-  .service-slide-content p {
-    font-size: 11px;
-    line-height: 1.65;
+    font-size: 16px;
   }
 
   .service-slider-prev,
   .service-slider-next {
-    width: 32px;
-    height: 32px;
-    font-size: 11px;
-  }
-
-  .service-slider-dots {
-    gap: 6px;
-  }
-
-  .service-slider-dot {
-    width: 7px;
-    height: 7px;
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
   }
 
   .card h3 {
