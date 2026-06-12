@@ -782,6 +782,19 @@ img {
   gap: 12px;
 }
 
+.faq-category-title {
+  margin: 28px 0 4px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.faq-category-title:first-child {
+  margin-top: 0;
+}
+
 .faq-item {
   background-color: var(--color-bg-white);
   border-radius: var(--radius-card);
@@ -1726,6 +1739,11 @@ img {
     font-size: 20px;
   }
 
+  .faq-category-title {
+    margin: 20px 0 2px;
+    font-size: 15px;
+  }
+
   .faq-item summary {
     padding: 12px 32px 12px 14px;
     font-size: 15px;
@@ -1971,6 +1989,11 @@ img {
 
   .faq-list {
     gap: 8px;
+  }
+
+  .faq-category-title {
+    margin: 16px 0 2px;
+    font-size: 14px;
   }
 
   .faq-item summary {
