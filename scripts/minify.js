@@ -77,14 +77,16 @@ async function run() {
     console.warn('⚠ blog/ がありません。先に npm run build-blog を実行してください（ブログはスキップ）。');
   }
 
-  // FAQリダイレクト（faq/index.html → index.html#faq）をミニファイ → dist/faq/
+  // FAQページ（faq/index.html）をミニファイ → dist/faq/
   const faqPath = path.join(root, 'faq', 'index.html');
   if (fs.existsSync(faqPath)) {
     const faqHtml = fs.readFileSync(faqPath, 'utf8');
     const faqMin = await minifyHtml(faqHtml, htmlOptions);
     ensureDir(path.join(dist, 'faq'));
     fs.writeFileSync(path.join(dist, 'faq', 'index.html'), faqMin, 'utf8');
-    console.log('✓ faq/index.html（リダイレクト）をミニファイ → dist/faq/');
+    console.log('✓ faq/index.html をミニファイ → dist/faq/');
+  } else {
+    console.warn('⚠ faq/index.html がありません。FAQページはスキップします。');
   }
 
   // CSS ミニファイ（style.css が無い場合はスキップ）
