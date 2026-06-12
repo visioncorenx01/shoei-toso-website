@@ -1653,15 +1653,35 @@ img {
     padding: 2px 8px;
   }
 
+  .faq-list {
+    width: 85%;
+    max-width: 300px;
+    margin: 0 auto;
+    gap: 10px;
+  }
+
+  #faq .section-heading {
+    margin-bottom: 24px;
+  }
+
+  #faq .section-title {
+    font-size: 20px;
+  }
+
   .faq-item summary {
-    padding: 12px 14px;
-    font-size: 13px;
+    padding: 12px 32px 12px 14px;
+    font-size: 15px;
+  }
+
+  .faq-item summary::after {
+    right: 14px;
+    font-size: 16px;
   }
 
   .faq-answer {
     padding: 12px 14px;
     font-size: 12px;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   .about-greeting p {
@@ -1883,15 +1903,32 @@ img {
     font-size: 10px;
   }
 
+  #faq .section-heading {
+    margin-bottom: 20px;
+  }
+
+  #faq .section-title {
+    font-size: 19px;
+  }
+
+  .faq-list {
+    gap: 8px;
+  }
+
   .faq-item summary {
-    padding: 10px 12px;
-    font-size: 12px;
+    padding: 10px 28px 10px 12px;
+    font-size: 14px;
+  }
+
+  .faq-item summary::after {
+    right: 12px;
+    font-size: 14px;
   }
 
   .faq-answer {
     padding: 10px 12px;
     font-size: 11px;
-    line-height: 1.65;
+    line-height: 1.7;
   }
 
   .btn-primary {
