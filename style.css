@@ -1583,31 +1583,6 @@ img {
 
   .blog-card-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 18px;
-  }
-
-  .blog-card-img {
-    aspect-ratio: 16 / 11;
-    max-height: 112px;
-  }
-
-  .blog-card-body {
-    padding: 12px;
-  }
-
-  .blog-card-title {
-    margin: 4px 0 5px;
-    font-size: 14px;
-  }
-
-  .blog-card-excerpt {
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  .blog-meta {
-    font-size: 10px;
   }
 
   .faq-item summary {
@@ -1798,26 +1773,6 @@ img {
   }
 
   .work-text {
-    font-size: 10px;
-  }
-
-  .blog-card-grid {
-    gap: 10px;
-  }
-
-  .blog-card-img {
-    max-height: 96px;
-  }
-
-  .blog-card-body {
-    padding: 10px;
-  }
-
-  .blog-card-title {
-    font-size: 13px;
-  }
-
-  .blog-card-excerpt {
     font-size: 10px;
   }
 
