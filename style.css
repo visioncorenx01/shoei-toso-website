@@ -1533,7 +1533,19 @@ img {
 
   .about-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
+    gap: 16px;
+  }
+
+  .about-grid h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .about-grid > div:first-child > h3 {
+    width: 85%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .greeting-pc {
@@ -1545,11 +1557,19 @@ img {
   }
 
   .about-greeting {
+    width: 85%;
+    max-width: 300px;
+    margin: 0 auto;
     text-align: center;
+    padding: 0;
   }
 
   #about .section-heading {
     margin-bottom: 16px;
+  }
+
+  #about .section-title {
+    font-size: 20px;
   }
 
   .about-greeting .greeting-sp h3 {
@@ -1676,6 +1696,9 @@ img {
   }
 
   .info-table {
+    width: 85%;
+    max-width: 300px;
+    margin: 0 auto;
     font-size: 12px;
   }
 
@@ -1683,19 +1706,22 @@ img {
   .info-table td {
     display: block;
     width: 100%;
-    padding: 8px 10px;
+    padding: 6px 8px;
+    font-size: 12px;
   }
 
   .info-table th {
     width: 100%;
     border-bottom: none;
-    padding-bottom: 4px;
+    padding-bottom: 3px;
+    font-size: 12px;
   }
 
   .info-table td {
     border-bottom: 1px solid var(--color-border);
-    padding-top: 4px;
-    padding-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 8px;
+    font-size: 13px;
   }
 
   .info-table tr {
@@ -1900,8 +1926,23 @@ img {
     padding: 5px 7px;
   }
 
+  .info-table th {
+    font-size: 11px;
+    padding-bottom: 2px;
+  }
+
+  .info-table td {
+    font-size: 12px;
+    padding-top: 2px;
+    padding-bottom: 7px;
+  }
+
   #about .section-heading {
     margin-bottom: 14px;
+  }
+
+  #about .section-title {
+    font-size: 19px;
   }
 
   .about-greeting .greeting-sp h3 {
