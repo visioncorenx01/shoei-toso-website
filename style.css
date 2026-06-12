@@ -577,19 +577,25 @@ img {
   }
 
   .service-slide-image {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
+    max-height: 168px;
     border-radius: 0;
   }
 
   .service-slide-content {
-    padding: 22px 20px 24px;
+    padding: 18px 16px 20px;
   }
 
   .service-slide-content h3 {
-    margin: 0 0 10px;
-    font-size: 17px;
+    margin: 0 0 8px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: normal;
+  }
+
+  .service-slide-content p {
+    font-size: 13px;
+    line-height: 1.75;
   }
 
   .service-slide-divider,
@@ -1462,7 +1468,7 @@ img {
   }
 
   .hero-inner {
-    padding: 36px 0 48px;
+    padding: 28px 0 40px;
   }
 
   .hero-text {
@@ -1471,34 +1477,51 @@ img {
   }
 
   .hero h1 {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.5;
   }
 
   .hero p {
-    font-size: 14px;
+    font-size: 13px;
   }
 
-  .section-heading {
+  .section:not(#contact) {
+    padding: 48px 0;
+  }
+
+  .section:not(#contact) .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .section:not(#contact) .section-title {
+    font-size: 22px;
+  }
+
+  .section:not(#contact) .section-lead {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  #contact .section-heading {
     margin-bottom: 32px;
   }
 
-  .section-title {
+  #contact .section-title {
     font-size: 24px;
   }
 
-  .section-lead {
+  #contact .section-lead {
     font-size: 14px;
     margin-top: 10px;
   }
 
   .cards {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 
   .card {
-    padding: 16px;
+    padding: 14px;
   }
 
   .about-grid {
@@ -1539,10 +1562,71 @@ img {
 
   .works-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .work-image img {
+    height: 150px;
+  }
+
+  .work-caption {
+    padding: 10px 12px 14px;
+  }
+
+  .work-title {
+    font-size: 14px;
+  }
+
+  .work-text {
+    font-size: 12px;
   }
 
   .blog-card-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .blog-card-img {
+    aspect-ratio: 16 / 11;
+    max-height: 140px;
+  }
+
+  .blog-card-body {
+    padding: 14px;
+  }
+
+  .blog-card-title {
+    margin: 4px 0 6px;
+    font-size: 15px;
+  }
+
+  .blog-card-excerpt {
+    font-size: 12px;
+  }
+
+  .blog-meta {
+    font-size: 11px;
+  }
+
+  .faq-item summary {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .faq-answer {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .about-greeting p {
+    font-size: 13px;
+  }
+
+  .site-footer {
+    padding: 16px 0 24px;
+    font-size: 11px;
   }
 
   .blog-detail-item {
@@ -1612,33 +1696,51 @@ img {
   }
 
   .hero-inner {
-    padding-top: 32px;
-    padding-bottom: 44px;
+    padding-top: 24px;
+    padding-bottom: 36px;
   }
 
   .hero h1 {
-    font-size: clamp(18px, 5.2vw, 20px);
+    font-size: clamp(17px, 5vw, 19px);
     line-height: 1.5;
   }
 
   .hero p {
-    font-size: 13px;
+    font-size: 12px;
   }
 
-  .section {
+  .section:not(#contact) {
+    padding: 44px 0;
+  }
+
+  #contact.section {
     padding: 56px 0;
   }
 
-  .section-heading {
-    margin-bottom: 24px;
+  .section:not(#contact) .section-heading {
+    margin-bottom: 22px;
   }
 
-  .section-title {
+  .section:not(#contact) .section-title {
     font-size: 20px;
     margin-bottom: 0;
   }
 
-  .section-lead {
+  .section:not(#contact) .section-lead {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  #contact .section-heading {
+    margin-bottom: 24px;
+  }
+
+  #contact .section-title {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  #contact .section-lead {
     font-size: 13px;
     margin-top: 8px;
   }
@@ -1649,12 +1751,20 @@ img {
     padding: 4px 8px;
   }
 
+  .service-slide-image {
+    max-height: 140px;
+  }
+
   .service-slide-content {
-    padding: 16px;
+    padding: 14px;
   }
 
   .service-slide-content h3 {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .service-slide-content p {
+    font-size: 12px;
   }
 
   .service-slider-prev,
@@ -1665,11 +1775,45 @@ img {
   }
 
   .card h3 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .card p {
+    font-size: 12px;
+  }
+
+  .works-grid {
+    gap: 14px;
+  }
+
+  .work-image img {
+    height: 130px;
+  }
+
+  .blog-card-grid {
+    gap: 12px;
+  }
+
+  .blog-card-img {
+    max-height: 120px;
+  }
+
+  .blog-card-body {
+    padding: 12px;
+  }
+
+  .blog-card-title {
+    font-size: 14px;
+  }
+
+  .faq-item summary {
+    padding: 12px 14px;
     font-size: 13px;
+  }
+
+  .faq-answer {
+    padding: 12px 14px;
+    font-size: 12px;
   }
 
   .btn-primary {
