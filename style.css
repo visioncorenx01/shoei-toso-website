@@ -246,6 +246,10 @@ img {
   text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
+.contact-lead-sp {
+  display: none;
+}
+
 /* 会社概要セクション：見出しは左寄せ・余白調整 */
 #about .section-heading {
   max-width: none;
@@ -1575,6 +1579,14 @@ img {
   }
 
   .greeting-sp {
+    display: block;
+  }
+
+  .contact-lead-pc {
+    display: none;
+  }
+
+  .contact-lead-sp {
     display: block;
   }
 
