@@ -1292,7 +1292,7 @@ img {
 
 .blog-card-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   margin-top: 24px;
   min-width: 0;
@@ -1643,6 +1643,28 @@ img {
     width: 85%;
     max-width: 300px;
     margin: 0 auto;
+  }
+
+  /* トップページ #blog: 横スクロールで最新3件を横並び表示 */
+  #blog .blog-card-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 0 4px 6px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  #blog .blog-card {
+    flex: 0 0 auto;
+    min-width: 260px;
+    max-width: 280px;
+    width: min(78vw, 280px);
+    margin: 0;
+    scroll-snap-align: start;
   }
 
   .blog-card-img {
