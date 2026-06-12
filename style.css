@@ -411,9 +411,9 @@ img {
 /* サービススライダー */
 .service-slider {
   position: relative;
-  max-width: 920px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 0 52px 44px;
+  padding: 0 58px 48px;
 }
 
 .service-slider-viewport {
@@ -437,10 +437,10 @@ img {
   grid-column: 1;
   grid-row: 1;
   display: none;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: 48px;
   align-items: center;
-  padding: 40px 44px;
+  padding: 46px 50px;
 }
 
 .service-slide.is-active {
@@ -453,6 +453,7 @@ img {
 
 .service-slide-image {
   aspect-ratio: 1;
+  min-height: 320px;
   overflow: hidden;
   border-radius: 12px;
   background: #eaeaea;
@@ -467,7 +468,7 @@ img {
 
 .service-slide-content h3 {
   margin: 0 0 16px;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.4;
   color: #1a1a1a;
@@ -482,7 +483,7 @@ img {
 
 .service-slide-content p {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.85;
   color: var(--color-text-muted);
 }
@@ -497,13 +498,13 @@ img {
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(0, 112, 243, 0.2);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.92);
   color: var(--color-primary);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -608,6 +609,7 @@ img {
   .service-slide-image {
     width: 100%;
     height: 175px;
+    min-height: unset;
     aspect-ratio: unset;
     border-radius: 0;
   }
