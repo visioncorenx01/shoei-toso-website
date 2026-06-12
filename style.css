@@ -581,17 +581,17 @@ img {
 
   .service-slide-image {
     width: 100%;
-    height: 140px;
+    height: 175px;
     aspect-ratio: unset;
     border-radius: 0;
   }
 
   .service-slide-content {
-    padding: 16px 18px 18px;
+    padding: 14px 16px 16px;
   }
 
   .service-slide-content h3 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: normal;
@@ -1748,16 +1748,16 @@ img {
   }
 
   .service-slide-image {
-    height: 120px;
+    height: 150px;
   }
 
   .service-slide-content {
-    padding: 14px 14px 16px;
+    padding: 12px 14px 14px;
   }
 
   .service-slide-content h3 {
     font-size: 14px;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   .service-slide-content p {
