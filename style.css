@@ -84,10 +84,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  background: #1a2744;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .header-inner {
@@ -107,6 +106,7 @@ img {
   height: 48px;
   width: auto;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .nav {
@@ -118,6 +118,7 @@ img {
 .nav a {
   margin-left: 16px;
   font-size: 14px;
+  color: #fff;
   padding-bottom: 4px;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
@@ -125,8 +126,8 @@ img {
 }
 
 .nav a:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* セクション共通 */
