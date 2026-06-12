@@ -4,7 +4,6 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
 const { minify: minifyHtml } = require('html-minifier-terser');
 const CleanCSS = require('clean-css');
 
@@ -43,47 +42,6 @@ function copyDir(srcDir, destDir) {
       fs.copyFileSync(srcPath, destPath);
     }
   }
-}
-
-const NETLIFY_ZIP_NAME = 'netlify-deploy.zip';
-const NETLIFY_DIR_NAME = 'netlify-deploy';
-const REQUIRED_NETLIFY_FILES = ['index.html', 'googlecca4ceb7f381e372.html', 'sitemap.xml'];
-
-function syncNetlifyDeployFolder() {
-  const deployDir = path.join(root, NETLIFY_DIR_NAME);
-  if (fs.existsSync(deployDir)) {
-    fs.rmSync(deployDir, { recursive: true, force: true });
-  }
-  copyDir(dist, deployDir);
-  console.log('✓ ' + NETLIFY_DIR_NAME + '/ を dist/ と同期しました');
-}
-
-function verifyNetlifyZip() {
-  const zipPath = path.join(root, NETLIFY_ZIP_NAME);
-  const listing = execFileSync('unzip', ['-l', zipPath], { encoding: 'utf8' });
-  const missing = REQUIRED_NETLIFY_FILES.filter((name) => {
-    const pattern = new RegExp(`\\s${name.replace('.', '\\.')}$`, 'm');
-    return !pattern.test(listing);
-  });
-  if (missing.length > 0) {
-    throw new Error('ZIP に必要なファイルがありません: ' + missing.join(', '));
-  }
-  if (/\s(?:dist|netlify-deploy)\//m.test(listing)) {
-    throw new Error('ZIP 内に dist/ や netlify-deploy/ フォルダが含まれています。ルート直下に index.html がある構成にしてください。');
-  }
-  console.log('✓ ' + NETLIFY_ZIP_NAME + ' の内容を確認しました（ルートに index.html と google 検証ファイルあり）');
-}
-
-function createNetlifyZip() {
-  const zipPath = path.join(root, NETLIFY_ZIP_NAME);
-  if (fs.existsSync(zipPath)) {
-    fs.unlinkSync(zipPath);
-  }
-  execFileSync('zip', ['-r', zipPath, '.'], { cwd: dist, stdio: 'inherit' });
-  verifyNetlifyZip();
-  console.log('\n✓ ' + NETLIFY_ZIP_NAME + ' を作成しました（プロジェクト直下）');
-  console.log('  Netlify Drop には **' + NETLIFY_ZIP_NAME + ' だけ** を1つドロップしてください。');
-  console.log('  ※ netlify-deploy/ フォルダをドロップしても同じ内容ですが、ZIP の方が確実です。');
 }
 
 async function run() {
@@ -164,18 +122,7 @@ async function run() {
     console.log('✓ images/ をコピー → dist/images/');
   }
 
-  // 旧 Netlify Drop 用の成果物（netlify-deploy/ と netlify-deploy.zip）。
-  // zip コマンドが無いCI環境（Cloudflare Pages 等）では作成に失敗するが、
-  // 公開には dist/ だけあればよいため、失敗してもビルド全体は止めない。
-  try {
-    syncNetlifyDeployFolder();
-    createNetlifyZip();
-    console.log('\n完了。dist/ は preview:dist 用。Netlify Drop を使う場合は ' + NETLIFY_ZIP_NAME + ' を1つドロップしてください。');
-  } catch (e) {
-    const msg = e && e.message ? e.message : String(e);
-    console.warn('⚠ Netlify Drop 用の成果物作成をスキップしました（CI環境では正常）: ' + msg);
-    console.log('\n完了。dist/ を公開ディレクトリとして使用します（Cloudflare Pages 等）。');
-  }
+  console.log('\n完了。dist/ を公開ディレクトリとして使用します。');
 }
 
 run().catch((err) => {

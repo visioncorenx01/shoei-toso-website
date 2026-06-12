@@ -14,7 +14,7 @@
  *
  * 重要:
  *   - 環境変数が未設定でも、取得に失敗しても、ビルドは落ちません。
- *     その場合はローカルの blog-data.json をフォールバックに使い、
+ *     その場合はローカルの blog/blog-data.json をフォールバックに使い、
  *     それも無ければ「記事0件」として空の一覧を生成します。
  *
  * 想定する microCMS のスキーマ（API ID: blogs）:
@@ -36,7 +36,7 @@ try {
 const root = path.join(__dirname, '..');
 const blogDir = path.join(root, 'blog');
 const distDir = path.join(root, 'dist');
-const blogDataPath = path.join(root, 'blog-data.json');
+const blogDataPath = path.join(root, 'blog', 'blog-data.json');
 const indexHtmlPath = path.join(root, 'index.html');
 
 // サイトの公開URL（canonical / OGP 用）。Cloudflare Pages のドメインに合わせる。

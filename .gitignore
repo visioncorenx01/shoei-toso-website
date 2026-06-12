@@ -15,16 +15,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-# ビルド成果物（Netlify がビルド時に生成するため、コミット不要）
+# ビルド成果物（npm run minify で生成するため、コミット不要）
 dist/
-
-# 手動アップロード用の生成物（Git連携への切り替え後は不要）
-netlify-deploy/
-netlify-deploy.zip
 
 # ログ・一時ファイル
 *.log
 npm-debug.log*
 .cache/
 .tmp/
-.netlify/
