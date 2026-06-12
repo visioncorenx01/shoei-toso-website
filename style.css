@@ -269,15 +269,20 @@ img {
   z-index: 1;
 }
 
-/* トップバナー画像（ロゴ・キャッチ・電話番号入りの自作バナー）
-   SP: contain で焼き込みテキストが切れないよう全体表示
-   PC (769px+): cover で画面幅いっぱいに表示 */
+/* トップバナー画像
+   SP (768px以下): hero-banner-mobile.png（正方形・焼き込みテキスト）を 1:1 で全体表示
+   PC (769px+): hero-banner.png を cover で画面幅いっぱいに表示 */
 .hero-banner {
   position: relative;
   width: 100%;
   line-height: 0;
   background-color: var(--color-bg-gray);
   overflow: hidden;
+}
+
+.hero-banner picture {
+  display: block;
+  width: 100%;
 }
 
 .hero-banner img {
@@ -289,6 +294,23 @@ img {
   margin: 0;
   object-fit: contain;
   object-position: center center;
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero-banner picture {
+    height: 100%;
+  }
+
+  .hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
 }
 
 @media (min-width: 769px) {
