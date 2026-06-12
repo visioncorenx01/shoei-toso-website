@@ -143,11 +143,6 @@ img {
   text-align: center;
   max-width: 720px;
   margin: 0 auto 40px;
-  padding: 20px 28px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .section-title {
@@ -169,6 +164,7 @@ img {
   font-size: 15px;
   line-height: 1.85;
   letter-spacing: 0.01em;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 /* サービスセクション：固定青空背景 + 半透明オーバーレイ */
@@ -241,14 +237,6 @@ img {
   z-index: 2;
 }
 
-#contact .section-heading {
-  background: transparent;
-  padding: 0;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
 #contact .section-title {
   text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 2px 8px rgba(255, 255, 255, 0.7), 0 0 1px rgba(0, 0, 0, 0.2);
 }
@@ -258,13 +246,8 @@ img {
   text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* 会社概要セクション：見出しは白パネルなし（元のシンプル表示） */
+/* 会社概要セクション：見出しは左寄せ・余白調整 */
 #about .section-heading {
-  background: transparent;
-  padding: 0;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
   max-width: none;
   margin-bottom: 18px;
 }
@@ -1497,7 +1480,6 @@ img {
   }
 
   .section-heading {
-    padding: 16px 20px;
     margin-bottom: 32px;
   }
 
@@ -1537,7 +1519,6 @@ img {
   }
 
   #about .section-heading {
-    padding: 0;
     margin-bottom: 18px;
   }
 
@@ -1649,8 +1630,6 @@ img {
   }
 
   .section-heading {
-    padding: 14px 16px;
-    border-radius: 10px;
     margin-bottom: 24px;
   }
 
@@ -1726,7 +1705,6 @@ img {
   }
 
   #about .section-heading {
-    padding: 0;
     margin-bottom: 16px;
   }
 }
