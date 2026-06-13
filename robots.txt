@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shoei-toso-website.pages.dev/sitemap.xml
+Sitemap: https://shoeitosou.com/sitemap.xml
