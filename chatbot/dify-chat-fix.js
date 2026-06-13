@@ -7,6 +7,7 @@
   var LOCK_CLASS = 'dify-chat-open';
   var BTN_ID = 'dify-chatbot-bubble-button';
   var WIN_ID = 'dify-chatbot-bubble-window';
+  var CLOSE_BTN_ID = 'dify-chat-custom-close';
   var MOBILE_MQ = window.matchMedia('(max-width: 768px)');
 
   var chatObserver = null;
@@ -24,6 +25,78 @@
 
   function getWindow() {
     return document.getElementById(WIN_ID);
+  }
+
+  function getCloseButton() {
+    return document.getElementById(CLOSE_BTN_ID);
+  }
+
+  function createCloseButton() {
+    var el = getCloseButton();
+    if (el) return el;
+
+    el = document.createElement('button');
+    el.id = CLOSE_BTN_ID;
+    el.type = 'button';
+    el.setAttribute('aria-label', 'チャットを閉じる');
+    el.innerHTML = '<span aria-hidden="true">&times;</span>';
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var btn = getButton();
+      if (btn) btn.click();
+    });
+    document.body.appendChild(el);
+    return el;
+  }
+
+  function hideCloseButton() {
+    var closeBtn = getCloseButton();
+    if (!closeBtn) return;
+    setImportant(closeBtn, 'display', 'none');
+    setImportant(closeBtn, 'pointer-events', 'none');
+    setImportant(closeBtn, 'visibility', 'hidden');
+  }
+
+  function positionCloseButton(closeBtn, win) {
+    var size = 44;
+    var gap = 8;
+
+    if (isMobile()) {
+      var metrics = getViewportMetrics();
+      closeBtn.style.setProperty('--dify-close-top', metrics.offsetTop + gap + 'px');
+      closeBtn.style.setProperty(
+        '--dify-close-right',
+        window.innerWidth - metrics.offsetLeft - metrics.width + safeRight() + 'px'
+      );
+    } else if (win) {
+      var rect = win.getBoundingClientRect();
+      closeBtn.style.setProperty('--dify-close-top', rect.top + gap + 'px');
+      closeBtn.style.setProperty(
+        '--dify-close-right',
+        window.innerWidth - rect.right + gap + 'px'
+      );
+    }
+
+    setImportant(closeBtn, 'position', 'fixed');
+    setImportant(closeBtn, 'top', 'calc(var(--dify-close-top, 12px) + env(safe-area-inset-top, 0px))');
+    setImportant(closeBtn, 'right', 'calc(var(--dify-close-right, 12px) + env(safe-area-inset-right, 0px))');
+    setImportant(closeBtn, 'left', 'auto');
+    setImportant(closeBtn, 'bottom', 'auto');
+    setImportant(closeBtn, 'display', 'flex');
+    setImportant(closeBtn, 'visibility', 'visible');
+    setImportant(closeBtn, 'pointer-events', 'auto');
+    setImportant(closeBtn, 'width', size + 'px');
+    setImportant(closeBtn, 'height', size + 'px');
+    setImportant(closeBtn, 'min-width', size + 'px');
+    setImportant(closeBtn, 'min-height', size + 'px');
+    setImportant(closeBtn, 'z-index', '2147483647');
+    setImportant(closeBtn, 'margin', '0');
+    setImportant(closeBtn, 'transform', 'none');
+  }
+
+  function showCloseButton(win) {
+    positionCloseButton(createCloseButton(), win);
   }
 
   function isChatOpen() {
@@ -168,9 +241,11 @@
           } else {
             applyDesktopOpenWindow(win);
           }
+          showCloseButton(win);
         }
       } else {
         unlockScroll();
+        hideCloseButton();
         if (btn) positionClosedButton(btn);
         if (win) {
           clearLayoutProps(win, [
@@ -257,6 +332,9 @@
       var win = getWindow();
       var target = e.target;
       if (win && (target === win || win.contains(target))) return;
+
+      var closeBtn = getCloseButton();
+      if (closeBtn && (target === closeBtn || closeBtn.contains(target))) return;
 
       e.preventDefault();
     },
