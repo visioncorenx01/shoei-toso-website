@@ -18,6 +18,30 @@
 
   var root, panel, messagesEl, form, input, toggleBtn, sendBtn;
 
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 480px)').matches;
+  }
+
+  function resetViewportOffset() {
+    if (root) root.style.setProperty('--chatbot-offset', '0px');
+  }
+
+  function updateViewportOffset() {
+    if (!root || !isOpen || !isMobileViewport() || !window.visualViewport) {
+      resetViewportOffset();
+      return;
+    }
+    var vv = window.visualViewport;
+    var keyboardOffset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+    root.style.setProperty('--chatbot-offset', keyboardOffset + 'px');
+  }
+
+  function setupViewportListeners() {
+    if (!window.visualViewport) return;
+    window.visualViewport.addEventListener('resize', updateViewportOffset);
+    window.visualViewport.addEventListener('scroll', updateViewportOffset);
+  }
+
   function createEl(tag, className, attrs) {
     var el = document.createElement(tag);
     if (className) el.className = className;
@@ -113,17 +137,25 @@
   function openPanel() {
     isOpen = true;
     panel.hidden = false;
+    panel.classList.add('is-open');
     toggleBtn.setAttribute('aria-expanded', 'true');
     panel.setAttribute('aria-hidden', 'false');
-    input.focus();
+    updateViewportOffset();
+    if (!isMobileViewport()) {
+      input.focus({ preventScroll: true });
+    }
   }
 
   function closePanel() {
     isOpen = false;
-    panel.hidden = true;
+    panel.classList.remove('is-open');
     toggleBtn.setAttribute('aria-expanded', 'false');
     panel.setAttribute('aria-hidden', 'true');
-    toggleBtn.focus();
+    resetViewportOffset();
+    window.setTimeout(function () {
+      if (!isOpen) panel.hidden = true;
+    }, 220);
+    toggleBtn.focus({ preventScroll: true });
   }
 
   function togglePanel() {
@@ -221,6 +253,7 @@
       maxlength: '500',
       'aria-label': 'メッセージ',
       autocomplete: 'off',
+      enterkeyhint: 'send',
     });
     sendBtn = createEl('button', 'chatbot-send', { type: 'submit', 'aria-label': '送信' });
     sendBtn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>';
@@ -238,6 +271,13 @@
       e.preventDefault();
       submitMessage();
     });
+
+    input.addEventListener('focus', updateViewportOffset);
+    input.addEventListener('blur', function () {
+      window.setTimeout(resetViewportOffset, 100);
+    });
+
+    setupViewportListeners();
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && isOpen) closePanel();
