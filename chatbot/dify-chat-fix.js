@@ -42,12 +42,23 @@
     scrollY = window.scrollY || window.pageYOffset || 0;
     document.documentElement.classList.add(LOCK_CLASS);
     document.documentElement.style.setProperty('--dify-scroll-lock-pad', scrollbarWidth() + 'px');
+    document.body.style.position = 'fixed';
+    document.body.style.top = -scrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
   }
 
   function unlockScroll() {
     if (!document.documentElement.classList.contains(LOCK_CLASS)) return;
     document.documentElement.classList.remove(LOCK_CLASS);
     document.documentElement.style.removeProperty('--dify-scroll-lock-pad');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollY);
   }
 
   function safeBottom() {
@@ -56,6 +67,31 @@
 
   function safeRight() {
     return isMobile() ? 12 : 20;
+  }
+
+  function getViewportMetrics() {
+    var vv = window.visualViewport;
+    if (!vv) {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        offsetTop: 0,
+        offsetLeft: 0,
+        bottom: window.innerHeight,
+      };
+    }
+    return {
+      width: vv.width,
+      height: vv.height,
+      offsetTop: vv.offsetTop,
+      offsetLeft: vv.offsetLeft,
+      bottom: vv.offsetTop + vv.height,
+    };
+  }
+
+  /** レイアウト下端と visualViewport 下端の差が大きい = キーボード表示中 */
+  function isKeyboardOpen(metrics) {
+    return window.innerHeight - metrics.bottom > 50;
   }
 
   function applyFixed(el, bottomPx, rightPx) {
@@ -71,7 +107,19 @@
   function positionButton() {
     var btn = getButton();
     if (!btn) return;
-    applyFixed(btn, safeBottom(), safeRight());
+
+    var bottom = safeBottom();
+    var right = safeRight();
+
+    if (isMobile() && isChatOpen()) {
+      var metrics = getViewportMetrics();
+      if (isKeyboardOpen(metrics)) {
+        bottom = window.innerHeight - metrics.bottom + safeBottom();
+      }
+      right = Math.max(right, window.innerWidth - metrics.offsetLeft - metrics.width + right);
+    }
+
+    applyFixed(btn, bottom, right);
     btn.style.setProperty('z-index', '2147483646', 'important');
   }
 
@@ -79,30 +127,48 @@
     var win = getWindow();
     if (!win || !isChatOpen()) return;
 
-    var vv = window.visualViewport;
+    var metrics = getViewportMetrics();
     var bottom = safeBottom();
     var right = safeRight();
     var btn = getButton();
     var btnHeight = btn ? btn.offsetHeight || 56 : 56;
     var gap = 12;
+    var topMargin = 8;
 
-    if (isMobile() && vv) {
-      bottom = Math.max(bottom, window.innerHeight - vv.offsetTop - vv.height + bottom);
-      right = Math.max(right, window.innerWidth - vv.offsetLeft - vv.width + right);
+    if (isMobile()) {
+      right = Math.max(right, window.innerWidth - metrics.offsetLeft - metrics.width + right);
 
-      var winH = Math.floor(vv.height * 0.85);
-      var winW = Math.floor(Math.min(vv.width - 24, window.innerWidth - 24));
+      var winW = Math.min(Math.floor(window.innerWidth - 16), 380);
       win.style.setProperty('width', winW + 'px', 'important');
+      win.style.setProperty('max-width', winW + 'px', 'important');
+
+      var bottomPx;
+      var winH;
+
+      if (isKeyboardOpen(metrics)) {
+        // キーボード表示: 窓の下端を visualViewport 下端（キーボード直上）に合わせる
+        bottomPx = window.innerHeight - metrics.bottom + bottom;
+        winH = Math.floor(metrics.height - topMargin - bottom);
+      } else {
+        // 通常: バブルボタンの上に配置
+        bottomPx = btnHeight + gap + bottom;
+        winH = Math.floor(
+          Math.min(metrics.height * 0.85, metrics.height - btnHeight - gap - topMargin - bottom)
+        );
+      }
+
+      winH = Math.max(winH, 200);
       win.style.setProperty('height', winH + 'px', 'important');
-      win.style.setProperty('max-height', Math.floor(vv.height - btnHeight - gap - 16) + 'px', 'important');
+      win.style.setProperty('max-height', winH + 'px', 'important');
+      applyFixed(win, bottomPx, right);
     } else {
       win.style.setProperty('width', '380px', 'important');
       win.style.setProperty('height', '500px', 'important');
       win.style.setProperty('max-height', 'calc(100dvh - 6rem)', 'important');
       bottom = btnHeight + gap + bottom;
+      applyFixed(win, bottom, right);
     }
 
-    applyFixed(win, bottom, right);
     win.style.setProperty('z-index', '2147483647', 'important');
   }
 
@@ -134,6 +200,8 @@
     }
 
     window.addEventListener('resize', schedulePosition);
+    document.addEventListener('focusin', schedulePosition);
+    document.addEventListener('focusout', schedulePosition);
     MOBILE_MQ.addEventListener('change', syncState);
   }
 

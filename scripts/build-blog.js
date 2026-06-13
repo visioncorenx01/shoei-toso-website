@@ -296,7 +296,7 @@ function buildListPage(articles) {
   <meta charset="UTF-8" />
   <title>ブログ・お知らせ | ${SITE_NAME}</title>
   <meta name="description" content="佐倉市の昇栄塗装のブログ・お知らせ一覧です。外壁・屋根塗装やリフォームに関する施工事例・コラム・最新情報をお届けします。" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="../images/logo.png" />
   <meta name="theme-color" content="#0070f3" />
@@ -375,7 +375,7 @@ function buildArticlePage(article) {
   <meta charset="UTF-8" />
   <title>${escapeHtml(article.title)} | ${SITE_NAME}</title>
   <meta name="description" content="${escapeHtml(descr)}" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="../images/logo.png" />
   <meta name="theme-color" content="#0070f3" />

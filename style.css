@@ -2329,11 +2329,12 @@ html.dify-chat-open body {
     right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
   }
 
+  /* 高さ・位置は dify-chat-fix.js が visualViewport に合わせて動的設定 */
   #dify-chatbot-bubble-window {
-    width: calc(100vw - 1.5rem) !important;
-    height: 85dvh !important;
-    max-width: calc(100vw - 1.5rem) !important;
-    max-height: calc(100dvh - 4.5rem) !important;
+    width: calc(100vw - 1rem) !important;
+    max-width: 23.75rem !important;
+    height: auto !important;
+    max-height: none !important;
     bottom: max(0.75rem, env(safe-area-inset-bottom, 0px) + 0.5rem) !important;
     right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
     border-radius: 0.875rem !important;
