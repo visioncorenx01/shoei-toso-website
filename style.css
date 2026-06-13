@@ -2268,45 +2268,75 @@ img {
 /* ==============================
    Dify AIチャットボット
    ============================== */
+:root {
+  --dify-navy: #1a2744;
+}
+
+html.dify-chat-open {
+  overflow: hidden;
+  padding-right: var(--dify-scroll-lock-pad, 0px);
+}
+
+html.dify-chat-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
 #dify-chatbot-bubble-button {
-  background-color: #1a2744 !important;
+  background-color: var(--dify-navy) !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 16px rgba(26, 39, 68, 0.32) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  position: fixed !important;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px) + 0.75rem) !important;
+  right: max(1.25rem, env(safe-area-inset-right, 0px) + 0.75rem) !important;
+  z-index: 2147483646 !important;
 }
 
-#dify-chatbot-bubble-button,
-#dify-chatbot-bubble-window {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+#dify-chatbot-bubble-button:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 22px rgba(26, 39, 68, 0.42) !important;
 }
 
 #dify-chatbot-bubble-window {
-  width: 24rem !important;
-  height: 40rem !important;
+  position: fixed !important;
+  bottom: calc(5rem + env(safe-area-inset-bottom, 0px)) !important;
+  right: max(1.25rem, env(safe-area-inset-right, 0px) + 0.75rem) !important;
+  width: 23.75rem !important;
+  height: 31.25rem !important;
   max-width: calc(100vw - 2rem) !important;
-  max-height: calc(100svh - 6rem) !important;
+  max-height: calc(100dvh - 6rem) !important;
+  border-radius: 1rem !important;
+  border: 1px solid rgba(26, 39, 68, 0.08) !important;
+  box-shadow:
+    0 12px 40px rgba(26, 39, 68, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.06) !important;
+  overflow: hidden !important;
+  z-index: 2147483647 !important;
+  transition: opacity 0.22s ease, transform 0.22s ease !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 @media (max-width: 480px) {
-  body.dify-chat-open-lock {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    left: 0;
-    right: 0;
-    overscroll-behavior: none;
-  }
-
-  body.dify-chat-open-lock .site-fixed-bg {
-    background-attachment: scroll;
+  #dify-chatbot-bubble-button {
+    width: 3.25rem !important;
+    height: 3.25rem !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px) + 0.5rem) !important;
+    right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
   }
 
   #dify-chatbot-bubble-window {
     width: calc(100vw - 1.5rem) !important;
-    height: calc(100svh - 5.5rem) !important;
+    height: 85dvh !important;
     max-width: calc(100vw - 1.5rem) !important;
-    max-height: calc(100svh - 5.5rem) !important;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    max-height: calc(100dvh - 4.5rem) !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px) + 0.5rem) !important;
+    right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
+    border-radius: 0.875rem !important;
     touch-action: manipulation;
   }
 }
