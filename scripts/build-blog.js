@@ -224,6 +224,13 @@ function blogFooter() {
   </footer>`;
 }
 
+// AIチャットボット（全ブログページ共通）
+function blogChatbotScripts() {
+  return `  <!-- AIチャットボット（設定: chatbot/config.js / API: functions/api/chat.js） -->
+  <script src="../chatbot/config.js"></script>
+  <script src="../chatbot/chatbot.js" defer></script>`;
+}
+
 // 問い合わせ手段（電話 / LINE / フォーム）。CTAから参照する。
 const CONTACT_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScdONJKAYkz8pzI9c9Z_BLGXxjnS9x1AO8wdSmXgufy1xrJrQ/viewform';
@@ -320,6 +327,7 @@ ${blogCta()}
   </main>
 
 ${blogFooter()}
+${blogChatbotScripts()}
 </body>
 </html>
 `;
@@ -407,6 +415,7 @@ ${blogCta()}
   </main>
 
 ${blogFooter()}
+${blogChatbotScripts()}
 </body>
 </html>
 `;

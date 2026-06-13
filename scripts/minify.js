@@ -100,13 +100,22 @@ async function run() {
     console.warn('⚠ style.css がありません。CSS はスキップします。');
   }
 
-  // JS（サービススライダー・Instagram施工事例など）をコピー
+  // JS（サービススライダー・Instagram施工事例・チャットボットなど）をコピー
   for (const name of ['script.js', 'instagram-posts.js', 'instagram-works.js']) {
     const src = path.join(root, name);
     if (fs.existsSync(src)) {
       copyFile(src, path.join(dist, name));
       console.log('✓ ' + name + ' をコピー → dist/');
     }
+  }
+
+  // チャットボット（config / chatbot.js / faq-data.json）
+  const chatbotSrc = path.join(root, 'chatbot');
+  if (fs.existsSync(chatbotSrc)) {
+    copyDir(chatbotSrc, path.join(dist, 'chatbot'));
+    console.log('✓ chatbot/ をコピー → dist/chatbot/');
+  } else {
+    console.warn('⚠ chatbot/ がありません。先に npm run extract-faq を実行してください。');
   }
 
   // その他ファイルをコピー（ブログ・SEO用）
