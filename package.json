@@ -2,9 +2,8 @@
   "name": "shoei-toso-website",
   "private": true,
   "scripts": {
-    "extract-faq": "node scripts/extract-faq-data.js",
     "build-blog": "node scripts/build-blog.js",
-    "build": "npm run extract-faq && npm run build-blog && npm run minify",
+    "build": "npm run build-blog && npm run minify",
     "minify": "node scripts/minify.js",
     "preview": "npx --yes serve . -p 3000",
     "preview:dist": "npx --yes serve dist -p 3000"

@@ -224,11 +224,15 @@ function blogFooter() {
   </footer>`;
 }
 
-// AIチャットボット（全ブログページ共通）
+// Dify AIチャットボット（chatbot/dify-embed.html を全ブログページに注入）
+const DIFY_EMBED_PATH = path.join(root, 'chatbot', 'dify-embed.html');
+
 function blogChatbotScripts() {
-  return `  <!-- AIチャットボット（設定: chatbot/config.js / API: functions/api/chat.js） -->
-  <script src="../chatbot/config.js"></script>
-  <script src="../chatbot/chatbot.js" defer></script>`;
+  if (!fs.existsSync(DIFY_EMBED_PATH)) {
+    console.warn('⚠ chatbot/dify-embed.html がありません。チャットボット埋め込みをスキップします。');
+    return '';
+  }
+  return fs.readFileSync(DIFY_EMBED_PATH, 'utf8').trim();
 }
 
 // 問い合わせ手段（電話 / LINE / フォーム）。CTAから参照する。

@@ -109,15 +109,6 @@ async function run() {
     }
   }
 
-  // チャットボット（config / chatbot.js / faq-data.json）
-  const chatbotSrc = path.join(root, 'chatbot');
-  if (fs.existsSync(chatbotSrc)) {
-    copyDir(chatbotSrc, path.join(dist, 'chatbot'));
-    console.log('✓ chatbot/ をコピー → dist/chatbot/');
-  } else {
-    console.warn('⚠ chatbot/ がありません。先に npm run extract-faq を実行してください。');
-  }
-
   // その他ファイルをコピー（ブログ・SEO用）
   const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html'];
   for (const file of copyList) {
