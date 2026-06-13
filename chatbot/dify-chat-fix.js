@@ -39,7 +39,10 @@
     el.id = CLOSE_BTN_ID;
     el.type = 'button';
     el.setAttribute('aria-label', 'チャットを閉じる');
-    el.innerHTML = '<span aria-hidden="true">&times;</span>';
+    el.innerHTML =
+      '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>' +
+      '</svg>';
     el.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -59,28 +62,10 @@
   }
 
   function positionCloseButton(closeBtn, win) {
-    var size = 44;
-    var gap = 8;
-
-    if (isMobile()) {
-      var metrics = getViewportMetrics();
-      closeBtn.style.setProperty('--dify-close-top', metrics.offsetTop + gap + 'px');
-      closeBtn.style.setProperty(
-        '--dify-close-right',
-        window.innerWidth - metrics.offsetLeft - metrics.width + safeRight() + 'px'
-      );
-    } else if (win) {
-      var rect = win.getBoundingClientRect();
-      closeBtn.style.setProperty('--dify-close-top', rect.top + gap + 'px');
-      closeBtn.style.setProperty(
-        '--dify-close-right',
-        window.innerWidth - rect.right + gap + 'px'
-      );
-    }
+    var size = 48;
+    var gap = isMobile() ? 12 : 8;
 
     setImportant(closeBtn, 'position', 'fixed');
-    setImportant(closeBtn, 'top', 'calc(var(--dify-close-top, 12px) + env(safe-area-inset-top, 0px))');
-    setImportant(closeBtn, 'right', 'calc(var(--dify-close-right, 12px) + env(safe-area-inset-right, 0px))');
     setImportant(closeBtn, 'left', 'auto');
     setImportant(closeBtn, 'bottom', 'auto');
     setImportant(closeBtn, 'display', 'flex');
@@ -93,6 +78,39 @@
     setImportant(closeBtn, 'z-index', '2147483647');
     setImportant(closeBtn, 'margin', '0');
     setImportant(closeBtn, 'transform', 'none');
+
+    if (isMobile()) {
+      var metrics = getViewportMetrics();
+      var vvRightOffset = Math.max(0, window.innerWidth - metrics.offsetLeft - metrics.width);
+      var maxRight = window.innerWidth - metrics.offsetLeft - size;
+
+      setImportant(
+        closeBtn,
+        'top',
+        'calc(' +
+          metrics.offsetTop +
+          'px + max(' +
+          gap +
+          'px, env(safe-area-inset-top, 0px)))'
+      );
+      setImportant(
+        closeBtn,
+        'right',
+        'min(' +
+          maxRight +
+          'px, calc(' +
+          vvRightOffset +
+          'px + max(' +
+          gap +
+          'px, env(safe-area-inset-right, 0px))))'
+      );
+    } else if (win) {
+      var rect = win.getBoundingClientRect();
+      var rightOffset = Math.max(gap, window.innerWidth - rect.right + gap);
+
+      setImportant(closeBtn, 'top', rect.top + gap + 'px');
+      setImportant(closeBtn, 'right', rightOffset + 'px');
+    }
   }
 
   function showCloseButton(win) {

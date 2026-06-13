@@ -2294,17 +2294,15 @@ html.dify-chat-open #dify-chatbot-bubble-button {
   align-items: center;
   justify-content: center;
   position: fixed;
-  width: 2.75rem;
-  height: 2.75rem;
-  min-width: 44px;
-  min-height: 44px;
+  width: 3rem;
+  height: 3rem;
+  min-width: 48px;
+  min-height: 48px;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: var(--dify-navy);
+  background-color: #1a2744;
   color: #fff;
-  font-size: 1.75rem;
-  line-height: 1;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(26, 39, 68, 0.32);
   z-index: 2147483647;
@@ -2313,9 +2311,11 @@ html.dify-chat-open #dify-chatbot-bubble-button {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#dify-chat-custom-close span {
+#dify-chat-custom-close svg {
   display: block;
-  margin-top: -2px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 #dify-chat-custom-close:hover {
