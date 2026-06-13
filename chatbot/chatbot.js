@@ -216,7 +216,7 @@
       'aria-expanded': 'false',
     });
     toggleBtn.innerHTML =
-      '<svg class="chatbot-toggle-icon chatbot-toggle-icon-open" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+      '<svg class="chatbot-toggle-icon chatbot-toggle-icon-open" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4" y="5" width="16" height="13" rx="2.5"/><circle cx="9" cy="11" r="1.25" fill="currentColor" stroke="none"/><circle cx="15" cy="11" r="1.25" fill="currentColor" stroke="none"/><path d="M8.5 15h7"/></svg>' +
       '<svg class="chatbot-toggle-icon chatbot-toggle-icon-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
 
     panel = createEl('div', 'chatbot-panel');
