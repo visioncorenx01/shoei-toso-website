@@ -1,5 +1,5 @@
 /**
- * Dify チャットボット — ビューポート固定・スクロールロック・キーボード対応（PC/モバイル共通）
+ * Dify チャットボット — visualViewport 基準レイアウト（iOS Safari キーボード対応）
  */
 (function () {
   'use strict';
@@ -7,12 +7,12 @@
   var LOCK_CLASS = 'dify-chat-open';
   var BTN_ID = 'dify-chatbot-bubble-button';
   var WIN_ID = 'dify-chatbot-bubble-window';
-  var MOBILE_MQ = window.matchMedia('(max-width: 480px)');
+  var MOBILE_MQ = window.matchMedia('(max-width: 768px)');
 
-  var scrollY = 0;
   var chatObserver = null;
   var viewportBound = false;
   var rafId = 0;
+  var applying = false;
 
   function isMobile() {
     return MOBILE_MQ.matches;
@@ -39,26 +39,14 @@
 
   function lockScroll() {
     if (document.documentElement.classList.contains(LOCK_CLASS)) return;
-    scrollY = window.scrollY || window.pageYOffset || 0;
     document.documentElement.classList.add(LOCK_CLASS);
     document.documentElement.style.setProperty('--dify-scroll-lock-pad', scrollbarWidth() + 'px');
-    document.body.style.position = 'fixed';
-    document.body.style.top = -scrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
   }
 
   function unlockScroll() {
     if (!document.documentElement.classList.contains(LOCK_CLASS)) return;
     document.documentElement.classList.remove(LOCK_CLASS);
     document.documentElement.style.removeProperty('--dify-scroll-lock-pad');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollY);
   }
 
   function safeBottom() {
@@ -77,7 +65,6 @@
         height: window.innerHeight,
         offsetTop: 0,
         offsetLeft: 0,
-        bottom: window.innerHeight,
       };
     }
     return {
@@ -85,109 +72,139 @@
       height: vv.height,
       offsetTop: vv.offsetTop,
       offsetLeft: vv.offsetLeft,
-      bottom: vv.offsetTop + vv.height,
     };
   }
 
-  /** レイアウト下端と visualViewport 下端の差が大きい = キーボード表示中 */
-  function isKeyboardOpen(metrics) {
-    return window.innerHeight - metrics.bottom > 50;
+  function setImportant(el, prop, value) {
+    el.style.setProperty(prop, value, 'important');
   }
 
-  function applyFixed(el, bottomPx, rightPx) {
-    el.style.setProperty('position', 'fixed', 'important');
-    el.style.setProperty('left', 'auto', 'important');
-    el.style.setProperty('top', 'auto', 'important');
-    el.style.setProperty('bottom', bottomPx + 'px', 'important');
-    el.style.setProperty('right', rightPx + 'px', 'important');
-    el.style.setProperty('margin', '0', 'important');
-    el.style.setProperty('transform', 'none', 'important');
-  }
-
-  function positionButton() {
-    var btn = getButton();
-    if (!btn) return;
-
-    var bottom = safeBottom();
-    var right = safeRight();
-
-    if (isMobile() && isChatOpen()) {
-      var metrics = getViewportMetrics();
-      if (isKeyboardOpen(metrics)) {
-        bottom = window.innerHeight - metrics.bottom + safeBottom();
-      }
-      right = Math.max(right, window.innerWidth - metrics.offsetLeft - metrics.width + right);
+  function clearLayoutProps(el, props) {
+    for (var i = 0; i < props.length; i += 1) {
+      el.style.removeProperty(props[i]);
     }
-
-    applyFixed(btn, bottom, right);
-    btn.style.setProperty('z-index', '2147483646', 'important');
   }
 
-  function positionWindow() {
-    var win = getWindow();
-    if (!win || !isChatOpen()) return;
+  function hideButton(btn) {
+    setImportant(btn, 'display', 'none');
+    setImportant(btn, 'pointer-events', 'none');
+    setImportant(btn, 'visibility', 'hidden');
+  }
 
+  function positionClosedButton(btn) {
     var metrics = getViewportMetrics();
     var bottom = safeBottom();
     var right = safeRight();
-    var btn = getButton();
-    var btnHeight = btn ? btn.offsetHeight || 56 : 56;
-    var gap = 12;
-    var topMargin = 8;
+    var bottomPx = window.innerHeight - metrics.offsetTop - metrics.height + bottom;
+    var rightPx = window.innerWidth - metrics.offsetLeft - metrics.width + right;
 
-    if (isMobile()) {
-      right = Math.max(right, window.innerWidth - metrics.offsetLeft - metrics.width + right);
-
-      var winW = Math.min(Math.floor(window.innerWidth - 16), 380);
-      win.style.setProperty('width', winW + 'px', 'important');
-      win.style.setProperty('max-width', winW + 'px', 'important');
-
-      var bottomPx;
-      var winH;
-
-      if (isKeyboardOpen(metrics)) {
-        // キーボード表示: 窓の下端を visualViewport 下端（キーボード直上）に合わせる
-        bottomPx = window.innerHeight - metrics.bottom + bottom;
-        winH = Math.floor(metrics.height - topMargin - bottom);
-      } else {
-        // 通常: バブルボタンの上に配置
-        bottomPx = btnHeight + gap + bottom;
-        winH = Math.floor(
-          Math.min(metrics.height * 0.85, metrics.height - btnHeight - gap - topMargin - bottom)
-        );
-      }
-
-      winH = Math.max(winH, 200);
-      win.style.setProperty('height', winH + 'px', 'important');
-      win.style.setProperty('max-height', winH + 'px', 'important');
-      applyFixed(win, bottomPx, right);
-    } else {
-      win.style.setProperty('width', '380px', 'important');
-      win.style.setProperty('height', '500px', 'important');
-      win.style.setProperty('max-height', 'calc(100dvh - 6rem)', 'important');
-      bottom = btnHeight + gap + bottom;
-      applyFixed(win, bottom, right);
-    }
-
-    win.style.setProperty('z-index', '2147483647', 'important');
+    setImportant(btn, 'display', 'flex');
+    setImportant(btn, 'visibility', 'visible');
+    setImportant(btn, 'pointer-events', 'auto');
+    setImportant(btn, 'position', 'fixed');
+    setImportant(btn, 'top', 'auto');
+    setImportant(btn, 'left', 'auto');
+    setImportant(btn, 'bottom', bottomPx + 'px');
+    setImportant(btn, 'right', rightPx + 'px');
+    setImportant(btn, 'width', isMobile() ? '3.25rem' : '3.5rem');
+    setImportant(btn, 'height', isMobile() ? '3.25rem' : '3.5rem');
+    setImportant(btn, 'margin', '0');
+    setImportant(btn, 'transform', 'none');
+    setImportant(btn, 'z-index', '2147483646');
   }
 
-  function schedulePosition() {
+  function applyMobileOpenWindow(win) {
+    var metrics = getViewportMetrics();
+
+    setImportant(win, 'position', 'fixed');
+    setImportant(win, 'top', metrics.offsetTop + 'px');
+    setImportant(win, 'left', metrics.offsetLeft + 'px');
+    setImportant(win, 'width', metrics.width + 'px');
+    setImportant(win, 'height', metrics.height + 'px');
+    setImportant(win, 'bottom', 'auto');
+    setImportant(win, 'right', 'auto');
+    setImportant(win, 'max-width', 'none');
+    setImportant(win, 'max-height', 'none');
+    setImportant(win, 'margin', '0');
+    setImportant(win, 'transform', 'none');
+    setImportant(win, 'border-radius', '0');
+    setImportant(win, 'z-index', '2147483647');
+  }
+
+  function applyDesktopOpenWindow(win) {
+    var bottom = safeBottom();
+    var right = safeRight();
+    var bubbleSize = 56;
+    var gap = 12;
+
+    setImportant(win, 'position', 'fixed');
+    setImportant(win, 'top', 'auto');
+    setImportant(win, 'left', 'auto');
+    setImportant(win, 'bottom', bubbleSize + gap + bottom + 'px');
+    setImportant(win, 'right', right + 'px');
+    setImportant(win, 'width', '380px');
+    setImportant(win, 'height', '500px');
+    setImportant(win, 'max-width', 'calc(100vw - 2rem)');
+    setImportant(win, 'max-height', 'calc(100dvh - 6rem)');
+    setImportant(win, 'margin', '0');
+    setImportant(win, 'transform', 'none');
+    setImportant(win, 'border-radius', '1rem');
+    setImportant(win, 'z-index', '2147483647');
+  }
+
+  function applyLayout() {
+    var btn = getButton();
+    var win = getWindow();
+    var open = isChatOpen();
+
+    applying = true;
+    try {
+      if (open) {
+        lockScroll();
+        if (btn) hideButton(btn);
+        if (win) {
+          if (isMobile()) {
+            applyMobileOpenWindow(win);
+          } else {
+            applyDesktopOpenWindow(win);
+          }
+        }
+      } else {
+        unlockScroll();
+        if (btn) positionClosedButton(btn);
+        if (win) {
+          clearLayoutProps(win, [
+            'position',
+            'top',
+            'left',
+            'bottom',
+            'right',
+            'width',
+            'height',
+            'max-width',
+            'max-height',
+            'margin',
+            'transform',
+            'border-radius',
+            'z-index',
+          ]);
+        }
+      }
+    } finally {
+      applying = false;
+    }
+  }
+
+  function scheduleLayout() {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(function () {
       rafId = 0;
-      positionButton();
-      positionWindow();
+      applyLayout();
     });
   }
 
   function syncState() {
-    if (isChatOpen()) {
-      lockScroll();
-    } else {
-      unlockScroll();
-    }
-    schedulePosition();
+    scheduleLayout();
   }
 
   function bindViewport() {
@@ -195,13 +212,14 @@
     viewportBound = true;
 
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', schedulePosition);
-      window.visualViewport.addEventListener('scroll', schedulePosition);
+      window.visualViewport.addEventListener('resize', scheduleLayout);
+      window.visualViewport.addEventListener('scroll', scheduleLayout);
     }
 
-    window.addEventListener('resize', schedulePosition);
-    document.addEventListener('focusin', schedulePosition);
-    document.addEventListener('focusout', schedulePosition);
+    window.addEventListener('resize', scheduleLayout);
+    window.addEventListener('orientationchange', scheduleLayout);
+    document.addEventListener('focusin', scheduleLayout);
+    document.addEventListener('focusout', scheduleLayout);
     MOBILE_MQ.addEventListener('change', syncState);
   }
 
@@ -210,7 +228,10 @@
     if (!win) return false;
 
     if (chatObserver) chatObserver.disconnect();
-    chatObserver = new MutationObserver(syncState);
+    chatObserver = new MutationObserver(function () {
+      if (applying) return;
+      scheduleLayout();
+    });
     chatObserver.observe(win, {
       attributes: true,
       attributeFilter: ['style', 'class'],
@@ -220,16 +241,10 @@
   }
 
   function waitForChatbot() {
-    if (observeChatWindow()) {
-      positionButton();
-      return;
-    }
+    if (observeChatWindow()) return;
 
     var bodyObserver = new MutationObserver(function () {
-      if (observeChatWindow()) {
-        bodyObserver.disconnect();
-        positionButton();
-      }
+      if (observeChatWindow()) bodyObserver.disconnect();
     });
     bodyObserver.observe(document.body, { childList: true, subtree: true });
   }
@@ -240,11 +255,8 @@
       if (!document.documentElement.classList.contains(LOCK_CLASS)) return;
 
       var win = getWindow();
-      var btn = getButton();
       var target = e.target;
-
       if (win && (target === win || win.contains(target))) return;
-      if (btn && (target === btn || btn.contains(target))) return;
 
       e.preventDefault();
     },

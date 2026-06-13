@@ -2283,6 +2283,12 @@ html.dify-chat-open body {
   touch-action: none;
 }
 
+html.dify-chat-open #dify-chatbot-bubble-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 #dify-chatbot-bubble-button {
   background-color: var(--dify-navy) !important;
   width: 3.5rem !important;
@@ -2321,23 +2327,18 @@ html.dify-chat-open body {
   overscroll-behavior: contain;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   #dify-chatbot-bubble-button {
     width: 3.25rem !important;
     height: 3.25rem !important;
-    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px) + 0.5rem) !important;
-    right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
   }
 
-  /* 高さ・位置は dify-chat-fix.js が visualViewport に合わせて動的設定 */
+  /* 位置・サイズは dify-chat-fix.js が visualViewport 基準で制御 */
   #dify-chatbot-bubble-window {
-    width: calc(100vw - 1rem) !important;
-    max-width: 23.75rem !important;
-    height: auto !important;
-    max-height: none !important;
-    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px) + 0.5rem) !important;
-    right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem) !important;
-    border-radius: 0.875rem !important;
     touch-action: manipulation;
+  }
+
+  html.dify-chat-open #dify-chatbot-bubble-window {
+    border-radius: 0 !important;
   }
 }
