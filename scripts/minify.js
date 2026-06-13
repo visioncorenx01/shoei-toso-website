@@ -109,6 +109,12 @@ async function run() {
     }
   }
 
+  const chatbotSrc = path.join(root, 'chatbot');
+  if (fs.existsSync(chatbotSrc)) {
+    copyDir(chatbotSrc, path.join(dist, 'chatbot'));
+    console.log('✓ chatbot/ をコピー → dist/chatbot/');
+  }
+
   // その他ファイルをコピー（ブログ・SEO用）
   const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html'];
   for (const file of copyList) {
