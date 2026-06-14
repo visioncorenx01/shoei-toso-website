@@ -14,8 +14,14 @@
  *
  * 重要:
  *   - 環境変数が未設定でも、取得に失敗しても、ビルドは落ちません。
- *     その場合はローカルの blog/blog-data.json をフォールバックに使い、
- *     それも無ければ「記事0件」として空の一覧を生成します。
+ *   - microCMS 取得に成功した場合も blog/blog-data.json は常に読み込み、
+ *     次のルールでマージします（本番 Cloudflare Pages でもフォールバックが活きる）:
+ *       1) 同一 id → microCMS を優先（フォールバックは無視）
+ *       2) フォールバック id が microCMS に無く、タイトルが一致 → microCMS 本文で
+ *          フォールバック id の HTML を追加生成（canonical は microCMS 側 id）
+ *       3) 上記以外 → microCMS に無いフォールバック記事を一覧・サイトマップに追加
+ *          （`"publishFallback": true` を付けた記事のみ。未指定はローカル開発用）
+ *     microCMS 未設定 / 取得失敗時はフォールバックのみ使用します。
  *
  * 想定する microCMS のスキーマ（API ID: blogs）:
  *   - title               : テキスト
@@ -163,11 +169,29 @@ function normalizeArticle(item, index, idPrefix) {
     date: item.publishedAt || item.createdAt || item.date || '',
     affiliateHtml,
     showAffiliateNotice,
+    publishFallback: item.publishFallback === true,
   };
 }
 
 function shouldShowAffiliateNotice(article) {
   return article.showAffiliateNotice || Boolean(String(article.affiliateHtml || '').trim());
+}
+
+// タイトル一致判定（空白・全角スペースを正規化）
+function normalizeTitle(title) {
+  return String(title || '')
+    .replace(/\s+/g, '')
+    .trim();
+}
+
+function articleTimestamp(article) {
+  const { iso } = formatDate(article.date);
+  if (iso) return new Date(iso).getTime();
+  return 0;
+}
+
+function sortByDateDesc(articles) {
+  return [...articles].sort((a, b) => articleTimestamp(b) - articleTimestamp(a));
 }
 
 /* ----------------------------- 記事の取得 ----------------------------- */
@@ -217,6 +241,55 @@ function loadFallback() {
     console.warn('⚠ blog-data.json の読み込みに失敗しました。記事0件として扱います。:', err.message || err);
     return [];
   }
+}
+
+// microCMS と blog-data.json をマージする。
+// 戻り値: { articles: 一覧・トップ・サイトマップ用, aliases: エイリアス HTML のみ生成 }
+function mergeArticles(cmsArticles, fallbackArticles) {
+  if (cmsArticles == null) {
+    return { articles: sortByDateDesc(fallbackArticles), aliases: [] };
+  }
+
+  const cmsById = new Map(cmsArticles.map((a) => [a.id, a]));
+  const cmsByTitle = new Map();
+  for (const article of cmsArticles) {
+    const key = normalizeTitle(article.title);
+    if (key && !cmsByTitle.has(key)) cmsByTitle.set(key, article);
+  }
+
+  const articles = [...cmsArticles];
+  const aliases = [];
+
+  for (const fb of fallbackArticles) {
+    if (cmsById.has(fb.id)) {
+      console.log(`  · フォールバック "${fb.id}" は microCMS と同一 ID のため microCMS を優先`);
+      continue;
+    }
+
+    const titleMatch = cmsByTitle.get(normalizeTitle(fb.title));
+    if (titleMatch) {
+      aliases.push({
+        ...titleMatch,
+        id: fb.id,
+        canonicalId: titleMatch.id,
+        isAlias: true,
+      });
+      console.log(
+        `  · フォールバック "${fb.id}" を microCMS "${titleMatch.id}" のエイリアスとして生成（同一タイトル）`,
+      );
+      continue;
+    }
+
+    if (!fb.publishFallback) {
+      console.log(`  · フォールバック "${fb.id}" は publishFallback 未指定のためスキップ（ローカル開発用）`);
+      continue;
+    }
+
+    articles.push(fb);
+    console.log(`  · フォールバック "${fb.id}" を microCMS に無い記事として追加`);
+  }
+
+  return { articles: sortByDateDesc(articles), aliases };
 }
 
 /* ----------------------------- HTML パーツ ----------------------------- */
@@ -386,6 +459,9 @@ function buildArticlePage(article) {
   const { display, iso } = formatDate(article.date);
   const descr = truncate(stripHtml(article.contentHtml), 110) || `${SITE_NAME}のブログ記事です。`;
   const pageUrl = `${SITE_URL}/blog/${encodeURIComponent(article.id)}.html`;
+  const canonicalUrl = article.canonicalId
+    ? `${SITE_URL}/blog/${encodeURIComponent(article.canonicalId)}.html`
+    : pageUrl;
   const ogImage = article.eyecatchUrl || `${SITE_URL}/images/og-image.png`;
   const category = article.category
     ? `<span class="blog-category">${escapeHtml(article.category)}</span>`
@@ -437,7 +513,7 @@ function buildArticlePage(article) {
 ${JSON.stringify(jsonLd, null, 2)}
   </script>
   <link rel="stylesheet" href="../style.css" />
-  <link rel="canonical" href="${pageUrl}" />
+  <link rel="canonical" href="${canonicalUrl}" />
 </head>
 <body>
   <div class="site-fixed-bg" aria-hidden="true"></div>
@@ -469,6 +545,9 @@ ${blogChatbotScripts()}
 </html>
 `;
   fs.writeFileSync(path.join(blogDir, `${article.id}.html`), html, 'utf8');
+  if (article.isAlias) {
+    console.log(`  · blog/${article.id}.html（→ ${article.canonicalId} へのエイリアス）`);
+  }
 }
 
 // トップページの <!-- BLOG_LATEST:START --> 〜 END の間を最新記事カードで差し替え
@@ -570,9 +649,11 @@ ${body}
 /* ----------------------------- メイン ----------------------------- */
 
 async function run() {
-  let articles = await fetchFromMicroCMS();
-  if (articles == null) {
-    articles = loadFallback();
+  const fallback = loadFallback();
+  const cmsArticles = await fetchFromMicroCMS();
+  const { articles, aliases } = mergeArticles(cmsArticles, fallback);
+  if (cmsArticles != null && fallback.length) {
+    console.log('✓ microCMS と blog-data.json をマージしました。');
   }
 
   cleanBlogDir();
@@ -580,13 +661,19 @@ async function run() {
   for (const article of articles) {
     buildArticlePage(article);
   }
-  if (articles.length) {
-    console.log(`✓ blog/<id>.html を ${articles.length} 件生成しました。`);
+  for (const alias of aliases) {
+    buildArticlePage(alias);
+  }
+  const pageCount = articles.length + aliases.length;
+  if (pageCount) {
+    console.log(
+      `✓ blog/<id>.html を ${pageCount} 件生成しました（記事 ${articles.length} 件 + エイリアス ${aliases.length} 件）。`,
+    );
   }
   injectHomepage(articles);
   buildSitemap(articles);
 
-  console.log(`\n完了。記事 ${articles.length} 件でブログを生成しました。`);
+  console.log(`\n完了。一覧 ${articles.length} 件、エイリアス ${aliases.length} 件でブログを生成しました。`);
 }
 
 run().catch((err) => {
