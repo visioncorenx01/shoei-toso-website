@@ -18,11 +18,32 @@
  *     それも無ければ「記事0件」として空の一覧を生成します。
  *
  * 想定する microCMS のスキーマ（API ID: blogs）:
- *   - title    : テキスト
- *   - content  : リッチエディタ（HTMLがそのまま入る）
- *   - category : セレクト（お知らせ / 施工事例 / コラム など）
- *   - eyecatch : 画像（任意）
- *   - 公開日   : microCMS 標準の publishedAt を使用
+ *   - title               : テキスト
+ *   - content             : リッチエディタ（HTMLがそのまま入る）
+ *   - category            : セレクト（お知らせ / 施工事例 / コラム など）
+ *   - eyecatch            : 画像（任意）
+ *   - affiliateHtml       : リッチエディタ（任意）— A8.net のバナー・リンク HTML
+ *   - showAffiliateNotice : 真偽値（任意）— PR 表記を表示するか
+ *   - 公開日              : microCMS 標準の publishedAt を使用
+ *
+ * ── microCMS 側の設定手順（A8.net アフィリエイト） ──
+ *
+ * 1. API「blogs」のスキーマに以下のフィールドを追加する
+ *    - affiliateHtml（フィールドID: affiliateHtml）
+ *      種類: リッチエディタ / 必須: いいえ
+ *    - showAffiliateNotice（フィールドID: showAffiliateNotice）
+ *      種類: 真偽値 / 必須: いいえ
+ *
+ * 2. A8.net 管理画面でリンク・バナーを取得する
+ *    - テキストリンク: A8 が発行する <a href="...">...</a> をコピー
+ *    - バナー画像: <a href="..."><img src="..." alt="..." /></a> をコピー
+ *    - affiliateHtml リッチエディタに HTML を貼り付ける（ソース編集モード推奨）
+ *    - 記事本文（content）内に直接リンクを置く場合も showAffiliateNotice を ON にする
+ *
+ * 3. 表示ルール（ビルド時）
+ *    - affiliateHtml に内容がある → 記事下部に「おすすめの商品・サービス」枠を表示
+ *    - affiliateHtml がある、または showAffiliateNotice が true → PR 表記を表示
+ *    - どちらも空/false → 既存記事と同じ見た目（枠・PR 表記なし）
  */
 
 const fs = require('fs');
@@ -117,6 +138,37 @@ function normalizeCategory(category) {
   return '';
 }
 
+// microCMS / blog-data.json どちらから来ても同じ形に正規化する
+function normalizeArticle(item, index, idPrefix) {
+  let contentHtml = item.contentHtml || item.content || '';
+  if (!contentHtml && item.text) {
+    contentHtml = String(item.text)
+      .split(/\n{2,}/)
+      .map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br />')}</p>`)
+      .join('\n');
+  }
+
+  const affiliateHtml = String(item.affiliateHtml || '').trim();
+  const showAffiliateNotice = item.showAffiliateNotice === true;
+
+  return {
+    id: item.id || `${idPrefix}-${index + 1}`,
+    title: item.title || '（タイトルなし）',
+    contentHtml,
+    category: normalizeCategory(item.category),
+    eyecatchUrl: item.eyecatch && item.eyecatch.url ? item.eyecatch.url : item.eyecatchUrl || '',
+    eyecatchW: item.eyecatch && item.eyecatch.width ? item.eyecatch.width : '',
+    eyecatchH: item.eyecatch && item.eyecatch.height ? item.eyecatch.height : '',
+    date: item.publishedAt || item.createdAt || item.date || '',
+    affiliateHtml,
+    showAffiliateNotice,
+  };
+}
+
+function shouldShowAffiliateNotice(article) {
+  return article.showAffiliateNotice || Boolean(String(article.affiliateHtml || '').trim());
+}
+
 /* ----------------------------- 記事の取得 ----------------------------- */
 
 // microCMS から記事を取得（失敗時は null を返す＝フォールバックへ）
@@ -141,16 +193,7 @@ async function fetchFromMicroCMS() {
     const data = await res.json();
     const contents = Array.isArray(data.contents) ? data.contents : [];
     console.log(`✓ microCMS から ${contents.length} 件の記事を取得しました。`);
-    return contents.map((item, i) => ({
-      id: item.id || `post-${i + 1}`,
-      title: item.title || '（タイトルなし）',
-      contentHtml: item.content || '',
-      category: normalizeCategory(item.category),
-      eyecatchUrl: item.eyecatch && item.eyecatch.url ? item.eyecatch.url : '',
-      eyecatchW: item.eyecatch && item.eyecatch.width ? item.eyecatch.width : '',
-      eyecatchH: item.eyecatch && item.eyecatch.height ? item.eyecatch.height : '',
-      date: item.publishedAt || item.createdAt || '',
-    }));
+    return contents.map((item, i) => normalizeArticle(item, i, 'post'));
   } catch (err) {
     console.warn('⚠ microCMS 取得中にエラーが発生しました。フォールバックを使用します。:', err.message || err);
     return null;
@@ -168,26 +211,7 @@ function loadFallback() {
     const arr = JSON.parse(raw);
     if (!Array.isArray(arr)) return [];
     console.log(`✓ blog-data.json から ${arr.length} 件の記事を読み込みました（フォールバック）。`);
-    return arr.map((item, i) => {
-      // 本文: HTML(content) があればそれを、無ければ text を段落化
-      let contentHtml = item.content || item.contentHtml || '';
-      if (!contentHtml && item.text) {
-        contentHtml = String(item.text)
-          .split(/\n{2,}/)
-          .map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br />')}</p>`)
-          .join('\n');
-      }
-      return {
-        id: item.id || `local-${i + 1}`,
-        title: item.title || '（タイトルなし）',
-        contentHtml,
-        category: normalizeCategory(item.category),
-        eyecatchUrl: item.eyecatch && item.eyecatch.url ? item.eyecatch.url : item.eyecatchUrl || '',
-        eyecatchW: '',
-        eyecatchH: '',
-        date: item.publishedAt || item.date || '',
-      };
-    });
+    return arr.map((item, i) => normalizeArticle(item, i, 'local'));
   } catch (err) {
     console.warn('⚠ blog-data.json の読み込みに失敗しました。記事0件として扱います。:', err.message || err);
     return [];
@@ -249,6 +273,24 @@ const ICON_LINE =
   '<svg class="blog-cta-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.69 2 10.23c0 4.07 3.55 7.48 8.35 8.13.32.07.77.21.88.49.1.25.06.65.03.9l-.14.85c-.04.25-.2.98.86.53s5.7-3.36 7.78-5.75h0c1.43-1.57 2.24-3.17 2.24-5.15C22 5.69 17.52 2 12 2ZM7.9 12.86H6.06a.49.49 0 0 1-.49-.48V8.7a.49.49 0 0 1 .98 0v3.19H7.9a.49.49 0 0 1 0 .97Zm1.92-.48a.49.49 0 0 1-.98 0V8.7a.49.49 0 0 1 .98 0v3.68Zm4.25 0a.49.49 0 0 1-.33.46h-.16a.48.48 0 0 1-.39-.2l-1.88-2.56v2.3a.49.49 0 0 1-.98 0V8.7a.49.49 0 0 1 .33-.46h.16c.15 0 .3.08.39.2l1.88 2.56V8.7a.49.49 0 0 1 .98 0v3.68Zm3.04-2.32a.49.49 0 0 1 0 .97h-1.35v.87h1.35a.49.49 0 0 1 0 .97h-1.84a.49.49 0 0 1-.49-.48V8.7a.49.49 0 0 1 .49-.48h1.84a.49.49 0 0 1 0 .97h-1.35v.87h1.35Z"/></svg>';
 const ICON_FORM =
   '<svg class="blog-cta-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+
+// アフィリエイト記事の PR 表記（A8.net）。affiliateHtml があるか showAffiliateNotice が true のときのみ
+function blogPrNotice(article) {
+  if (!shouldShowAffiliateNotice(article)) return '';
+  return `        <p class="blog-pr-notice">※当ページにはアフィリエイト広告（A8.net）が含まれています。リンク先の商品・サービスを紹介し、成果報酬を得る場合があります。</p>`;
+}
+
+// 記事下部の A8 おすすめ枠（affiliateHtml が空なら非表示）
+function blogAffiliateBlock(article) {
+  const html = String(article.affiliateHtml || '').trim();
+  if (!html) return '';
+  return `        <aside class="blog-affiliate-block">
+          <h2 class="blog-affiliate-block-title">おすすめの商品・サービス</h2>
+          <div class="blog-affiliate-block-body">
+${html}
+          </div>
+        </aside>`;
+}
 
 // 記事を読み終えた人向けの問い合わせCTA（記事末尾・一覧末尾で共通利用）
 function blogCta() {
@@ -410,6 +452,8 @@ ${eyecatch}          <div class="blog-detail-text">
 ${article.contentHtml || '<p>本文がありません。</p>'}
           </div>
         </article>
+${blogPrNotice(article)}
+${blogAffiliateBlock(article)}
 ${blogCta()}
         <p class="blog-more-actions">
           <a href="index.html" class="btn-instagram-more">ブログ一覧に戻る</a>

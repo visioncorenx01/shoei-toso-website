@@ -1508,6 +1508,58 @@ img {
   box-shadow: 0 10px 24px rgba(6, 199, 85, 0.4);
 }
 
+/* アフィリエイト PR 表記（A8.net） */
+.blog-pr-notice {
+  max-width: 760px;
+  margin: 28px auto 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #666;
+  background-color: #f0f2f5;
+  border-left: 3px solid #1a2744;
+  border-radius: 0 6px 6px 0;
+}
+
+/* 記事下部の A8 おすすめ枠 */
+.blog-affiliate-block {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 24px 28px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  border: 1px solid rgba(26, 39, 68, 0.15);
+  box-shadow: 0 4px 16px rgba(26, 39, 68, 0.06);
+}
+
+.blog-affiliate-block-title {
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2744;
+  border-bottom: 2px solid rgba(26, 39, 68, 0.12);
+}
+
+.blog-affiliate-block-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+}
+
+.blog-affiliate-block-body a {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.blog-affiliate-block-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
 
 /* レスポンシブ対応 */
 /* タブレットサイズ（768px以下） */
@@ -1791,6 +1843,14 @@ img {
 
   .blog-detail-item {
     padding: 24px 18px;
+  }
+
+  .blog-affiliate-block {
+    padding: 20px 18px;
+  }
+
+  .blog-affiliate-block-title {
+    font-size: 16px;
   }
 
   .blog-cta {
