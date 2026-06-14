@@ -38,6 +38,7 @@
  *    - テキストリンク: A8 が発行する <a href="...">...</a> をコピー
  *    - バナー画像: <a href="..."><img src="..." alt="..." /></a> をコピー
  *    - affiliateHtml リッチエディタに HTML を貼り付ける（ソース編集モード推奨）
+ *      例: <a href="https://px.a8.net/svt/ejp?a8mat=..." rel="nofollow"><img ... alt="広告"></a><img width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=..." alt="">
  *    - 記事本文（content）内に直接リンクを置く場合も showAffiliateNotice を ON にする
  *
  * 3. 表示ルール（ビルド時）
