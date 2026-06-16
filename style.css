@@ -1286,8 +1286,10 @@ img {
 }
 
 .blog-detail-text img {
-  border-radius: 8px;
-  margin: 12px 0;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
 }
 
 .blog-detail-text a {
@@ -1311,10 +1313,16 @@ img {
 
 .blog-detail-eyecatch {
   margin: 0 0 20px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #eaeaea;
 }
 
 .blog-detail-eyecatch img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 12px;
 }
 

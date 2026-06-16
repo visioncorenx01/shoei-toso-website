@@ -379,14 +379,27 @@ function blogCta() {
         </aside>`;
 }
 
+// カード／詳細のアイキャッチ（未設定時はグレー背景のプレースホルダ div）
+function blogCardImg(article) {
+  if (article.eyecatchUrl) {
+    return `      <div class="blog-card-img"><img src="${escapeHtml(article.eyecatchUrl)}" alt="${escapeHtml(article.title)}" loading="lazy" /></div>\n`;
+  }
+  return `      <div class="blog-card-img" aria-hidden="true"></div>\n`;
+}
+
+function blogDetailEyecatch(article) {
+  if (article.eyecatchUrl) {
+    return `        <div class="blog-detail-eyecatch"><img src="${escapeHtml(article.eyecatchUrl)}" alt="${escapeHtml(article.title)}" /></div>\n`;
+  }
+  return `        <div class="blog-detail-eyecatch" aria-hidden="true"></div>\n`;
+}
+
 // 一覧カード（トップページ用 / 一覧ページ用 共通）。base は記事へのパス接頭辞。
 function articleCard(article, base) {
   const { display, iso } = formatDate(article.date);
   const excerpt = truncate(stripHtml(article.contentHtml), 80);
   const href = `${base}${encodeURIComponent(article.id)}.html`;
-  const eyecatch = article.eyecatchUrl
-    ? `      <div class="blog-card-img"><img src="${escapeHtml(article.eyecatchUrl)}" alt="${escapeHtml(article.title)}" loading="lazy" /></div>\n`
-    : '';
+  const eyecatch = blogCardImg(article);
   const category = article.category
     ? `<span class="blog-category">${escapeHtml(article.category)}</span>`
     : '';
@@ -466,9 +479,7 @@ function buildArticlePage(article) {
   const category = article.category
     ? `<span class="blog-category">${escapeHtml(article.category)}</span>`
     : '';
-  const eyecatch = article.eyecatchUrl
-    ? `        <div class="blog-detail-eyecatch"><img src="${escapeHtml(article.eyecatchUrl)}" alt="${escapeHtml(article.title)}" /></div>\n`
-    : '';
+  const eyecatch = blogDetailEyecatch(article);
 
   const jsonLd = {
     '@context': 'https://schema.org',
