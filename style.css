@@ -392,16 +392,17 @@ img {
   box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
 }
 
-/* 写真診断CTA（サービス直前） */
-.photo-diagnosis-cta {
+/* 写真診断CTA（サービス直前）— 他セクションと同様の薄い白背景 */
+section.photo-diagnosis-cta {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 36px 0;
+  background-color: var(--section-bg-gray-translucent);
 }
 
-.photo-diagnosis-cta > .container {
+section.photo-diagnosis-cta > .container {
   width: 100%;
   max-width: 640px;
   display: flex;
@@ -411,7 +412,7 @@ img {
   text-align: center;
 }
 
-.photo-diagnosis-cta-title {
+section.photo-diagnosis-cta .photo-diagnosis-cta-title {
   margin: 0;
   width: 100%;
   text-align: center;
@@ -422,7 +423,7 @@ img {
   color: #1a1a1a;
 }
 
-.photo-diagnosis-cta-lead {
+section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
   margin: 0;
   width: 100%;
   text-align: center;
@@ -432,14 +433,14 @@ img {
   line-height: 1.7;
 }
 
-.photo-diagnosis-cta-action {
+section.photo-diagnosis-cta .photo-diagnosis-cta-action {
   width: 100%;
   display: flex;
   justify-content: center;
   margin: 4px 0 2px;
 }
 
-.photo-diagnosis-cta a.btn-photo-diagnosis {
+section.photo-diagnosis-cta a.btn-photo-diagnosis {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -462,14 +463,14 @@ img {
   flex-shrink: 0;
 }
 
-.photo-diagnosis-cta a.btn-photo-diagnosis:hover {
+section.photo-diagnosis-cta a.btn-photo-diagnosis:hover {
   color: #fff;
   transform: translateY(-2px);
   background-color: #05b34c;
   box-shadow: 0 12px 28px rgba(6, 199, 85, 0.45);
 }
 
-.photo-diagnosis-cta-note {
+section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   margin: 0;
   width: 100%;
   text-align: center;
@@ -1952,6 +1953,66 @@ img {
     padding: 28px 20px;
   }
 
+  section.photo-diagnosis-cta {
+    padding: 32px 0;
+    text-align: center;
+    background-color: var(--section-bg-gray-translucent);
+  }
+
+  section.photo-diagnosis-cta > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  section.photo-diagnosis-cta .photo-diagnosis-cta-title {
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  section.photo-diagnosis-cta .photo-diagnosis-cta-note {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  section.photo-diagnosis-cta .photo-diagnosis-cta-action {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  section.photo-diagnosis-cta a.btn-photo-diagnosis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 320px);
+    min-height: 48px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background-color: #06c755;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
+  }
+
   .blog-cta-actions {
     flex-direction: column;
   }
@@ -2190,32 +2251,67 @@ img {
     font-size: 13px;
   }
 
-  .photo-diagnosis-cta {
+  section.photo-diagnosis-cta {
     padding: 28px 0;
+    text-align: center;
+    background-color: var(--section-bg-gray-translucent);
   }
 
-  .photo-diagnosis-cta > .container {
+  section.photo-diagnosis-cta > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 12px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
-  .photo-diagnosis-cta-title {
-    font-size: 22px;
+  section.photo-diagnosis-cta .photo-diagnosis-cta-title {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
     font-weight: 700;
   }
 
-  .photo-diagnosis-cta-lead {
+  section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
+    width: 100%;
+    text-align: center;
     font-size: 13px;
     font-weight: 600;
   }
 
-  .photo-diagnosis-cta-note {
+  section.photo-diagnosis-cta .photo-diagnosis-cta-note {
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
     font-weight: 600;
   }
 
-  .photo-diagnosis-cta a.btn-photo-diagnosis {
+  section.photo-diagnosis-cta .photo-diagnosis-cta-action {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  section.photo-diagnosis-cta a.btn-photo-diagnosis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 320px);
     min-height: 48px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    background-color: #06c755;
+    color: #fff;
     font-size: 15px;
-    max-width: 320px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
   }
 
   .blog-cta-title {
