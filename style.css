@@ -394,10 +394,21 @@ img {
 
 /* 写真診断CTA（サービス直前） */
 .photo-diagnosis-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   padding: 36px 0;
   background: linear-gradient(135deg, rgba(6, 199, 85, 0.05), rgba(6, 199, 85, 0.02));
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+}
+
+.photo-diagnosis-cta > .container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .photo-diagnosis-cta-inner {
@@ -405,6 +416,7 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  width: 100%;
   max-width: 640px;
   margin: 0 auto;
   padding: 32px 28px;
@@ -417,6 +429,8 @@ img {
 
 .photo-diagnosis-cta-title {
   margin: 0;
+  width: 100%;
+  text-align: center;
   font-size: clamp(20px, 3vw, 24px);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -426,6 +440,8 @@ img {
 
 .photo-diagnosis-cta-lead {
   margin: 0;
+  width: 100%;
+  text-align: center;
   font-size: 14px;
   color: var(--color-text-muted);
   line-height: 1.7;
@@ -438,19 +454,21 @@ img {
   margin: 4px 0 2px;
 }
 
-.btn-photo-diagnosis {
+.photo-diagnosis-cta a.btn-photo-diagnosis {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: min(100%, 320px);
   min-height: 52px;
-  padding: 14px 40px;
+  padding: 14px 28px;
   border-radius: 999px;
   background-color: #06c755;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.04em;
+  text-decoration: none;
   box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
   transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
 }
@@ -459,7 +477,8 @@ img {
   flex-shrink: 0;
 }
 
-.btn-photo-diagnosis:hover {
+.photo-diagnosis-cta a.btn-photo-diagnosis:hover {
+  color: #fff;
   transform: translateY(-2px);
   background-color: #05b34c;
   box-shadow: 0 12px 28px rgba(6, 199, 85, 0.45);
@@ -467,6 +486,8 @@ img {
 
 .photo-diagnosis-cta-note {
   margin: 0;
+  width: 100%;
+  text-align: center;
   font-size: 12px;
   color: var(--color-text-muted);
   line-height: 1.5;
@@ -2200,11 +2221,8 @@ img {
     font-size: 13px;
   }
 
-  .btn-photo-diagnosis {
-    width: 100%;
-    max-width: 320px;
+  .photo-diagnosis-cta a.btn-photo-diagnosis {
     min-height: 48px;
-    padding: 14px 24px;
     font-size: 15px;
   }
 
