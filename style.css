@@ -392,6 +392,48 @@ img {
   box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
 }
 
+/* 写真診断CTA（サービス直前） */
+.photo-diagnosis-cta {
+  padding: 28px 0;
+  background-color: var(--section-bg-white-translucent);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.photo-diagnosis-cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.photo-diagnosis-cta-lead {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.btn-photo-diagnosis {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 999px;
+  background: #1a2744;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 10px rgba(26, 39, 68, 0.25);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+.btn-photo-diagnosis:hover {
+  transform: translateY(-1px);
+  background: #243456;
+  box-shadow: 0 4px 14px rgba(26, 39, 68, 0.3);
+}
+
 /* カードレイアウト（サービス） */
 .cards {
   display: grid;
@@ -2101,6 +2143,22 @@ img {
   .btn-primary {
     padding: 8px 20px;
     font-size: 13px;
+  }
+
+  .photo-diagnosis-cta {
+    padding: 24px 0;
+  }
+
+  .photo-diagnosis-cta-lead {
+    font-size: 13px;
+    padding: 0 8px;
+  }
+
+  .btn-photo-diagnosis {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 24px;
+    font-size: 15px;
   }
 
   .blog-cta-title {
