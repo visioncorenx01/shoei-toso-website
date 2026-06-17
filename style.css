@@ -416,22 +416,36 @@ img {
 }
 
 .btn-photo-diagnosis {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 13px 32px;
   border-radius: 999px;
-  background: #1a2744;
+  background-color: #06c755;
   color: #fff;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  box-shadow: 0 2px 10px rgba(26, 39, 68, 0.25);
+  box-shadow: 0 8px 20px rgba(6, 199, 85, 0.3);
   transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+.btn-photo-diagnosis-icon {
+  flex-shrink: 0;
 }
 
 .btn-photo-diagnosis:hover {
   transform: translateY(-1px);
-  background: #243456;
-  box-shadow: 0 4px 14px rgba(26, 39, 68, 0.3);
+  background-color: #05b34c;
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.4);
+}
+
+.photo-diagnosis-cta-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
 }
 
 /* カードレイアウト（サービス） */
