@@ -89,6 +89,18 @@ async function run() {
     console.warn('⚠ faq/index.html がありません。FAQページはスキップします。');
   }
 
+  // 佐倉市塗装ページ（sakura/index.html）をミニファイ → dist/sakura/
+  const sakuraPath = path.join(root, 'sakura', 'index.html');
+  if (fs.existsSync(sakuraPath)) {
+    const sakuraHtml = fs.readFileSync(sakuraPath, 'utf8');
+    const sakuraMin = await minifyHtml(sakuraHtml, htmlOptions);
+    ensureDir(path.join(dist, 'sakura'));
+    fs.writeFileSync(path.join(dist, 'sakura', 'index.html'), sakuraMin, 'utf8');
+    console.log('✓ sakura/index.html をミニファイ → dist/sakura/');
+  } else {
+    console.warn('⚠ sakura/index.html がありません。佐倉市塗装ページはスキップします。');
+  }
+
   // CSS ミニファイ（style.css が無い場合はスキップ）
   const cssPath = path.join(root, 'style.css');
   if (fs.existsSync(cssPath)) {

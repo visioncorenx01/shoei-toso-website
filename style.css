@@ -139,6 +139,52 @@ img {
   background-color: var(--section-bg-white-translucent);
 }
 
+/* 佐倉市塗装ページ・エリアセクション */
+.area-highlight-list {
+  margin: 0.75rem 0 1rem;
+  padding-left: 1.25rem;
+  line-height: 1.8;
+}
+
+.area-note {
+  font-size: 0.9rem;
+  color: var(--text-muted, #555);
+  margin: 0;
+}
+
+.area-page-grid h2,
+.area-page-grid h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.area-page-grid p {
+  margin: 0 0 1rem;
+  line-height: 1.8;
+}
+
+.area-cta-block {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.area-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.area-faq-title {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
 .section-heading {
   text-align: center;
   max-width: 720px;
