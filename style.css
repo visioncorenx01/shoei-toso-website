@@ -19,15 +19,13 @@
   --radius-card: 12px;
   --transition-base: 0.25s ease;
   --section-padding: 72px;
-  --sky-bg-image: url("images/sky-bg.png");
-  --section-bg-gray-translucent: rgba(255, 255, 255, 0.78);
-  --section-bg-white-translucent: rgba(255, 255, 255, 0.86);
-  --section-sky-overlay: rgba(255, 255, 255, 0.76);
-  --site-fixed-bg-blur: 2px;
+  --color-bg-page: #f5f7fa;
+  --section-bg-gray: #f5f7fa;
+  --section-bg-white: #ffffff;
 }
 
 html {
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-page);
 }
 
 body {
@@ -36,33 +34,12 @@ body {
   color: var(--color-text);
   line-height: 1.7;
   letter-spacing: 0.01em;
-  background-color: transparent;
+  background-color: var(--color-bg-page);
   -webkit-font-smoothing: antialiased;
   /* 日本語本文：単語・助詞の途中での不自然な改行を防ぐ */
   word-break: keep-all;
   overflow-wrap: break-word;
   line-break: strict;
-}
-
-/* 全ページ共通：青空背景を常に背面に固定表示 */
-.site-fixed-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: #dbe8f5;
-  background-image:
-    radial-gradient(ellipse 130% 70% at 50% -15%, rgba(255, 255, 255, 0.72) 0%, transparent 58%),
-    radial-gradient(ellipse 90% 55% at 100% 100%, rgba(255, 255, 255, 0.45) 0%, transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(240, 246, 252, 0.12) 45%, rgba(255, 255, 255, 0.22) 100%),
-    var(--sky-bg-image);
-  background-size: cover, cover, cover, cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  filter: blur(var(--site-fixed-bg-blur));
-  transform: none;
-  will-change: auto;
 }
 
 a {
@@ -136,15 +113,13 @@ img {
 /* セクション共通 */
 .section {
   padding: var(--section-padding) 0;
-  background-color: var(--section-bg-gray-translucent);
-  border-top: 1px solid rgba(255, 255, 255, 0.92);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  background-color: var(--section-bg-gray);
+  border-top: 1px solid #e8ecf0;
 }
 
 .section-alt {
-  background-color: var(--section-bg-white-translucent);
-  border-top: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  background-color: var(--section-bg-white);
+  border-top: 1px solid var(--color-border);
 }
 
 /* 佐倉市塗装ページ・エリアセクション */
@@ -175,7 +150,7 @@ img {
   margin: 2.5rem 0;
   padding: 1.5rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--section-bg-white);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
@@ -206,61 +181,20 @@ img {
   line-height: 1.45;
   margin: 0;
   text-align: center;
-  color: #000;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.15);
+  color: #1a2744;
 }
 
 .section-lead {
   text-align: center;
   max-width: 640px;
   margin: 14px auto 0;
-  color: #333;
+  color: var(--color-text-muted);
   font-size: 15px;
   line-height: 1.85;
   letter-spacing: 0.01em;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* サービスセクション：固定青空背景 + 半透明オーバーレイ */
-#service.section-service-bg {
-  position: relative;
-  overflow: hidden;
-  background-color: transparent;
-}
-
-#service.section-service-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: var(--section-sky-overlay);
-  z-index: 1;
-}
-
-#service.section-service-bg > .container {
-  position: relative;
-  z-index: 2;
-}
-
-/* 施工事例セクション：固定青空背景 + 半透明オーバーレイ */
-#works.section-works-bg {
-  position: relative;
-  overflow: hidden;
-  background-color: transparent;
-}
-
-#works.section-works-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: var(--section-sky-overlay);
-  z-index: 1;
-}
-
-#works.section-works-bg > .container {
-  position: relative;
-  z-index: 2;
-}
-/* お問い合わせセクション：背景画像（ぼかしなし） */
+/* お問い合わせセクション：背景画像 + 白オーバーレイ */
 #contact.section-contact-bg {
   position: relative;
   overflow: hidden;
@@ -282,7 +216,11 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0.68);
+  background: linear-gradient(
+    180deg,
+    rgba(245, 247, 250, 0.92) 0%,
+    rgba(255, 255, 255, 0.94) 100%
+  );
   z-index: 1;
 }
 
@@ -292,12 +230,11 @@ img {
 }
 
 #contact .section-title {
-  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 2px 8px rgba(255, 255, 255, 0.7), 0 0 1px rgba(0, 0, 0, 0.2);
+  color: #1a2744;
 }
 
 #contact .section-lead {
-  color: #222;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-muted);
 }
 
 .contact-lead-sp {
@@ -310,15 +247,12 @@ img {
   margin-bottom: 18px;
 }
 
-#about .section-title {
-  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 2px 8px rgba(255, 255, 255, 0.7), 0 0 1px rgba(0, 0, 0, 0.2);
-}
-
 /* ヒーローエリア */
 .hero {
   position: relative;
-  background: var(--section-bg-white-translucent);
+  background: var(--section-bg-white);
   overflow: visible;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .hero-banner,
@@ -446,14 +380,16 @@ img {
   box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
 }
 
-/* 写真診断CTA（サービス直前）— 他セクションと同様の薄い白背景 */
+/* 写真診断CTA（サービス直前）— 薄グレー帯でヒーローと区切る */
 section.photo-diagnosis-cta {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 36px 0;
-  background-color: var(--section-bg-gray-translucent);
+  background-color: var(--section-bg-gray);
+  border-top: 1px solid #e8ecf0;
+  border-bottom: 1px solid #e8ecf0;
 }
 
 section.photo-diagnosis-cta > .container {
@@ -823,10 +759,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.45;
-  color: #111;
+  color: #1a2744;
   margin-top: 0;
   margin-bottom: 16px;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .about-greeting {
@@ -840,8 +775,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
 .about-greeting h3 {
   margin-top: 0;
-  color: #111;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 1px rgba(0, 0, 0, 0.1);
+  color: #1a2744;
 }
 
 .about-greeting p {
@@ -1199,8 +1133,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   text-align: center;
   font-size: 12px;
   color: #888;
-  background-color: var(--section-bg-gray-translucent);
-  border-top: 1px solid var(--color-border);
+  background-color: var(--section-bg-gray);
+  border-top: 1px solid #e8ecf0;
 }
 
 /* 施工事例（写真ギャラリー） */
@@ -2010,7 +1944,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   section.photo-diagnosis-cta {
     padding: 32px 0;
     text-align: center;
-    background-color: var(--section-bg-gray-translucent);
+    background-color: var(--section-bg-gray);
   }
 
   section.photo-diagnosis-cta > .container {
@@ -2308,7 +2242,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   section.photo-diagnosis-cta {
     padding: 28px 0;
     text-align: center;
-    background-color: var(--section-bg-gray-translucent);
+    background-color: var(--section-bg-gray);
   }
 
   section.photo-diagnosis-cta > .container {
@@ -2588,26 +2522,6 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   .contact-methods {
     grid-template-columns: 1fr;
     max-width: 420px;
-  }
-}
-
-/* iOS 等で background-attachment: fixed が効かない端末向け */
-@media (max-width: 768px) {
-  .site-fixed-bg {
-    background-attachment: scroll;
-    /* 固定要素内 scroll でも全面を覆うよう高さを確保 */
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
-  .section,
-  .section-alt {
-    background-color: rgba(255, 255, 255, 0.88);
-  }
-
-  #service.section-service-bg::after,
-  #works.section-works-bg::after {
-    background-color: rgba(255, 255, 255, 0.86);
   }
 }
 
