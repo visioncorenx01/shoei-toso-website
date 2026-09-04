@@ -5,17 +5,22 @@
 }
 
 :root {
+  --color-navy: #1a2744;
+  --color-navy-light: #2a3a5c;
+  --color-line: #06c755;
   --color-primary: #0070f3;
   --color-primary-light: #00b0ff;
-  --color-text: #222;
+  --color-text: #444;
   --color-text-muted: #555;
+  --color-heading: #1a2744;
   --color-bg-white: #ffffff;
   --color-bg-gray: #f7f7f7;
-  --color-border: #eee;
+  --color-border: rgba(26, 39, 68, 0.1);
   --gradient-brand: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover: 0 6px 20px rgba(0, 0, 0, 0.07);
+  --gradient-title-accent: linear-gradient(90deg, var(--color-navy) 0%, #2a4578 55%, rgba(6, 199, 85, 0.55) 100%);
+  --shadow-soft: 0 4px 16px rgba(26, 39, 68, 0.06);
+  --shadow-card: 0 2px 12px rgba(26, 39, 68, 0.06);
+  --shadow-card-hover: 0 8px 24px rgba(26, 39, 68, 0.1);
   --radius-card: 12px;
   --transition-base: 0.25s ease;
   --section-padding: 72px;
@@ -171,25 +176,49 @@ img {
 .section-heading {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 40px;
+  margin: 0 auto 44px;
+}
+
+.section-subtitle {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7a8799;
 }
 
 .section-title {
-  font-size: 26px;
+  position: relative;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   line-height: 1.45;
   margin: 0;
+  padding-bottom: 16px;
   text-align: center;
-  color: #1a2744;
+  color: var(--color-heading);
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-title-accent);
 }
 
 .section-lead {
   text-align: center;
   max-width: 640px;
-  margin: 14px auto 0;
+  margin: 18px auto 0;
   color: var(--color-text-muted);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.85;
   letter-spacing: 0.01em;
 }
@@ -335,7 +364,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 64px 0 72px;
+  padding: 48px 0 64px;
 }
 
 .hero-text {
@@ -343,7 +372,7 @@ img {
   width: 100%;
   min-width: 0;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
 }
 
 .hero h1 {
@@ -352,14 +381,14 @@ img {
   line-height: 1.5;
   letter-spacing: 0.02em;
   margin-bottom: 24px;
-  color: #1a1a1a;
+  color: var(--color-heading);
 }
 
 .hero p {
   color: var(--color-text-muted);
   margin-bottom: 0;
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.85;
 }
 
 .btn-primary {
@@ -370,14 +399,19 @@ img {
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.2);
+  box-shadow: 0 3px 10px rgba(0, 112, 243, 0.22);
   transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   background: #0060d8;
-  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 112, 243, 0.28);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.2);
 }
 
 /* 写真診断CTA（サービス直前）— 薄グレー帯でヒーローと区切る */
@@ -403,24 +437,38 @@ section.photo-diagnosis-cta > .container {
 }
 
 section.photo-diagnosis-cta .photo-diagnosis-cta-title {
+  position: relative;
   margin: 0;
   width: 100%;
+  padding-bottom: 14px;
   text-align: center;
-  font-size: clamp(22px, 3.2vw, 26px);
+  font-size: clamp(22px, 3.2vw, 28px);
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1.45;
-  color: #1a1a1a;
+  color: var(--color-heading);
+}
+
+section.photo-diagnosis-cta .photo-diagnosis-cta-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-title-accent);
 }
 
 section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
-  margin: 0;
+  margin: 12px 0 0;
   width: 100%;
   text-align: center;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--color-text-muted);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 section.photo-diagnosis-cta .photo-diagnosis-cta-action {
@@ -457,7 +505,12 @@ section.photo-diagnosis-cta a.btn-photo-diagnosis:hover {
   color: #fff;
   transform: translateY(-2px);
   background-color: #05b34c;
-  box-shadow: 0 12px 28px rgba(6, 199, 85, 0.45);
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.38);
+}
+
+section.photo-diagnosis-cta a.btn-photo-diagnosis:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(6, 199, 85, 0.3);
 }
 
 section.photo-diagnosis-cta .photo-diagnosis-cta-note {
@@ -483,7 +536,13 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   overflow: hidden;
   box-shadow: var(--shadow-card);
   border: 1px solid var(--color-border);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(26, 39, 68, 0.14);
 }
 
 /* サービススライダー */
@@ -496,10 +555,10 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
 .service-slider-viewport {
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(26, 39, 68, 0.08);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
 }
 
 .service-slider-track {
@@ -549,13 +608,13 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   font-size: 24px;
   font-weight: 700;
   line-height: 1.4;
-  color: #1a1a1a;
+  color: var(--color-navy-light);
   letter-spacing: 0.02em;
 }
 
 .service-slide-divider {
   width: 100%;
-  border-bottom: 1px dashed rgba(0, 112, 243, 0.35);
+  border-bottom: 2px solid rgba(26, 39, 68, 0.12);
   margin-bottom: 20px;
 }
 
@@ -743,8 +802,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.4;
+  color: var(--color-navy-light);
 }
 
 .card p {
@@ -839,6 +899,10 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   background: var(--color-bg-gray);
 }
 
+.info-table td {
+  color: var(--color-text);
+}
+
 /* 電話番号表示用スタイル */
 .phone-number {
   font-weight: 500;
@@ -860,11 +924,12 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
 .faq-category-title {
   margin: 28px 0 4px;
-  padding: 0;
+  padding: 0 0 0 12px;
   font-size: 17px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-heading);
   letter-spacing: 0.02em;
+  border-left: 3px solid var(--color-navy);
 }
 
 .faq-category-title:first-child {
@@ -892,6 +957,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   padding: 16px 20px;
   font-weight: 600;
   font-size: 15px;
+  color: var(--color-heading);
   cursor: pointer;
   list-style: none;
   position: relative;
@@ -910,7 +976,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   transform: translateY(-50%);
   font-size: 20px;
   font-weight: 400;
-  color: #0070f3;
+  color: var(--color-navy);
   line-height: 1;
 }
 
@@ -926,8 +992,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   padding: 16px 20px;
   margin: 0;
   font-size: 14px;
-  color: #555;
-  line-height: 1.7;
+  color: var(--color-text-muted);
+  line-height: 1.75;
 }
 
 .faq-answer a {
@@ -1168,8 +1234,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
 .work-title {
   margin: 0 0 4px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
+  color: var(--color-heading);
 }
 
 .work-text {
@@ -1291,17 +1358,18 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 }
 
 .blog-item-link:hover .blog-item {
-  border-color: #2b6cb0;
-  box-shadow: 0 8px 24px rgba(43, 108, 176, 0.12);
+  border-color: rgba(26, 39, 68, 0.22);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
 }
 
 .blog-item {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 16px 18px;
-  border: 1px solid #e5e5e5;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
 .blog-meta {
@@ -1313,6 +1381,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 .blog-title {
   margin: 0 0 8px;
   font-size: 16px;
+  font-weight: 700;
+  color: var(--color-heading);
 }
 
 .blog-text {
@@ -1341,20 +1411,23 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 .blog-detail-text {
   font-size: 15px;
   line-height: 1.8;
-  color: #333;
+  color: var(--color-text);
 }
 
 /* 記事本文（microCMSリッチエディタHTML）の体裁 */
 .blog-detail-text h2 {
   font-size: 20px;
   margin: 28px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 8px;
+  color: var(--color-heading);
+  border-bottom: 2px solid rgba(26, 39, 68, 0.12);
 }
 
 .blog-detail-text h3 {
   font-size: 17px;
   margin: 24px 0 10px;
+  font-weight: 700;
+  color: var(--color-navy-light);
 }
 
 .blog-detail-text p {
@@ -1436,8 +1509,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 }
 
 .blog-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
+  border-color: rgba(26, 39, 68, 0.14);
 }
 
 .blog-card-img {
@@ -1463,7 +1537,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 .blog-card-title {
   margin: 6px 0 8px;
   font-size: 16px;
+  font-weight: 700;
   line-height: 1.5;
+  color: var(--color-heading);
 }
 
 .blog-card-excerpt {
@@ -1523,7 +1599,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 .blog-cta-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-heading);
   margin: 0 0 8px;
   line-height: 1.5;
 }
@@ -1667,7 +1743,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .hero-inner {
-    padding: 24px 0 36px;
+    padding: 32px 0 48px;
   }
 
   .hero-text {
@@ -1682,8 +1758,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .hero p {
-    font-size: 12px;
-    line-height: 1.75;
+    font-size: 14px;
+    line-height: 1.8;
   }
 
   .section:not(#contact) {
@@ -1691,17 +1767,18 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .section:not(#contact) .section-heading {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .section:not(#contact) .section-title {
-    font-size: 20px;
+    font-size: 22px;
+    padding-bottom: 14px;
   }
 
   .section:not(#contact) .section-lead {
-    font-size: 13px;
-    margin-top: 8px;
-    line-height: 1.75;
+    font-size: 14px;
+    margin-top: 14px;
+    line-height: 1.8;
   }
 
   #contact .section-heading {
@@ -1963,6 +2040,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     text-align: center;
     font-size: 22px;
     font-weight: 700;
+    padding-bottom: 12px;
+    color: var(--color-heading);
   }
 
   section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
@@ -2094,14 +2173,14 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .section:not(#contact) .section-title {
-    font-size: 19px;
-    margin-bottom: 0;
+    font-size: 20px;
+    padding-bottom: 12px;
   }
 
   .section:not(#contact) .section-lead {
-    font-size: 12px;
-    margin-top: 6px;
-    line-height: 1.7;
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.75;
   }
 
   #contact .section-heading {
@@ -2371,7 +2450,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   text-align: center;
   font-size: clamp(20px, 3.2vw, 28px);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-heading);
   letter-spacing: 0.04em;
   margin: -8px 0 28px;
 }
@@ -2399,10 +2478,11 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   border-radius: var(--radius-card);
   text-decoration: none;
   box-shadow: var(--shadow-card);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 1px solid transparent;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 .contact-method:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
 }
 .cm-icon {
@@ -2458,8 +2538,11 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 /* フォーム: 白カード × ネイビー文字 */
 .contact-method-form {
   background: var(--color-bg-white);
-  color: #1a1a1a;
+  color: var(--color-text);
   border: 1px solid var(--color-border);
+}
+.contact-method-form:hover {
+  border-color: rgba(26, 39, 68, 0.16);
 }
 .contact-method-form .cm-icon {
   background: var(--color-bg-gray);
