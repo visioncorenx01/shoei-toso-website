@@ -12,7 +12,7 @@
   <!-- ファビコン / アイコン -->
   <link rel="icon" type="image/png" href="images/logo.png" />
   <link rel="apple-touch-icon" href="images/logo.png" />
-  <meta name="theme-color" content="#0070f3" />
+  <meta name="theme-color" content="#1a2744" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -244,10 +244,10 @@
   <!-- ヘッダー & ナビゲーション -->
   <header class="site-header">
     <div class="container header-inner">
-      <div class="logo">
+      <a href="#home" class="logo">
         <img src="images/logo.png" alt="昇栄塗装" />
-      </div>
-      <nav class="nav">
+      </a>
+      <nav class="nav" aria-label="メインナビゲーション">
         <a href="#home">ホーム</a>
         <a href="#service">サービス</a>
         <a href="#works">施工事例</a>
@@ -257,6 +257,13 @@
         <a href="faq/index.html">FAQ</a>
         <a href="#contact">お問い合わせ</a>
       </nav>
+      <div class="header-actions">
+        <a href="tel:07091199440" class="header-tel">
+          <span class="header-tel-label">お電話</span>
+          <span class="header-tel-num">070-9119-9440</span>
+        </a>
+        <a href="#contact" class="header-cta">無料相談</a>
+      </div>
     </div>
   </header>
 
@@ -270,6 +277,12 @@
           <img src="images/hero-banner.png?v=20260904c" alt="佐倉市の外壁塗装・屋根塗装｜昇栄塗装 - 住まいを守り、価値を高める" width="2042" height="770" />
         </picture>
       </div>
+      <div class="hero-catch-band" aria-label="キャッチコピー">
+        <div class="container hero-catch-inner">
+          <p class="hero-catch-lead">外壁や屋根の劣化・色あせ、塗装だけで解決できると思っていませんか？</p>
+          <p class="hero-catch-text">昇栄塗装は佐倉市に根ざした塗装専門店として、現地調査から下地処理まで丁寧に施工。塗装歴15年以上の職人が、お住まいに合った最適なプランをご提案します。</p>
+        </div>
+      </div>
       <div class="container hero-inner">
         <div class="hero-text">
           <h1 class="hero-title-sr-only">佐倉市の外壁塗装・屋根塗装｜昇栄塗装 - 住まいを守り、価値を高める</h1>
@@ -281,9 +294,38 @@
       </div>
     </section>
 
+    <!-- 信頼バッジ（対応エリア・実績等） -->
+    <section class="trust-badges" aria-label="昇栄塗装の強み">
+      <div class="container">
+        <ul class="trust-badge-grid">
+          <li class="trust-badge">
+            <span class="trust-badge-icon" aria-hidden="true">📍</span>
+            <span class="trust-badge-title">佐倉市密着</span>
+            <span class="trust-badge-text">王子台に拠点、地域の気候に合わせた施工</span>
+          </li>
+          <li class="trust-badge">
+            <span class="trust-badge-icon" aria-hidden="true">🎨</span>
+            <span class="trust-badge-title">塗装歴15年以上</span>
+            <span class="trust-badge-text">外壁・屋根・防水まで幅広く対応</span>
+          </li>
+          <li class="trust-badge">
+            <span class="trust-badge-icon" aria-hidden="true">💬</span>
+            <span class="trust-badge-title">見積り無料</span>
+            <span class="trust-badge-text">現地調査のうえ、最適なプランをご提案</span>
+          </li>
+          <li class="trust-badge">
+            <span class="trust-badge-icon" aria-hidden="true">🏠</span>
+            <span class="trust-badge-title">周辺エリア対応</span>
+            <span class="trust-badge-text">四街道・千葉・八千代など周辺もご相談可</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- 写真診断CTA（#service 直前） -->
     <section class="photo-diagnosis-cta" aria-label="LINEで写真診断">
       <div class="container">
+        <p class="section-subtitle">Photo Diagnosis</p>
         <h2 class="photo-diagnosis-cta-title">無料 写真診断</h2>
         <p class="photo-diagnosis-cta-lead">外壁の状態が気になる方へ — スマホで写真を送るだけの無料診断</p>
         <div class="photo-diagnosis-cta-action">
@@ -300,6 +342,7 @@
     <section id="service" class="section section-service-bg">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Our Service</p>
           <h2 class="section-title">サービス</h2>
           <p class="section-lead">
             昇栄塗装が提供する、塗装工事全般およびリフォームサービスの一例です。
@@ -411,6 +454,7 @@
     <section id="sakura" class="section section-alt">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Sakura City</p>
           <h2 class="section-title">佐倉市の外壁・屋根塗装</h2>
           <p class="section-lead">
             佐倉市塗装のご相談は、佐倉市王子台に拠点を構える昇栄塗装にお任せください。地域の気候や住宅事情に合わせた施工をご提案します。
@@ -452,6 +496,7 @@
     <section id="works" class="section section-works-bg">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Our Works</p>
           <h2 class="section-title">施工事例</h2>
           <p class="section-lead">
             Instagramで公開している施工の様子をご紹介します。
@@ -477,6 +522,7 @@
     <section id="blog" class="section">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Column &amp; News</p>
           <h2 class="section-title">ブログ・お知らせ</h2>
           <p class="section-lead">
             外壁・屋根塗装に役立つ情報、最新のお知らせをお届けします。
@@ -520,6 +566,7 @@
     <section id="about" class="section section-alt">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Company</p>
           <h2 class="section-title">会社概要</h2>
         </div>
         <div class="about-grid">
@@ -591,6 +638,7 @@
     <section id="faq" class="section">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">FAQ</p>
           <h2 class="section-title">よくある質問</h2>
           <p class="section-lead">
             外壁・屋根塗装やリフォームに関して、お客様からよくいただくご質問です。
@@ -632,6 +680,7 @@
     <section id="contact" class="section section-contact-bg">
       <div class="container">
         <div class="section-heading">
+          <p class="section-subtitle">Contact</p>
           <h2 class="section-title">お問い合わせ</h2>
           <div class="contact-lead">
             <div class="contact-lead-pc">
@@ -697,8 +746,26 @@
 
   <!-- フッター -->
   <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 昇栄塗装 All rights reserved. Since 2023.7</p>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="昇栄塗装" class="footer-logo" />
+        <p class="footer-tagline">佐倉市の外壁・屋根塗装なら昇栄塗装</p>
+        <p class="footer-address">〒285-0837 千葉県佐倉市王子台6−42−2</p>
+        <p class="footer-tel"><a href="tel:07091199440">TEL 070-9119-9440</a>（9:00〜18:00）</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="#service">サービス</a>
+        <a href="#works">施工事例</a>
+        <a href="blog/">ブログ</a>
+        <a href="faq/index.html">よくある質問</a>
+        <a href="sakura/index.html">佐倉市塗装</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 昇栄塗装 All rights reserved. Since 2023.7</p>
+      </div>
     </div>
   </footer>
 
