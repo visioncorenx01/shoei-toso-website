@@ -20,10 +20,10 @@
   --transition-base: 0.25s ease;
   --section-padding: 72px;
   --sky-bg-image: url("images/sky-bg.png");
-  --section-bg-gray-translucent: rgba(255, 255, 255, 0.50);
-  --section-bg-white-translucent: rgba(255, 255, 255, 0.58);
-  --section-sky-overlay: rgba(255, 255, 255, 0.48);
-  --site-fixed-bg-blur: 0px;
+  --section-bg-gray-translucent: rgba(255, 255, 255, 0.78);
+  --section-bg-white-translucent: rgba(255, 255, 255, 0.86);
+  --section-sky-overlay: rgba(255, 255, 255, 0.76);
+  --site-fixed-bg-blur: 2px;
 }
 
 html {
@@ -50,9 +50,13 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-color: #87ceeb;
-  background-image: var(--sky-bg-image);
-  background-size: cover;
+  background-color: #dbe8f5;
+  background-image:
+    radial-gradient(ellipse 130% 70% at 50% -15%, rgba(255, 255, 255, 0.72) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 55% at 100% 100%, rgba(255, 255, 255, 0.45) 0%, transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(240, 246, 252, 0.12) 45%, rgba(255, 255, 255, 0.22) 100%),
+    var(--sky-bg-image);
+  background-size: cover, cover, cover, cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -133,10 +137,14 @@ img {
 .section {
   padding: var(--section-padding) 0;
   background-color: var(--section-bg-gray-translucent);
+  border-top: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .section-alt {
   background-color: var(--section-bg-white-translucent);
+  border-top: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 /* 佐倉市塗装ページ・エリアセクション */
@@ -274,7 +282,7 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: rgba(255, 255, 255, 0.68);
   z-index: 1;
 }
 
@@ -2587,6 +2595,19 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 @media (max-width: 768px) {
   .site-fixed-bg {
     background-attachment: scroll;
+    /* 固定要素内 scroll でも全面を覆うよう高さを確保 */
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .section,
+  .section-alt {
+    background-color: rgba(255, 255, 255, 0.88);
+  }
+
+  #service.section-service-bg::after,
+  #works.section-works-bg::after {
+    background-color: rgba(255, 255, 255, 0.86);
   }
 }
 
