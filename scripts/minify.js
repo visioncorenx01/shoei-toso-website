@@ -128,7 +128,7 @@ async function run() {
   }
 
   // その他ファイルをコピー（ブログ・SEO用）
-  const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html'];
+  const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html', '_headers'];
   for (const file of copyList) {
     // sitemap.xml は build-blog.js が dist/ に「トップ + 一覧 + 全記事」を含む
     // 完全版を生成しているため、それがあればルートの最小版で上書きしない。
