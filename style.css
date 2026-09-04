@@ -365,7 +365,7 @@ img {
 
 @media (min-width: 769px) {
   .hero-banner {
-    aspect-ratio: 1024 / 576;
+    aspect-ratio: 2042 / 770;
   }
 
   .hero-banner img {
