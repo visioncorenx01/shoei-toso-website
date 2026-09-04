@@ -1363,6 +1363,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   height: 44px;
   width: auto;
   margin-bottom: 12px;
+  /* logo.png は白透過PNGのため、フッターでは黒で表示 */
+  filter: brightness(0) saturate(100%);
 }
 
 .footer-tagline {
