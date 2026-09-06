@@ -961,7 +961,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 }
 
 .about-greeting p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.8;
   color: var(--color-text-muted);
   margin: 0 0 14px;
@@ -1911,6 +1911,10 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 /* レスポンシブ対応 */
 /* タブレットサイズ（768px以下） */
 @media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
   .header-inner {
     flex-direction: column;
     justify-content: center;
@@ -1963,11 +1967,12 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .trust-badge-title {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .trust-badge-text {
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.7;
   }
 
   .hero-catch-band {
@@ -1975,11 +1980,13 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .hero-catch-lead {
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 1.55;
   }
 
   .hero-catch-text {
-    font-size: 13px;
+    font-size: 15px;
+    line-height: 1.85;
   }
 
   .footer-inner {
@@ -2013,9 +2020,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .section:not(#contact) .section-lead {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 14px;
-    line-height: 1.8;
+    line-height: 1.85;
   }
 
   #contact .section-heading {
@@ -2027,8 +2034,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   #contact .section-lead {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 10px;
+    line-height: 1.85;
   }
 
   .cards {
@@ -2093,7 +2101,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     padding-left: 0;
     border-left: none;
     text-align: center;
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .about-greeting .greeting-sp h3::after {
@@ -2173,13 +2181,13 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
   .blog-card-title {
     margin: 0 0 6px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .blog-card-excerpt {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.75;
   }
 
@@ -2214,7 +2222,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
   .faq-item summary {
     padding: 12px 32px 12px 14px;
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .faq-item summary::after {
@@ -2224,12 +2233,12 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
   .faq-answer {
     padding: 12px 14px;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 1.75;
   }
 
   .about-greeting p {
-    font-size: 12px;
+    font-size: 17px;
     line-height: 1.75;
     margin-bottom: 12px;
   }
@@ -2283,14 +2292,17 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
     width: 100%;
     text-align: center;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
+    line-height: 1.75;
   }
 
   section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     width: 100%;
     text-align: center;
+    font-size: 13px;
     font-weight: 600;
+    line-height: 1.6;
   }
 
   section.photo-diagnosis-cta .photo-diagnosis-cta-action {
@@ -2309,11 +2321,42 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     border-radius: 999px;
     background-color: #06c755;
     color: #fff;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-decoration: none;
     box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
+  }
+
+  .contact-catch {
+    font-size: clamp(18px, 4.5vw, 24px);
+    line-height: 1.5;
+  }
+
+  .contact-method .cm-title {
+    font-size: 17px;
+  }
+
+  .contact-method .cm-note {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .contact-method .cm-en {
+    font-size: 12px;
+  }
+
+  .form-group label {
+    font-size: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px;
+  }
+
+  .form-note {
+    font-size: 13px;
   }
 
   .blog-cta-actions {
@@ -2332,7 +2375,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     width: 85%;
     max-width: 300px;
     margin: 0 auto;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .info-table th,
@@ -2340,21 +2383,22 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     display: block;
     width: 100%;
     padding: 6px 8px;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 1.65;
   }
 
   .info-table th {
     width: 100%;
     border-bottom: none;
     padding-bottom: 3px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .info-table td {
     border-bottom: 1px solid var(--color-border);
     padding-top: 3px;
     padding-bottom: 8px;
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .info-table tr {
@@ -2411,9 +2455,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .section:not(#contact) .section-lead {
-    font-size: 13px;
+    font-size: 16px;
     margin-top: 12px;
-    line-height: 1.75;
+    line-height: 1.85;
   }
 
   #contact .section-heading {
@@ -2426,8 +2470,9 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   #contact .section-lead {
-    font-size: 13px;
+    font-size: 16px;
     margin-top: 8px;
+    line-height: 1.85;
   }
 
   .nav a {
@@ -2475,13 +2520,13 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .blog-card-title {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 5px;
   }
 
   .blog-card-excerpt {
-    font-size: 11px;
-    line-height: 1.7;
+    font-size: 14px;
+    line-height: 1.75;
   }
 
   .card h3 {
@@ -2532,7 +2577,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
   .faq-item summary {
     padding: 10px 28px 10px 12px;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .faq-item summary::after {
@@ -2542,8 +2588,8 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
 
   .faq-answer {
     padding: 10px 12px;
-    font-size: 11px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.75;
   }
 
   .btn-primary {
@@ -2580,15 +2626,17 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
     width: 100%;
     text-align: center;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
+    line-height: 1.75;
   }
 
   section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     width: 100%;
     text-align: center;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
+    line-height: 1.6;
   }
 
   section.photo-diagnosis-cta .photo-diagnosis-cta-action {
@@ -2607,7 +2655,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     border-radius: 999px;
     background-color: #06c755;
     color: #fff;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-decoration: none;
@@ -2633,7 +2681,7 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .info-table {
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .info-table th,
@@ -2642,12 +2690,12 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .info-table th {
-    font-size: 11px;
+    font-size: 14px;
     padding-bottom: 2px;
   }
 
   .info-table td {
-    font-size: 12px;
+    font-size: 15px;
     padding-top: 2px;
     padding-bottom: 7px;
   }
@@ -2661,12 +2709,12 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .about-greeting .greeting-sp h3 {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .about-greeting p {
-    font-size: 11px;
-    line-height: 1.7;
+    font-size: 17px;
+    line-height: 1.75;
     margin-bottom: 10px;
   }
 }
