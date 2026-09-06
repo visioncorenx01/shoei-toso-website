@@ -296,9 +296,16 @@ function mergeArticles(cmsArticles, fallbackArticles) {
 
 const ICON_LINE_HEADER =
   '<svg class="header-line-btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.69 2 10.23c0 4.07 3.55 7.48 8.35 8.13.32.07.77.21.88.49.1.25.06.65.03.9l-.14.85c-.04.25-.2.98.86.53s5.7-3.36 7.78-5.75h0c1.43-1.57 2.24-3.17 2.24-5.15C22 5.69 17.52 2 12 2ZM7.9 12.86H6.06a.49.49 0 0 1-.49-.48V8.7a.49.49 0 0 1 .98 0v3.19H7.9a.49.49 0 0 1 0 .97Zm1.92-.48a.49.49 0 0 1-.98 0V8.7a.49.49 0 0 1 .98 0v3.68Zm4.25 0a.49.49 0 0 1-.33.46h-.16a.48.48 0 0 1-.39-.2l-1.88-2.56v2.3a.49.49 0 0 1-.98 0V8.7a.49.49 0 0 1 .33-.46h.16c.15 0 .3.08.39.2l1.88 2.56V8.7a.49.49 0 0 1 .98 0v3.68Zm3.04-2.32a.49.49 0 0 1 0 .97h-1.35v.87h1.35a.49.49 0 0 1 0 .97h-1.84a.49.49 0 0 1-.49-.48V8.7a.49.49 0 0 1 .49-.48h1.84a.49.49 0 0 1 0 .97h-1.35v.87h1.35Z"/></svg>';
+const CONTACT_TEL_DISPLAY = '070-9119-9440';
+const CONTACT_TEL_HREF = 'tel:07091199440';
+const CONTACT_LINE_URL = 'https://lin.ee/7khuq4Z';
 
-function headerLineBtn() {
+function headerActions() {
   return `      <div class="header-actions">
+        <a href="${CONTACT_TEL_HREF}" class="header-tel">
+          <span class="header-tel-label">お電話</span>
+          <span class="header-tel-num">${CONTACT_TEL_DISPLAY}</span>
+        </a>
         <a href="${CONTACT_LINE_URL}" target="_blank" rel="noopener noreferrer" class="header-line-btn" aria-label="LINEで写真診断はこちら">
           ${ICON_LINE_HEADER}
           <span>LINEで写真診断</span>
@@ -322,7 +329,7 @@ function blogHeader() {
         <a href="../faq/index.html">FAQ</a>
         <a href="../index.html#contact">お問い合わせ</a>
       </nav>
-${headerLineBtn()}
+${headerActions()}
     </div>
   </header>`;
 }
@@ -349,10 +356,6 @@ function blogChatbotScripts() {
 // 問い合わせ手段（電話 / LINE / フォーム）。CTAから参照する。
 const CONTACT_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScdONJKAYkz8pzI9c9Z_BLGXxjnS9x1AO8wdSmXgufy1xrJrQ/viewform';
-const CONTACT_TEL_DISPLAY = '070-9119-9440';
-const CONTACT_TEL_HREF = 'tel:07091199440';
-const CONTACT_LINE_URL = 'https://lin.ee/7khuq4Z';
-
 // CTAボタン用アイコン（draft-site のSVGを流用）
 const ICON_TEL =
   '<svg class="blog-cta-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';

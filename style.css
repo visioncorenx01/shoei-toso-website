@@ -131,6 +131,33 @@ img {
   flex-shrink: 0;
 }
 
+.header-tel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-decoration: none;
+  color: var(--color-heading);
+  line-height: 1.3;
+}
+
+.header-tel-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.header-tel-num {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--color-navy);
+}
+
+.header-tel:hover .header-tel-num {
+  color: var(--color-accent-blue);
+}
+
 .header-line-btn {
   display: inline-flex;
   align-items: center;
@@ -1814,7 +1841,16 @@ img {
   .header-actions {
     width: 100%;
     justify-content: center;
+    gap: 10px;
     margin-top: 4px;
+  }
+
+  .header-tel {
+    align-items: center;
+  }
+
+  .header-tel-num {
+    font-size: 16px;
   }
 
   .header-line-btn {
@@ -2230,7 +2266,13 @@ img {
   }
 
   .header-actions {
+    flex-direction: column;
     align-items: stretch;
+  }
+
+  .header-tel {
+    align-items: center;
+    text-align: center;
   }
 
   .header-line-btn {
@@ -2544,10 +2586,14 @@ img {
   font-weight: 700;
 }
 
-/* 電話: ネイビー */
+/* 電話: ブルー（旧 contact-method スタイル） */
 .contact-method-tel {
-  background: var(--gradient-brand);
+  background: linear-gradient(135deg, #0070f3, #00b0ff);
   color: #fff;
+  border-color: transparent;
+}
+.contact-method-tel:hover {
+  border-color: transparent;
 }
 .contact-method-tel .cm-icon {
   background: rgba(255, 255, 255, 0.18);
