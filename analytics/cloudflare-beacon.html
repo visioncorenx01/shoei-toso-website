@@ -1,11 +1,15 @@
 <!--
   Cloudflare Web Analytics ビーコン
 
-  【設定手順】
-  1. Cloudflare ダッシュボード → Analytics & Logs → Web Analytics
-  2. 「Add a site」→ shoeitosou.com を登録
-  3. 表示された token で REPLACE_WITH_CF_TOKEN を差し替え
+  【token の取得手順】
+  1. https://dash.cloudflare.com/ → Analytics & Logs → Web Analytics
+  2. shoeitosou.com → Manage site
+  3. 「Enable with JS Snippet installation」→ Update
+  4. 表示されたスニペット内 data-cf-beacon の "token" 値をコピー
+     例: {"token": "cca12fb9e60b4d2c90fe95a7cdadcf23"}
+  5. 下記 8b65efb530f64523adfcb1d3470dfa5a をその値に差し替え
      （analytics/config.js の CF_BEACON_TOKEN も同じ値に更新）
-  4. npm run build を実行して dist/ を再生成
+  6. index.html / faq/index.html / sakura/index.html も同様に差し替え
+  7. npm run build → dist/ をデプロイ
 -->
-<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_TOKEN"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8b65efb530f64523adfcb1d3470dfa5a"}'></script><!-- End Cloudflare Web Analytics -->
