@@ -131,52 +131,38 @@ img {
   flex-shrink: 0;
 }
 
-.header-tel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-decoration: none;
-  color: var(--color-heading);
-  line-height: 1.3;
-}
-
-.header-tel-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--color-text-muted);
-}
-
-.header-tel-num {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--color-navy);
-}
-
-.header-tel:hover .header-tel-num {
-  color: var(--color-accent-blue);
-}
-
-.header-cta {
+.header-line-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 10px 20px;
   border-radius: 999px;
-  background: var(--gradient-brand);
+  background-color: #06c755;
   color: #fff;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  box-shadow: 0 4px 14px rgba(26, 39, 68, 0.22);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
 }
 
-.header-cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(26, 39, 68, 0.28);
+.header-line-btn:hover {
   color: #fff;
+  transform: translateY(-1px);
+  background-color: #05b34c;
+  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.38);
+}
+
+.header-line-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(6, 199, 85, 0.3);
+}
+
+.header-line-btn-icon {
+  flex-shrink: 0;
 }
 
 /* セクション共通 */
@@ -534,115 +520,6 @@ img {
 .btn-primary:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(26, 39, 68, 0.18);
-}
-
-/* 写真診断CTA（サービス直前）— 薄グレー帯でヒーローと区切る */
-section.photo-diagnosis-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 36px 0;
-  background-color: var(--section-bg-gray);
-  border-top: 1px solid #e8ecf0;
-  border-bottom: 1px solid #e8ecf0;
-}
-
-section.photo-diagnosis-cta > .container {
-  width: 100%;
-  max-width: 640px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  text-align: center;
-}
-
-section.photo-diagnosis-cta .photo-diagnosis-cta-title {
-  position: relative;
-  margin: 0;
-  width: 100%;
-  padding-bottom: 14px;
-  text-align: center;
-  font-size: clamp(22px, 3.2vw, 28px);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1.45;
-  color: var(--color-heading);
-}
-
-section.photo-diagnosis-cta .photo-diagnosis-cta-title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--gradient-title-accent);
-}
-
-section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
-  margin: 12px 0 0;
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  line-height: 1.75;
-}
-
-section.photo-diagnosis-cta .photo-diagnosis-cta-action {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 4px 0 2px;
-}
-
-section.photo-diagnosis-cta a.btn-photo-diagnosis {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: min(100%, 320px);
-  min-height: 52px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background-color: #06c755;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
-}
-
-.btn-photo-diagnosis-icon {
-  flex-shrink: 0;
-}
-
-section.photo-diagnosis-cta a.btn-photo-diagnosis:hover {
-  color: #fff;
-  transform: translateY(-2px);
-  background-color: #05b34c;
-  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.38);
-}
-
-section.photo-diagnosis-cta a.btn-photo-diagnosis:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(6, 199, 85, 0.3);
-}
-
-section.photo-diagnosis-cta .photo-diagnosis-cta-note {
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  line-height: 1.5;
 }
 
 /* カードレイアウト（サービス） */
@@ -1937,20 +1814,14 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   .header-actions {
     width: 100%;
     justify-content: center;
-    gap: 10px;
+    margin-top: 4px;
   }
 
-  .header-tel {
-    align-items: center;
-  }
-
-  .header-tel-num {
-    font-size: 16px;
-  }
-
-  .header-cta {
-    padding: 8px 16px;
-    font-size: 12px;
+  .header-line-btn {
+    width: min(100%, 320px);
+    min-height: 44px;
+    padding: 10px 24px;
+    font-size: 14px;
   }
 
   .trust-badge-grid {
@@ -2263,71 +2134,6 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
     padding: 28px 20px;
   }
 
-  section.photo-diagnosis-cta {
-    padding: 32px 0;
-    text-align: center;
-    background-color: var(--section-bg-gray);
-  }
-
-  section.photo-diagnosis-cta > .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-title {
-    width: 100%;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    padding-bottom: 12px;
-    color: var(--color-heading);
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.75;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-note {
-    width: 100%;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-action {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  section.photo-diagnosis-cta a.btn-photo-diagnosis {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: min(100%, 320px);
-    min-height: 48px;
-    padding: 14px 24px;
-    border-radius: 999px;
-    background-color: #06c755;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
-  }
-
   .contact-catch {
     font-size: clamp(18px, 4.5vw, 24px);
     line-height: 1.5;
@@ -2424,11 +2230,11 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   }
 
   .header-actions {
-    flex-direction: column;
     align-items: stretch;
   }
 
-  .header-cta {
+  .header-line-btn {
+    width: 100%;
     text-align: center;
   }
 
@@ -2595,71 +2401,6 @@ section.photo-diagnosis-cta .photo-diagnosis-cta-note {
   .btn-primary {
     padding: 8px 20px;
     font-size: 13px;
-  }
-
-  section.photo-diagnosis-cta {
-    padding: 28px 0;
-    text-align: center;
-    background-color: var(--section-bg-gray);
-  }
-
-  section.photo-diagnosis-cta > .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-title {
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-lead {
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.75;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-note {
-    width: 100%;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
-  }
-
-  section.photo-diagnosis-cta .photo-diagnosis-cta-action {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  section.photo-diagnosis-cta a.btn-photo-diagnosis {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: min(100%, 320px);
-    min-height: 48px;
-    padding: 14px 20px;
-    border-radius: 999px;
-    background-color: #06c755;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.35);
   }
 
   .blog-cta-title {
