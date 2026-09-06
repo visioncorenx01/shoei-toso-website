@@ -19,6 +19,7 @@
   --color-bg-gray: #f5f7fa;
   --color-border: rgba(26, 39, 68, 0.1);
   --gradient-brand: linear-gradient(135deg, var(--color-navy), var(--color-primary-light));
+  --gradient-tel: linear-gradient(135deg, #0070f3, #00b0ff);
   --gradient-title-accent: linear-gradient(90deg, var(--color-navy) 0%, #2a4578 55%, var(--color-accent-blue) 100%);
   --shadow-soft: 0 4px 16px rgba(26, 39, 68, 0.08);
   --shadow-card: 0 2px 12px rgba(26, 39, 68, 0.08);
@@ -158,14 +159,14 @@ img {
   color: var(--color-accent-blue);
 }
 
-.header-line-btn {
+.header-actions a.header-line-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 10px 20px;
   border-radius: 999px;
-  background-color: #06c755;
+  background: var(--color-line);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -173,18 +174,22 @@ img {
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+  -webkit-tap-highlight-color: rgba(6, 199, 85, 0.25);
+  -webkit-appearance: none;
+  appearance: none;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
 }
 
-.header-line-btn:hover {
+.header-actions a.header-line-btn:hover {
   color: #fff;
   transform: translateY(-1px);
-  background-color: #05b34c;
+  background: #05b34c;
   box-shadow: 0 6px 18px rgba(6, 199, 85, 0.38);
 }
 
-.header-line-btn:active {
+.header-actions a.header-line-btn:active {
   transform: translateY(0);
+  background: #05b34c;
   box-shadow: 0 2px 8px rgba(6, 199, 85, 0.3);
 }
 
@@ -1853,11 +1858,12 @@ img {
     font-size: 16px;
   }
 
-  .header-line-btn {
+  .header-actions a.header-line-btn {
     width: min(100%, 320px);
     min-height: 44px;
     padding: 10px 24px;
     font-size: 14px;
+    background: var(--color-line);
   }
 
   .trust-badge-grid {
@@ -2275,9 +2281,10 @@ img {
     text-align: center;
   }
 
-  .header-line-btn {
+  .header-actions a.header-line-btn {
     width: 100%;
     text-align: center;
+    background: var(--color-line);
   }
 
   .container {
@@ -2587,19 +2594,21 @@ img {
 }
 
 /* 電話: ブルー（旧 contact-method スタイル） */
-.contact-method-tel {
-  background: linear-gradient(135deg, #0070f3, #00b0ff);
+#contact .contact-methods a.contact-method-tel {
+  background-color: #0070f3;
+  background: var(--gradient-tel);
   color: #fff;
   border-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 112, 243, 0.2);
 }
-.contact-method-tel:hover {
+#contact .contact-methods a.contact-method-tel:hover {
   border-color: transparent;
 }
-.contact-method-tel .cm-icon {
+#contact .contact-methods a.contact-method-tel .cm-icon {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
 }
-.contact-method-tel .cm-num {
+#contact .contact-methods a.contact-method-tel .cm-num {
   color: #fff;
 }
 
@@ -2667,12 +2676,20 @@ img {
   .contact-method {
     padding: 32px 18px 24px;
   }
+  #contact .contact-methods a.contact-method-tel {
+    background-color: #0070f3;
+    background: var(--gradient-tel);
+  }
 }
 
 @media (max-width: 480px) {
   .contact-methods {
     grid-template-columns: 1fr;
     max-width: 420px;
+  }
+  #contact .contact-methods a.contact-method-tel {
+    background-color: #0070f3;
+    background: var(--gradient-tel);
   }
 }
 
