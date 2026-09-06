@@ -353,6 +353,20 @@ function blogChatbotScripts() {
   return fs.readFileSync(DIFY_EMBED_PATH, 'utf8').trim();
 }
 
+// Cloudflare Web Analytics（analytics/cloudflare-beacon.html を全ブログページ <head> に注入）
+const CF_BEACON_PATH = path.join(root, 'analytics', 'cloudflare-beacon.html');
+
+function blogAnalyticsBeacon() {
+  if (!fs.existsSync(CF_BEACON_PATH)) {
+    console.warn('⚠ analytics/cloudflare-beacon.html がありません。Web Analytics 埋め込みをスキップします。');
+    return '';
+  }
+  const raw = fs.readFileSync(CF_BEACON_PATH, 'utf8').trim();
+  // 先頭の設定手順コメント（<!-- ... -->）を除き、ビーコン行のみ注入
+  const beacon = raw.replace(/^<!--[\s\S]*?-->\s*/, '').trim();
+  return beacon ? '  ' + beacon : '';
+}
+
 // 問い合わせ手段（電話 / LINE / フォーム）。CTAから参照する。
 const CONTACT_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScdONJKAYkz8pzI9c9Z_BLGXxjnS9x1AO8wdSmXgufy1xrJrQ/viewform';
@@ -454,6 +468,7 @@ function buildListPage(articles) {
   <meta property="og:locale" content="ja_JP" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="canonical" href="${SITE_URL}/blog/" />
+${blogAnalyticsBeacon()}
 </head>
 <body>
 ${blogHeader()}
@@ -540,6 +555,7 @@ ${JSON.stringify(jsonLd, null, 2)}
   </script>
   <link rel="stylesheet" href="../style.css" />
   <link rel="canonical" href="${canonicalUrl}" />
+${blogAnalyticsBeacon()}
 </head>
 <body>
 ${blogHeader()}

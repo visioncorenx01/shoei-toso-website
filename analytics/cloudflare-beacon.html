@@ -1,0 +1,11 @@
+<!--
+  Cloudflare Web Analytics ビーコン
+
+  【設定手順】
+  1. Cloudflare ダッシュボード → Analytics & Logs → Web Analytics
+  2. 「Add a site」→ shoeitosou.com を登録
+  3. 表示された token で REPLACE_WITH_CF_TOKEN を差し替え
+     （analytics/config.js の CF_BEACON_TOKEN も同じ値に更新）
+  4. npm run build を実行して dist/ を再生成
+-->
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_TOKEN"}'></script><!-- End Cloudflare Web Analytics -->

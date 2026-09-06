@@ -127,6 +127,12 @@ async function run() {
     console.log('✓ chatbot/ をコピー → dist/chatbot/');
   }
 
+  const analyticsSrc = path.join(root, 'analytics');
+  if (fs.existsSync(analyticsSrc)) {
+    copyDir(analyticsSrc, path.join(dist, 'analytics'));
+    console.log('✓ analytics/ をコピー → dist/analytics/');
+  }
+
   // その他ファイルをコピー（ブログ・SEO用）
   const copyList = ['sitemap.xml', 'robots.txt', 'googlecca4ceb7f381e372.html', '_headers'];
   for (const file of copyList) {
