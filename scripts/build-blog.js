@@ -657,6 +657,8 @@ function buildSitemap(articles) {
   urls.push({ loc: `${SITE_URL}/faq/`, lastmod: todayIso, changefreq: 'monthly', priority: '0.7' });
   // 佐倉市塗装ランディング
   urls.push({ loc: `${SITE_URL}/sakura/`, lastmod: todayIso, changefreq: 'monthly', priority: '0.9' });
+  // 保有資格
+  urls.push({ loc: `${SITE_URL}/qualifications/`, lastmod: todayIso, changefreq: 'monthly', priority: '0.7' });
   // 各記事（拡張子なしURL）
   for (const article of articles) {
     const { iso } = formatDate(article.date);

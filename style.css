@@ -517,6 +517,144 @@ img {
   color: var(--color-text-muted);
 }
 
+/* 保有資格（トップ：コンパクト） */
+.qualification-preview {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.qualification-preview-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.qualification-preview-list li {
+  position: relative;
+  padding: 10px 0 10px 20px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.qualification-preview-list li:last-child {
+  border-bottom: none;
+}
+
+.qualification-preview-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.15em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  transform: translateY(-50%);
+}
+
+.qualification-preview-more {
+  margin: 28px 0 0;
+  text-align: center;
+}
+
+.qualification-preview-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-navy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 39, 68, 0.25);
+  padding-bottom: 2px;
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.qualification-preview-more a:hover {
+  color: var(--color-accent-blue);
+  border-color: var(--color-accent-blue);
+}
+
+/* 保有資格（一覧ページ） */
+.qualifications-page-container {
+  max-width: 760px;
+}
+
+.qualification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-white);
+  overflow: hidden;
+}
+
+.qualification-list-item {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.qualification-list-item:last-child {
+  border-bottom: none;
+}
+
+.qualification-list-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.qualification-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-blue);
+  background: var(--color-accent-light);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.qualification-tag-permit {
+  color: var(--color-navy);
+  background: rgba(26, 39, 68, 0.08);
+}
+
+.qualification-list-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  color: var(--color-heading);
+}
+
+.qualification-list-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+}
+
+.qualifications-page-actions {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.qualifications-page-actions + .qualifications-page-actions {
+  margin-top: 12px;
+}
+
 /* バナー画像にテキスト焼き込みのため、視覚的な h1 は非表示（SEO・アクセシビリティ用に DOM には残す） */
 .hero-title-sr-only {
   position: absolute;
@@ -1884,6 +2022,24 @@ img {
   }
 
   .trust-badge-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .qualification-preview-list li {
+    font-size: 14px;
+    padding: 9px 0 9px 18px;
+  }
+
+  .qualification-list-item {
+    padding: 18px 16px;
+  }
+
+  .qualification-list-name {
+    font-size: 16px;
+  }
+
+  .qualification-list-desc {
     font-size: 13px;
     line-height: 1.7;
   }
