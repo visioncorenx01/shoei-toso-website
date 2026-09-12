@@ -101,6 +101,18 @@ async function run() {
     console.warn('⚠ sakura/index.html がありません。佐倉市塗装ページはスキップします。');
   }
 
+  // 保有資格ページ（qualifications/index.html）をミニファイ → dist/qualifications/
+  const qualificationsPath = path.join(root, 'qualifications', 'index.html');
+  if (fs.existsSync(qualificationsPath)) {
+    const qualificationsHtml = fs.readFileSync(qualificationsPath, 'utf8');
+    const qualificationsMin = await minifyHtml(qualificationsHtml, htmlOptions);
+    ensureDir(path.join(dist, 'qualifications'));
+    fs.writeFileSync(path.join(dist, 'qualifications', 'index.html'), qualificationsMin, 'utf8');
+    console.log('✓ qualifications/index.html をミニファイ → dist/qualifications/');
+  } else {
+    console.warn('⚠ qualifications/index.html がありません。保有資格ページはスキップします。');
+  }
+
   // CSS ミニファイ（style.css が無い場合はスキップ）
   const cssPath = path.join(root, 'style.css');
   if (fs.existsSync(cssPath)) {
